@@ -18,7 +18,7 @@ export const Header = () => {
         </a>
       </div>
       <div>
-        <ShimmerButton className=" cursor-pointer ">
+        <ShimmerButton className=" cursor-pointer hover:opacity-80 font-semibold text-lg px-8 ">
           Subscriptions
         </ShimmerButton>
       </div>
