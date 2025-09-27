@@ -35,14 +35,14 @@ export const ShimmerButton = React.forwardRef<
           {
             "--spread": "90deg",
             "--shimmer-color": shimmerColor,
-            "--radius": borderRadius,
+            // "--radius": borderRadius,
             "--speed": shimmerDuration,
             "--cut": shimmerSize,
             "--bg": background,
           } as CSSProperties
         }
         className={cn(
-          "group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden [border-radius:var(--radius)] border border-white/10 px-6 py-3 whitespace-nowrap text-white [background:var(--bg)]",
+          "group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden [border-radius:var(--radius)] border font-bold border-white/10 text-md px-8 py-3 whitespace-nowrap text-white [background:var(--bg)]",
           "transform-gpu transition-transform duration-300 ease-in-out active:translate-y-px",
           className
         )}

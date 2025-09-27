@@ -158,7 +158,7 @@ export default function Header1() {
                 href="/signup"
                 className="inline-flex items-center space-x-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 px-6 py-2.5 font-medium text-white transition-all duration-200 hover:shadow-lg"
               >
-                <span>All subscriptions</span>
+                <span>View all subscriptions</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </motion.div>
@@ -206,7 +206,7 @@ export default function Header1() {
                     className="block w-full rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 py-2.5 text-center font-medium text-white transition-all duration-200 hover:shadow-lg"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    All subscriptions
+                    View all subscriptions
                   </Link>
                 </div>
               </div>

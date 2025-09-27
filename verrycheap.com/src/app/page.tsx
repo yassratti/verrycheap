@@ -1,9 +1,10 @@
 import { Header } from "@/components/_components/header";
 import { Icons } from "@/components/icons/icons";
+import Hero from "@/components/_components/hero";
 export default function Home() {
   return (
     <div className="w-screen h-screen">
-      <div className="min-h-screen w-full bg-[#f9fafb] relative">
+      <div className="min-h-screen w-full bg-[#f9fafb] relative ">
         {/* Diagonal Fade Grid Background - Top Left */}
         <div
           className="absolute inset-0 z-0"
@@ -19,7 +20,9 @@ export default function Home() {
               "radial-gradient(ellipse 80% 80% at 0% 0%, #000 50%, transparent 90%)",
           }}
         />
+
         <Header />
+        <Hero />
       </div>
     </div>
   );
