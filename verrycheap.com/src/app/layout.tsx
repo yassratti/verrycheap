@@ -31,11 +31,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script
           crossOrigin="anonymous"
           src="//unpkg.com/react-scan/dist/auto.global.js"
         />
       </head>
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} bg-background text-foreground`}
         style={{ fontFamily: "var(--font-bricolage), sans-serif" }}

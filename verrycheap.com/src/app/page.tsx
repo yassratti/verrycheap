@@ -1,5 +1,5 @@
 import { Header } from "@/components/_components/header";
-
+import { Icons } from "@/components/icons/icons";
 export default function Home() {
   return (
     <div className="w-screen h-screen">
