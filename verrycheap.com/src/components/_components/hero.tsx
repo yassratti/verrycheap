@@ -3,7 +3,7 @@ import { ShimmerButton } from "../ui/shimmer-button";
 
 import { cn } from "@/lib/utils";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
-import { Button } from "../ui/button";
+import IntegrationsSection from "../ui/integrations-6";
 export function AnimatedShinyTextDemo() {
   return (
     <div className="z-10 flex  items-center justify-center">
@@ -39,16 +39,16 @@ export default function Hero() {
                 </span>
               </h1>
               <p className="text-[#737373] text-md">
-                Why pay full price? Access the exact same subscription and cut
-                your bill by up to 85% simple, secure, and trustworthy
+                Get the exact same subscription without the extra cost
               </p>
             </div>
             <div className="w-full flex items-center justify-center gap-4">
               <ShimmerButton className="rounded-lg">
-                View all subscriptions
+                All subscriptions
               </ShimmerButton>
             </div>
           </div>
+          <IntegrationsSection />
         </div>
       </div>
     </div>
