@@ -1,15 +1,34 @@
+"use client";
 import { Gemini, Replit, GooglePaLM } from "@/components/logos";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Plus } from "lucide-react";
+import { useEffect, useState } from "react";
+import useBreakpoint from "@/hooks/use-breakpoint";
+import { Highlighter } from "@/components/ui/highlighter";
+// Hook to detect if screen is sm or smaller
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [matches, query]);
+  return matches;
+}
 
 export default function IntegrationsSection() {
+  const isSm = useBreakpoint();
   return (
     <section>
-      <div className=" dark:bg-background py-14 md:py-32">
+      <div className=" dark:bg-background pt-5 sm:py-10 relative z-10">
         <div className="mx-auto max-w-5xl px-0">
-          <div className="mx-auto max-w-md px-6 [mask-image:radial-gradient(ellipse_100%_100%_at_50%_0%,#000_70%,transparent_100%)]">
-            <div className="bg-background dark:bg-muted/50 rounded-xl border px-6 pb-12 pt-3 shadow-xl">
+          <div className="mx-auto max-w-md sm:max-w-xl px-6 [mask-image:radial-gradient(ellipse_100%_100%_at_50%_0%,#000_70%,transparent_100%)]">
+            <div className="bg-background dark:bg-muted/50 rounded-xl border px-6 pb-5 sm:pb-3  pt-3 shadow-xl">
               <Integration
                 icon={<Gemini />}
                 name="Youtube Individual"
@@ -25,7 +44,30 @@ export default function IntegrationsSection() {
                 name="Spotify Individual"
                 description="The AI model that powers Google's search engine."
               />
+              {isSm && (
+                <>
+                  <Integration
+                    icon={<Gemini />}
+                    name="Youtube Individual"
+                    description="The AI model that powers Google's search engine."
+                  />
+                  <Integration
+                    icon={<GooglePaLM />}
+                    name="Spotify Individual"
+                    description="The AI model that powers Google's search engine."
+                  />
+                </>
+              )}
             </div>
+          </div>
+          <div className="mx-auto mt-3 max-w-lg space-y-2 text-center">
+            <h2 className="text-balance text-2xl font-semibold md:text-4xl lg:text-5xl">
+              Save up to{" "}
+              <Highlighter action="box" color="#818cf8">
+                85%
+              </Highlighter>{" "}
+              on the same thing
+            </h2>
           </div>
         </div>
       </div>

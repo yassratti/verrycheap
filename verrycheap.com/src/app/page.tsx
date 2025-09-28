@@ -1,10 +1,11 @@
 import { Header } from "@/components/_components/header";
-import { Icons } from "@/components/icons/icons";
+
 import Hero from "@/components/_components/hero";
+import Unknows from "@/components/_components/unknows";
 export default function Home() {
   return (
     <div className="w-screen h-screen">
-      <div className="min-h-screen w-full bg-[#f9fafb] relative ">
+      <div className="h-240 w-full bg-[#f9fafb] relative">
         {/* Diagonal Fade Grid Background - Top Left */}
         <div
           className="absolute inset-0 z-0"
@@ -23,6 +24,14 @@ export default function Home() {
 
         <Header />
         <Hero />
+        <Unknows />
+        {/* Gradient at bottom */}
+        <div
+          className="absolute bottom-0 left-0 w-full h-32 z-0"
+          style={{
+            background: "linear-gradient(to top, #ffffff, transparent)",
+          }}
+        />
       </div>
     </div>
   );
