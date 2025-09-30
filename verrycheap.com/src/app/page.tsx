@@ -1,7 +1,8 @@
 import { Header } from "@/components/_components/header";
 
 import Hero from "@/components/_components/hero";
-import Unknows from "@/components/_components/unknows";
+import Unknows from "@/components/_components/unknown";
+import Carousel from "@/components/_components/carousel";
 export default function Home() {
   return (
     <div className="w-screen h-screen">
@@ -24,6 +25,7 @@ export default function Home() {
 
         <Header />
         <Hero />
+        <Carousel />
         <Unknows />
         {/* Gradient at bottom */}
         <div

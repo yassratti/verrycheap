@@ -58,7 +58,7 @@ export default function Header1() {
 
   return (
     <motion.header
-      className="fixed top-0 right-0 left-0 z-50 transition-all duration-300 !backdrop-blur-xs"
+      className="fixed top-0 right-0 left-0 z-500 transition-all duration-300 !backdrop-blur-xs"
       variants={headerVariants}
       initial="initial"
       animate={isScrolled ? "scrolled" : "animate"}
