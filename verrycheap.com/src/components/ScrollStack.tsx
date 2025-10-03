@@ -1,7 +1,8 @@
 "use client";
 import React, { ReactNode, useLayoutEffect, useRef, useCallback } from "react";
 import Lenis from "lenis";
-
+import ShinyText from "./ShinyText";
+import { SparklesText } from "./ui/sparkles-text";
 export interface ScrollStackItemProps {
   itemClassName?: string;
   children: ReactNode;
@@ -365,8 +366,10 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
           <div className="scroll-stack-end w-full" />
         </div>
       </div>
-      <h1 className="absolute -z-0 left-1/2 bottom-32 -translate-x-1/2 text-2xl font-bold  pointer-events-none">
-        HELLO
+      <h1 className="absolute -z-0 left-1/2 bottom-35 -translate-x-1/2 text-2xl font-bold  pointer-events-none">
+        <SparklesText sparklesCount={7} className="text-[#d4d4d4]">
+          More+
+        </SparklesText>
       </h1>
     </div>
   );
