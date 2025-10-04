@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronDown, ArrowRight, Sparkles } from "lucide-react";
+import { ChevronDown, ArrowRight } from "lucide-react";
 import { Icons } from "@/components/icons/icons";
 import Link from "next/link";
 import { useTheme } from "next-themes";

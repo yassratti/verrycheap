@@ -1,25 +1,9 @@
 "use client";
 import { Gemini, Replit, GooglePaLM } from "@/components/logos";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { Plus } from "lucide-react";
-import { useEffect, useState } from "react";
 import useBreakpoint from "@/hooks/use-breakpoint";
 import { Highlighter } from "@/components/ui/highlighter";
-// Hook to detect if screen is sm or smaller
-function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
-  useEffect(() => {
-    const media = window.matchMedia(query);
-    if (media.matches !== matches) {
-      setMatches(media.matches);
-    }
-    const listener = () => setMatches(media.matches);
-    media.addEventListener("change", listener);
-    return () => media.removeEventListener("change", listener);
-  }, [matches, query]);
-  return matches;
-}
 
 export default function IntegrationsSection() {
   const isSm = useBreakpoint();
