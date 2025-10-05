@@ -1,6 +1,7 @@
 import Image from "next/image";
+import { Button } from "../ui/button";
 
-export default function Unknows() {
+export default function Whatwedo() {
   return (
     <div className="h-auto pb-10 bg-[#EEF1FA] w-full relative">
       {/* Gradiente blanco en la parte superior */}
@@ -13,7 +14,7 @@ export default function Unknows() {
             This is what we do to get the same sub but 85% cheaper
           </h2>
         </div>
-        
+
         {/* Imagen del mapa regional */}
         <div className="w-full  px-1">
           <Image
@@ -28,11 +29,22 @@ export default function Unknows() {
 
         <div className="w-full max-w-4xl pt-10 px-4 text-center text-gray-400 text-lg">
           <p>
-          it’s as simple as buying the subscription in a country where it’s cheaper due to regional pricing and getting the same service but at a much lower cost
-
+            it's as simple as buying the subscription in a country where it's
+            cheaper due to regional pricing and getting the same service but at
+            a much lower cost
           </p>
         </div>
+
+        {/* Botón Purchase */}
+        <div className="w-full max-w-4xl pt-8 px-4 flex justify-center">
+          <Button className="text-lg p-5 bg-blue-600 hover:bg-blue-700">
+            All subscriptions
+          </Button>
+        </div>
       </div>
+      
+      {/* Gradiente blanco corto en la parte inferior */}
+      <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent z-10" />
     </div>
   );
 }
