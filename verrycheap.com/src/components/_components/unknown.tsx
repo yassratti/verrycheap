@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Unknows() {
   return (
-    <div className="h-screen bg-[#EEF1FA] w-full relative">
+    <div className="h-auto pb-10 bg-[#EEF1FA] w-full relative">
       {/* Gradiente blanco en la parte superior */}
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white to-transparent z-10" />
 
@@ -24,6 +24,13 @@ export default function Unknows() {
             className="w-full h-auto"
             priority
           />
+        </div>
+
+        <div className="w-full max-w-4xl pt-10 px-4 text-center text-gray-400 text-lg">
+          <p>
+          it’s as simple as buying the subscription in a country where it’s cheaper due to regional pricing and getting the same service but at a much lower cost
+
+          </p>
         </div>
       </div>
     </div>
