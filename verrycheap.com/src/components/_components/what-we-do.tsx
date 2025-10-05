@@ -29,7 +29,7 @@ export default function Whatwedo() {
 
         <div className="w-full max-w-4xl pt-10 px-4 text-center text-gray-400 text-lg">
           <p>
-            it's as simple as buying the subscription in a country where it's
+            it&apos;s as simple as buying the subscription in a country where it&apos;s
             cheaper due to regional pricing and getting the same service but at
             a much lower cost
           </p>

@@ -64,7 +64,7 @@ function Carousel() {
     containScroll: "trimSnaps",
   });
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  // Autoplay con intervalo; no necesitamos exponer estado para el linter
 
   const autoplay = useCallback(() => {
     if (!emblaApi) return;
@@ -80,11 +80,11 @@ function Carousel() {
     if (!emblaApi) return;
 
     const interval = setInterval(autoplay, 3000);
-    setIsPlaying(true);
+    // autoplay activo
 
     return () => {
       clearInterval(interval);
-      setIsPlaying(false);
+      // limpiar autoplay
     };
   }, [emblaApi, autoplay]);
 
