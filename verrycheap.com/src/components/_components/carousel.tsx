@@ -1,6 +1,9 @@
-import ScrollStack, { ScrollStackItem } from "../ScrollStack";
+"use client";
+
 import Image from "next/image";
 import { Button } from "../ui/button";
+import useEmblaCarousel from "embla-carousel-react";
+import { useCallback, useEffect, useState } from "react";
 
 interface CarouselCardProps {
   imageSrc: string;
@@ -20,7 +23,7 @@ function CarouselCard({
   originalPrice,
 }: CarouselCardProps) {
   return (
-    <ScrollStackItem itemClassName="w-full bg-white w-full h-auto my-8 p-3 border border-gray-200">
+    <div className="flex-shrink-0 w-80 bg-white h-auto mx-4 p-3 border border-gray-200 rounded-lg shadow-lg">
       <div className="relative">
         <div className="absolute top-2 left-2 bg-white px-3 py-1 font-bold border text-black rounded-lg z-10">
           {discount}
@@ -48,49 +51,100 @@ function CarouselCard({
         </Button>
         <Button className="text-lg p-5">How it works?</Button>
       </div>
-    </ScrollStackItem>
+    </div>
   );
 }
 
 function Carousel() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: true,
+    align: "center",
+    skipSnaps: false,
+    dragFree: true,
+    containScroll: "trimSnaps",
+  });
+
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const autoplay = useCallback(() => {
+    if (!emblaApi) return;
+    
+    if (emblaApi.canScrollNext()) {
+      emblaApi.scrollNext();
+    } else {
+      emblaApi.scrollTo(0);
+    }
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const interval = setInterval(autoplay, 3000);
+    setIsPlaying(true);
+
+    return () => {
+      clearInterval(interval);
+      setIsPlaying(false);
+    };
+  }, [emblaApi, autoplay]);
+
+  const carouselData = [
+    {
+      imageSrc: "/youtube-banner.png",
+      imageAlt: "YouTube Premium",
+      discount: "80% OFF",
+      title: "YouTube Premium",
+      pricePerYear: 35,
+      originalPrice: 168,
+    },
+    {
+      imageSrc: "/spotify-banner.png",
+      imageAlt: "Spotify Premium",
+      discount: "85% OFF",
+      title: "Spotify Premium",
+      pricePerYear: 30,
+      originalPrice: 168,
+    },
+    {
+      imageSrc: "/crunchyroll-banner.png",
+      imageAlt: "Crunchyroll MEGA FAN",
+      discount: "95% OFF",
+      title: "Crunchyroll MEGA FAN",
+      pricePerYear: 30,
+      originalPrice: 120,
+    },
+    {
+      imageSrc: "/netflix-banner.png",
+      imageAlt: "Netflix Premium",
+      discount: "75% OFF",
+      title: "Netflix Premium",
+      pricePerYear: 100,
+      originalPrice: 220,
+    },
+  ];
+
+  // Duplicar los datos para crear un efecto de cinta infinita más suave
+  const infiniteData = [...carouselData, ...carouselData, ...carouselData];
+
   return (
     <>
-      <div className="w-screen h-screen relative z-50  px-10">
-        <div className="w-full h-full  ">
-          <ScrollStack className="w-full">
-            <CarouselCard
-              imageSrc="/youtube-banner.png"
-              imageAlt="YouTube Premium"
-              discount="80% OFF"
-              title="YouTube Premium"
-              pricePerYear={35}
-              originalPrice={168}
-            />
-            <CarouselCard
-              imageSrc="/spotify-banner.png"
-              imageAlt="Spotify Premium"
-              discount="85% OFF"
-              title="Spotify Premium"
-              pricePerYear={30}
-              originalPrice={168}
-            />
-            <CarouselCard
-              imageSrc="/crunchyroll-banner.png"
-              imageAlt="Crunchyroll MEGA FAN"
-              discount="95% OFF"
-              title="Crunchyroll MEGA FAN"
-              pricePerYear={30}
-              originalPrice={120}
-            />
-            <CarouselCard
-              imageSrc="/netflix-banner.png"
-              imageAlt="Netflix Premium"
-              discount="75% OFF"
-              title="Netflix Premium"
-              pricePerYear={100}
-              originalPrice={220}
-            />
-          </ScrollStack>
+      <div className="w-screen mt-10 relative z-50 px-5 flex items-center justify-center">
+        <div className="w-full  max-w-6xl">
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex ">
+              {infiniteData.map((item, index) => (
+                <CarouselCard
+                  key={`${item.title}-${index}`}
+                  imageSrc={item.imageSrc}
+                  imageAlt={item.imageAlt}
+                  discount={item.discount}
+                  title={item.title}
+                  pricePerYear={item.pricePerYear}
+                  originalPrice={item.originalPrice}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>
