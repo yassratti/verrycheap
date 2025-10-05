@@ -129,9 +129,15 @@ function Carousel() {
   return (
     <>
       <div className="w-screen mt-10 relative z-50 px-5 flex items-center justify-center">
-        <div className="w-full  max-w-6xl">
+        <div className="w-full max-w-6xl relative">
+          {/* Gradiente izquierdo */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          
+          {/* Gradiente derecho */}
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          
           <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex ">
+            <div className="flex">
               {infiniteData.map((item, index) => (
                 <CarouselCard
                   key={`${item.title}-${index}`}
