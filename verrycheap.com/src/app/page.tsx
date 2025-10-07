@@ -3,7 +3,8 @@ import { Header } from "@/components/_components/header";
 import Hero from "@/components/_components/hero";
 import Whatwedo from "@/components/_components/what-we-do";
 import Carousel from "@/components/_components/carousel";
-import Unknows from "@/components/_components/faq";
+import Faqs from "@/components/_components/faq";
+import DiscordCommunity from "@/components/_components/discordcommunity";
 export default function Home() {
   return (
     <div className="w-screen h-screen">
@@ -28,7 +29,8 @@ export default function Home() {
         <Hero />
         <Carousel />
         <Whatwedo />
-        <Unknows />
+        <Faqs />
+        <DiscordCommunity />
         {/* Gradient at bottom */}
         <div
           className="absolute bottom-0 left-0 w-full h-32 z-0"

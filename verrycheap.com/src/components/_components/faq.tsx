@@ -42,7 +42,7 @@ const items: { id: string; title: string; content: string }[] = [
 
 // Renderizado del acordeón se hará dentro de Unknows()
 
-export default function Unknows() {
+export default function Faqs() {
   return (
     <div className="h-auto pb-10 w-full relative">
       <div className="w-full mt-10 pt-10 flex flex-col items-center justify-center relative z-20">
