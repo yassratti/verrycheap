@@ -3,7 +3,7 @@ import { Header } from "@/components/_components/header";
 import Hero from "@/components/_components/hero";
 import Whatwedo from "@/components/_components/what-we-do";
 import Carousel from "@/components/_components/carousel";
-import Unknows from "@/components/_components/unknow";
+import Unknows from "@/components/_components/faq";
 export default function Home() {
   return (
     <div className="w-screen h-screen">
