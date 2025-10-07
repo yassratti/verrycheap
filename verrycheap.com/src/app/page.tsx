@@ -5,6 +5,7 @@ import Whatwedo from "@/components/_components/what-we-do";
 import Carousel from "@/components/_components/carousel";
 import Faqs from "@/components/_components/faq";
 import DiscordCommunity from "@/components/_components/discordcommunity";
+import SubscriptionsDash from "@/components/_components/subscriptionsDash";
 export default function Home() {
   return (
     <div className="w-screen h-screen">
@@ -29,6 +30,7 @@ export default function Home() {
         <Hero />
         <Carousel />
         <Whatwedo />
+        <SubscriptionsDash />
         <Faqs />
         <DiscordCommunity />
         {/* Gradient at bottom */}
