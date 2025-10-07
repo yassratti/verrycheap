@@ -7,8 +7,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-
-
 const items: { id: string; title: string; content: string }[] = [
   {
     id: "1",
@@ -42,13 +40,11 @@ const items: { id: string; title: string; content: string }[] = [
   },
 ];
 
-
 // Renderizado del acordeón se hará dentro de Unknows()
-
 
 export default function Unknows() {
   return (
-    <div className="h-screen pb-10 w-full relative">
+    <div className="h-auto pb-10 w-full relative">
       <div className="w-full mt-10 pt-10 flex flex-col items-center justify-center relative z-20">
         <div className="text-center space-y-3 mb-8">
           <h1 className="text-blue-800 font-semibold text-base">FAQs</h1>
@@ -58,7 +54,12 @@ export default function Unknows() {
         </div>
 
         <div className="w-full max-w-3xl px-4">
-          <Accordion type="single" collapsible className="w-full space-y-2" defaultValue="3">
+          <Accordion
+            type="single"
+            collapsible
+            className="w-full space-y-2"
+            defaultValue="3"
+          >
             {items.map((item) => (
               <AccordionItem
                 value={item.id}
