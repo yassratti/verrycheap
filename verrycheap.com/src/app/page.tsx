@@ -35,7 +35,7 @@ export default function Home() {
         <SubscriptionsDash />
         <Faqs />
         <DiscordCommunity />
-        <Footer />
+     
         {/* Gradient at bottom */}
         <div
           className="absolute bottom-0 left-0 w-full h-32 z-0"

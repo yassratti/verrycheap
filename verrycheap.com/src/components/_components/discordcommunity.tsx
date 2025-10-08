@@ -44,7 +44,7 @@ export function WobbleCardDemo() {
 
 export default function DiscordCommunity() {
   return (
-    <div className="w-full h-auto pt-10 mb-10  relative px-4">
+    <div className="w-full h-auto pt-10 pb-5  relative px-4">
       <div></div>
       <WobbleCardDemo />
     </div>
