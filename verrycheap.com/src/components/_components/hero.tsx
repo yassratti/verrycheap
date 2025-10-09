@@ -37,14 +37,14 @@ export default function Hero() {
                   </Highlighter> */}
                 <span>Premium shouldn’t mean pricey</span>
               </h1>
-              <p className="text-[#737373] text-lg sm:text-lg">
+              <p className="text-[#909090] text-lg sm:text-lg">
                 Pay smart, save more, and still enjoy the same premium
                 experience
               </p>
             </div>
             <div className="w-full flex items-center justify-center ">
               <ShimmerButton className="rounded-lg">
-                All subscriptions
+                Check our prices
               </ShimmerButton>
             </div>
           </div>
