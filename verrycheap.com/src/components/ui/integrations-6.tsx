@@ -1,5 +1,6 @@
 "use client";
 import { Gemini, Replit, GooglePaLM } from "@/components/logos";
+import { Icons } from "../icons/icons";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import useBreakpoint from "@/hooks/use-breakpoint";
@@ -14,19 +15,19 @@ export default function IntegrationsSection() {
           <div className="mx-auto max-w-md sm:max-w-xl px-6 [mask-image:radial-gradient(ellipse_100%_100%_at_50%_0%,#000_70%,transparent_100%)]">
             <div className="bg-background dark:bg-muted/50 rounded-xl border px-6 pb-5 sm:pb-3  pt-3 shadow-xl">
               <Integration
-                icon={<Gemini />}
-                name="Youtube Individual"
-                description="The AI model that powers Google's search engine."
+                icon={<Icons.youtube />}
+                name="$2.99/m"
+                description="Youtube Premium"
               />
               <Integration
-                icon={<Replit />}
-                name="Netflix Premium"
-                description="The AI model that powers Google's search engine."
+                icon={<Icons.netflix />}
+                name="$5.99/m"
+                description="Netflix Premium"
               />
               <Integration
-                icon={<GooglePaLM />}
-                name="Spotify Individual"
-                description="The AI model that powers Google's search engine."
+                icon={<Icons.spotify />}
+                name="$2.49/m"
+                description="Spotify Premium"
               />
               {isSm && (
                 <>
@@ -73,7 +74,7 @@ const Integration = ({
       <div className="bg-muted border-foreground/5 flex size-12 items-center justify-center rounded-lg border">
         {icon}
       </div>
-      <div className="space-y-0.5">
+      <div className="space-y-0.5 text-start">
         <h3 className="text-sm font-medium">{name}</h3>
         <p className="text-muted-foreground line-clamp-1 text-sm">
           {description}
