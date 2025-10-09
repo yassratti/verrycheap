@@ -29,14 +29,13 @@ export default function Hero() {
           <div className="w-full flex flex-col gap-6 sm:gap-10">
             <div className="mt-4 flex flex-col gap-6 sm:gap-5 text-center">
               <h1 className="text-4xl sm:text-5xl font-black flex flex-col gap-2">
-                <span>Stop paying more</span>
+                {/* <span>Stop paying more</span>
                 <span>
-                  {" "}
-                  for the{" "}
-                  <Highlighter action="highlight" color="#818cf8">
+                  for the same thing
+                  {/* <Highlighter action="highlight" color="#818cf8">
                     <p className="text-white">same thing</p>
-                  </Highlighter>
-                </span>
+                  </Highlighter> */}
+                <span>Premium shouldn’t mean pricey</span>
               </h1>
               <p className="text-[#737373] text-md sm:text-lg">
                 Why pay full price? Access the exact same subscription and cut
