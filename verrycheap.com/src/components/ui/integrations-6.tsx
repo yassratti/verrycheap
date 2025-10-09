@@ -16,18 +16,18 @@ export default function IntegrationsSection() {
             <div className="bg-background dark:bg-muted/50 rounded-xl border px-6 pb-5 sm:pb-3  pt-3 shadow-xl">
               <Integration
                 icon={<Icons.youtube />}
-                name="Youtube Individual"
-                description="The AI model that powers Google's search engine."
+                name="$2.99/m"
+                description="Youtube Premium"
               />
               <Integration
                 icon={<Icons.netflix />}
-                name="Netflix Premium"
-                description="The AI model that powers Google's search engine."
+                name="$5.99/m"
+                description="Netflix Premium"
               />
               <Integration
                 icon={<Icons.spotify />}
-                name="Spotify Individual"
-                description="The AI model that powers Google's search engine."
+                name="$2.49/m"
+                description="Spotify Premium"
               />
               {isSm && (
                 <>
@@ -74,7 +74,7 @@ const Integration = ({
       <div className="bg-muted border-foreground/5 flex size-12 items-center justify-center rounded-lg border">
         {icon}
       </div>
-      <div className="space-y-0.5">
+      <div className="space-y-0.5 text-start">
         <h3 className="text-sm font-medium">{name}</h3>
         <p className="text-muted-foreground line-clamp-1 text-sm">
           {description}
