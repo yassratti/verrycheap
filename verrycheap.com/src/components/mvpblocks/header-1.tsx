@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import { Icons } from "@/components/icons/icons";
 import Link from "next/link";
+import Image from "next/image";
 import { useTheme } from "next-themes";
 
 interface NavItem {
@@ -83,14 +84,16 @@ export default function Header1() {
             <Link
               prefetch={false}
               href="/"
-              className="flex items-center space-x-2"
+              className="flex items-center justify-center space-x-2"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-700">
-                <Icons.tag className="h-6 w-6 text-white" />
-              </div>
-              <span className="text-black bg-clip-text text-2xl font-bold">
-                vecheap
-              </span>
+              <Image
+                src="/verycheaplogo.png"
+                alt="verycheap logo"
+                width={40}
+                height={40}
+                className=""
+              />
+              {/* Logo Text */}
             </Link>
           </motion.div>
 
