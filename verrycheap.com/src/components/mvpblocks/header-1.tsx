@@ -94,6 +94,7 @@ export default function Header1() {
                 className=""
               />
               {/* Logo Text */}
+              <span className="text-xl font-bold">verrycheap</span>
             </Link>
           </motion.div>
 
