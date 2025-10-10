@@ -19,7 +19,7 @@ const navItems: NavItem[] = [
   { name: "Home", href: "/" },
   { name: "Products", href: "/products" },
   { name: "Contact", href: "/contact" },
-  { name: "Faq", href: "/faq" },
+  { name: "Faq", href: "/#faq" },
 ];
 
 export default function Header1() {
