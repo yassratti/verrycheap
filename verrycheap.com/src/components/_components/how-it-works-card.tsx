@@ -28,11 +28,11 @@ const HowItWorksCard = ({ isOpen, onClose }: HowItWorksCardProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-5 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 p-4 sm:p-5 backdrop-blur-sm overflow-y-auto"
       onClick={onClose} // Cerrar al hacer clic en el fondo
     >
       <Card
-        className="relative max-w-md w-full p-6 bg-white/90 dark:bg-zinc-900/90 shadow-2xl backdrop-blur-md"
+        className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg mx-4 my-8 p-4 sm:p-6 bg-white/90 dark:bg-zinc-900/90 shadow-2xl backdrop-blur-md"
         onClick={(e) => e.stopPropagation()} // Prevenir que se cierre al hacer clic en el card
       >
         <div className="space-y-4">
