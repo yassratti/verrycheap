@@ -28,7 +28,7 @@ const HowItWorksCard = ({ isOpen, onClose }: HowItWorksCardProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 p-4 sm:p-5 backdrop-blur-sm overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 p-1 sm:p-5 backdrop-blur-sm overflow-y-auto"
       onClick={onClose} // Cerrar al hacer clic en el fondo
     >
       <Card
@@ -68,10 +68,10 @@ const HowItWorksCard = ({ isOpen, onClose }: HowItWorksCardProps) => {
               Thanks for trusting us, enjoy your premium plan!
             </p>
           </div>
-          
+
           {/* Botón de cerrar */}
           <div className="pt-4">
-            <button 
+            <button
               onClick={onClose}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
             >
