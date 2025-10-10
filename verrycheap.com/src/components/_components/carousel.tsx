@@ -12,6 +12,7 @@ interface CarouselCardProps {
   title: string;
   pricePerYear: number;
   originalPrice: number;
+  onOpenHowItWorks: () => void;
 }
 
 function CarouselCard({
@@ -21,6 +22,7 @@ function CarouselCard({
   title,
   pricePerYear,
   originalPrice,
+  onOpenHowItWorks,
 }: CarouselCardProps) {
   return (
     <div className="flex-shrink-0 w-80 bg-white h-auto mx-4 p-3 border border-gray-200 rounded-lg shadow-lg">
@@ -49,13 +51,17 @@ function CarouselCard({
         <Button className="text-lg p-5  bg-blue-600 hover:bg-blue-700">
           Purchase
         </Button>
-        <Button className="text-lg p-5">How it works?</Button>
+        <Button className="text-lg p-5" onClick={onOpenHowItWorks}>How it works?</Button>
       </div>
     </div>
   );
 }
 
-function Carousel() {
+interface CarouselProps {
+  onOpenHowItWorks: () => void;
+}
+
+function Carousel({ onOpenHowItWorks }: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     loop: true,
     align: "center",
@@ -147,6 +153,7 @@ function Carousel() {
                   title={item.title}
                   pricePerYear={item.pricePerYear}
                   originalPrice={item.originalPrice}
+                  onOpenHowItWorks={onOpenHowItWorks}
                 />
               ))}
             </div>

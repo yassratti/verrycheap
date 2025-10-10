@@ -36,6 +36,16 @@ const platforms = [
   },
 ];
 
+interface PlatformCardProps {
+  imageSrc: string;
+  imageAlt: string;
+  discount: string;
+  title: string;
+  pricePerYear: number;
+  originalPrice: number;
+  onOpenHowItWorks: () => void;
+}
+
 function PlatformCard({
   imageSrc,
   imageAlt,
@@ -43,7 +53,8 @@ function PlatformCard({
   title,
   pricePerYear,
   originalPrice,
-}: (typeof platforms)[number]) {
+  onOpenHowItWorks,
+}: PlatformCardProps) {
   return (
     <div className="w-full bg-white h-auto p-3 border border-gray-200 rounded-lg shadow-xs">
       <div className="relative">
@@ -71,7 +82,7 @@ function PlatformCard({
         <Button className="text-lg p-5 bg-blue-600 hover:bg-blue-700">
           Purchase
         </Button>
-        <Button className="text-lg p-5" variant="outline">
+        <Button className="text-lg p-5" variant="outline" onClick={onOpenHowItWorks}>
           How it works?
         </Button>
       </div>
@@ -79,7 +90,11 @@ function PlatformCard({
   );
 }
 
-export default function SubscriptionsDash() {
+interface SubscriptionsDashProps {
+  onOpenHowItWorks: () => void;
+}
+
+export default function SubscriptionsDash({ onOpenHowItWorks }: SubscriptionsDashProps) {
   return (
     <div className="min-h-screen pb-10 w-full relative">
       <div className="w-full mt-10 pt-10 flex flex-col items-center justify-center relative z-20">
@@ -95,7 +110,7 @@ export default function SubscriptionsDash() {
         <div className="w-full px-5 max-w-6xl">
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {platforms.map((p) => (
-              <PlatformCard key={p.title} {...p} />
+              <PlatformCard key={p.title} {...p} onOpenHowItWorks={onOpenHowItWorks} />
             ))}
           </div>
         </div>

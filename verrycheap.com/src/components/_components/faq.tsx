@@ -1,5 +1,4 @@
 "use client";
-import { PlusIcon } from "lucide-react";
 import {
   Accordion,
   AccordionContent,

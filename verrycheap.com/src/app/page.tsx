@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Header from "@/components/_components/header";
 import Hero from "@/components/_components/hero";
 import Whatwedo from "@/components/_components/what-we-do";
@@ -5,8 +8,13 @@ import Carousel from "@/components/_components/carousel";
 import Faqs from "@/components/_components/faq";
 import DiscordCommunity from "@/components/_components/discordcommunity";
 import SubscriptionsDash from "@/components/_components/subscriptionsDash";
+import HowItWorksCard from "@/components/_components/how-it-works-card";
 
 export default function Home() {
+  const [isHowItWorksModalOpen, setIsHowItWorksModalOpen] = useState(false);
+
+  const openHowItWorksModal = () => setIsHowItWorksModalOpen(true);
+  const closeHowItWorksModal = () => setIsHowItWorksModalOpen(false);
   return (
     <div className="w-screen h-screen">
       <div className="h-240 w-full bg-[#f9fafb] relative">
@@ -28,12 +36,12 @@ export default function Home() {
 
         <Header />
         <Hero />
-        <Carousel />
+        <Carousel onOpenHowItWorks={openHowItWorksModal} />
         <Whatwedo />
-
-        <SubscriptionsDash />
+        <SubscriptionsDash onOpenHowItWorks={openHowItWorksModal} />
         <Faqs />
         <DiscordCommunity />
+        <HowItWorksCard isOpen={isHowItWorksModalOpen} onClose={closeHowItWorksModal} />
 
         {/* Gradient at bottom */}
         <div
