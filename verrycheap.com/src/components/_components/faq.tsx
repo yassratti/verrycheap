@@ -10,33 +10,39 @@ import {
 const items: { id: string; title: string; content: string }[] = [
   {
     id: "1",
-    title: "What makes Origin UI different?",
+    title: "Is this legal?",
     content:
-      "Origin UI focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.",
+      "Yes. We don’t sell hacked or shared accounts  we simply help you purchase subscriptions from regions where prices are lower due to local pricing policies. You get your own access, legally and safely.",
   },
   {
     id: "2",
-    title: "How can I customize the components?",
-    content:
-      "Use our CSS variables for global styling, or className and style props for component-specific changes. We support CSS modules, Tailwind, and dark mode out of the box.",
+    title: "Will I get the same service as usual?",
+    content: `
+      Absolutely.
+It’s the exact same plan, same features, and same experience you’d have if you paid full price in your country the only difference is what you pay.
+      `,
   },
   {
     id: "3",
-    title: "Is Origin UI optimized for performance?",
-    content:
-      "Yes, with tree-shaking, code splitting, and minimal runtime overhead. Most components are under 5KB gzipped.",
+    title: "How do I know my account is safe?",
+    content: `Your privacy comes first.
+We never ask for your personal passwords, and all transactions are handled securely through trusted payment systems.
+No risks, no hidden tricks.`,
   },
   {
     id: "4",
-    title: "How accessible are the components?",
-    content:
-      "All components follow WAI-ARIA standards, featuring proper ARIA attributes, keyboard navigation, and screen reader support. Regular testing ensures compatibility with NVDA, VoiceOver, and JAWS.",
+    title: "What happens if something goes wrong?",
+    content: `
+      We’ve got you covered.
+If your subscription doesn’t work or you have any issues, our team will fix it or refund you — no questions asked.
+      `,
   },
   {
     id: "5",
-    title: "How accessible are the components?",
-    content:
-      "All components follow WAI-ARIA standards, featuring proper ARIA attributes, keyboard navigation, and screen reader support. Regular testing ensures compatibility with NVDA, VoiceOver, and JAWS.",
+    title: "How do I get my premium plan?",
+    content: `
+    There are two ways to do it. We can create a completely new account for you, activate the premium plan, and then send you the login details so you can change the password and any info you want. Or, if you prefer, you can give us access to your existing account we’ll only activate the plan, and once it’s done, you can update all your details right after. Either way, your account stays fully yours.
+     `,
   },
 ];
 
@@ -49,7 +55,7 @@ export default function Faqs() {
         <div className="text-center space-y-3 mb-8">
           <h1 className="text-blue-800 font-semibold text-base">FAQs</h1>
           <h2 className="text-black text-2xl font-bold ">
-            just in case you&apos;re still not sure
+            Still got questions? We&apos;ve got answers
           </h2>
         </div>
 

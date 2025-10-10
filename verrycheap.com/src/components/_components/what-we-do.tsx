@@ -11,7 +11,7 @@ export default function Whatwedo() {
         <div className="text-center space-y-3 mb-8">
           <h1 className="text-blue-800 font-semibold text-base">What we do?</h1>
           <h2 className="text-black text-2xl font-bold ">
-            This is what we do to get the same sub but 85% cheaper
+            This is what we do to get the same service but 85% cheaper
           </h2>
         </div>
 

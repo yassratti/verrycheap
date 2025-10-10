@@ -68,8 +68,12 @@ function PlatformCard({
         </p>
       </div>
       <div className="flex flex-col mt-5 gap-1">
-        <Button className="text-lg p-5 bg-blue-600 hover:bg-blue-700">Purchase</Button>
-        <Button className="text-lg p-5" variant="outline">How it works?</Button>
+        <Button className="text-lg p-5 bg-blue-600 hover:bg-blue-700">
+          Purchase
+        </Button>
+        <Button className="text-lg p-5" variant="outline">
+          How it works?
+        </Button>
       </div>
     </div>
   );
@@ -80,8 +84,12 @@ export default function SubscriptionsDash() {
     <div className="min-h-screen pb-10 w-full relative">
       <div className="w-full mt-10 pt-10 flex flex-col items-center justify-center relative z-20">
         <div className="text-center space-y-3 mb-8">
-          <h1 className="text-blue-800 font-semibold text-base">Subscriptions</h1>
-          <h2 className="text-black text-2xl font-bold ">Enjoy, pay less for the same service</h2>
+          <h1 className="text-blue-800 font-semibold text-base">
+            Subscriptions
+          </h1>
+          <h2 className="text-black text-2xl font-bold ">
+            Same apps, smaller bill
+          </h2>
         </div>
 
         <div className="w-full px-5 max-w-6xl">
