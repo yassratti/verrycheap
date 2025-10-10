@@ -1,5 +1,6 @@
 import { Highlighter } from "@/components/ui/highlighter";
 import { ShimmerButton } from "../ui/shimmer-button";
+import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
@@ -43,9 +44,11 @@ export default function Hero() {
               </p>
             </div>
             <div className="w-full flex items-center justify-center ">
-              <ShimmerButton className="rounded-lg">
-                Check our prices
-              </ShimmerButton>
+              <Link href="/products" prefetch={false}>
+                <ShimmerButton className="rounded-lg">
+                  Check our prices
+                </ShimmerButton>
+              </Link>
             </div>
           </div>
           <IntegrationsSection />

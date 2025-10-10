@@ -19,7 +19,7 @@ const navItems: NavItem[] = [
   { name: "Home", href: "/" },
   { name: "Products", href: "/products" },
   { name: "Contact", href: "/contact" },
-  { name: "Faq", href: "/faq" },
+  { name: "Faq", href: "/#faq" },
 ];
 
 export default function Header1() {
@@ -159,7 +159,7 @@ export default function Header1() {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
                 prefetch={false}
-                href="/signup"
+                href="/products"
                 className="inline-flex items-center space-x-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 px-6 py-2.5 font-medium text-white transition-all duration-200 hover:shadow-lg"
               >
                 <span>View all subscriptions</span>

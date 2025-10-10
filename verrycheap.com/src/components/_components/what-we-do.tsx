@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default function Whatwedo() {
   return (
@@ -37,9 +38,11 @@ export default function Whatwedo() {
 
         {/* Botón Purchase */}
         <div className="w-full max-w-4xl pt-8 px-4 flex justify-center">
-          <Button className="text-lg p-5 bg-blue-600 hover:bg-blue-700">
-            Get your premium
-          </Button>
+          <Link href="/products" prefetch={false}>
+            <Button className="text-lg p-5 bg-blue-600 hover:bg-blue-700">
+              Get your premium
+            </Button>
+          </Link>
         </div>
       </div>
 
