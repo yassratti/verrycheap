@@ -13,7 +13,7 @@ export function AnimatedShinyTextDemo() {
         )}
       >
         <AnimatedShinyText className="inline-flex items-center justify-center px-3 py-1  transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
-          <span className="sm:text-lg">🎁 Introducing Magic UI</span>
+          <span className="sm:text-lg">🎁 The best offers now </span>
         </AnimatedShinyText>
       </div>
     </div>
