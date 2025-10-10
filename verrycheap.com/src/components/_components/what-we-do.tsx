@@ -11,7 +11,7 @@ export default function Whatwedo() {
         <div className="text-center space-y-3 mb-8">
           <h1 className="text-blue-800 font-semibold text-base">What we do?</h1>
           <h2 className="text-black text-2xl font-bold ">
-            This is what we do to get the same sub but 85% cheaper
+            This is what we do to get the same service but 85% cheaper
           </h2>
         </div>
 
@@ -29,20 +29,20 @@ export default function Whatwedo() {
 
         <div className="w-full max-w-4xl pt-10 px-4 text-center text-gray-400 text-lg">
           <p>
-            it&apos;s as simple as buying the subscription in a country where it&apos;s
-            cheaper due to regional pricing and getting the same service but at
-            a much lower cost
+            Subscription prices vary around the world. We simply connect you
+            with the most affordable regions, giving you full access to premium
+            services at local prices
           </p>
         </div>
 
         {/* Botón Purchase */}
         <div className="w-full max-w-4xl pt-8 px-4 flex justify-center">
           <Button className="text-lg p-5 bg-blue-600 hover:bg-blue-700">
-            All subscriptions
+            Get your premium
           </Button>
         </div>
       </div>
-      
+
       {/* Gradiente blanco corto en la parte inferior */}
       <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent z-10" />
     </div>

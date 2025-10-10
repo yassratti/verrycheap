@@ -16,17 +16,17 @@ export default function IntegrationsSection() {
             <div className="bg-background dark:bg-muted/50 rounded-xl border px-6 pb-5 sm:pb-3  pt-3 shadow-xl">
               <Integration
                 icon={<Icons.youtube />}
-                name="$2.99/m"
+                name="$2.91/monthly"
                 description="Youtube Premium"
               />
               <Integration
                 icon={<Icons.netflix />}
-                name="$5.99/m"
+                name="$7,99/monthly"
                 description="Netflix Premium"
               />
               <Integration
                 icon={<Icons.spotify />}
-                name="$2.49/m"
+                name="$2.49/monthly"
                 description="Spotify Premium"
               />
               {isSm && (
@@ -51,7 +51,7 @@ export default function IntegrationsSection() {
               <Highlighter action="box" color="#818cf8">
                 85%
               </Highlighter>{" "}
-              on the same thing
+              in the same services you love
             </h2>
           </div>
         </div>

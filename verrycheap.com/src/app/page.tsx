@@ -1,5 +1,4 @@
-import { Header } from "@/components/_components/header";
-
+import Header from "@/components/_components/header";
 import Hero from "@/components/_components/hero";
 import Whatwedo from "@/components/_components/what-we-do";
 import Carousel from "@/components/_components/carousel";
