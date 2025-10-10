@@ -10,38 +10,34 @@ import {
 const items: { id: string; title: string; content: string }[] = [
   {
     id: "1",
-    title: "Is this legal?",
+    title: "What is VeryCheap?",
     content:
-      "Yes. We don’t sell hacked or shared accounts  we simply help you purchase subscriptions from regions where prices are lower due to local pricing policies. You get your own access, legally and safely.",
+      "VeryCheap makes it easy to get subscriptions from regions where they cost less",
   },
   {
     id: "2",
-    title: "Will I get the same service as usual?",
+    title: "Is this legal?",
     content: `
-      Absolutely.
-It’s the exact same plan, same features, and same experience you’d have if you paid full price in your country the only difference is what you pay.
+      Yes, it’s completely legal. We simply take advantage of the regional pricing that platforms already set
       `,
   },
   {
     id: "3",
-    title: "How do I know my account is safe?",
-    content: `Your privacy comes first.
-We never ask for your personal passwords, and all transactions are handled securely through trusted payment systems.
-No risks, no hidden tricks.`,
+    title: "How do I get the premium plan?",
+    content: `You can choose: we can create a new account with the plan active, or use your account to pay for it in a cheaper region`,
   },
   {
     id: "4",
     title: "What happens if something goes wrong?",
     content: `
-      We’ve got you covered.
-If your subscription doesn’t work or you have any issues, our team will fix it or refund you — no questions asked.
+      We’ll fix it as quickly as possible, or refund you if it can’t be resolved.
       `,
   },
   {
     id: "5",
-    title: "How do I get my premium plan?",
+    title: "Will I get the same service?",
     content: `
-    There are two ways to do it. We can create a completely new account for you, activate the premium plan, and then send you the login details so you can change the password and any info you want. Or, if you prefer, you can give us access to your existing account we’ll only activate the plan, and once it’s done, you can update all your details right after. Either way, your account stays fully yours.
+    Exactly the same. The only difference is the country from which the subscription is paid.
      `,
   },
 ];
@@ -60,12 +56,7 @@ export default function Faqs() {
         </div>
 
         <div className="w-full max-w-3xl px-4">
-          <Accordion
-            type="single"
-            collapsible
-            className="w-full space-y-2"
-            defaultValue="3"
-          >
+          <Accordion type="single" collapsible className="w-full space-y-2">
             {items.map((item) => (
               <AccordionItem
                 value={item.id}
