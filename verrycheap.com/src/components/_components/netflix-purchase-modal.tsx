@@ -102,12 +102,26 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
   };
 
   const handleBack = () => {
-    if (currentStep > 0) {
-      setCurrentStep(prev => prev - 1);
+    if (currentStep === 1) {
+      // Si estamos en el paso 1 (opciones), volver al paso 0 (selección de plan)
+      setCurrentStep(0);
+    } else if (currentStep === 2) {
+      // Si estamos en el paso 2 (método de entrega), volver al paso 1 (opciones)
+      setCurrentStep(1);
+    } else if (currentStep === 3) {
+      // Si estamos en el paso 3 (formulario), volver al paso 1 (opciones) si es activate, o al paso 2 si es create
+      if (selectedOption === 'activate') {
+        setCurrentStep(1);
+      } else {
+        setCurrentStep(2);
+      }
     }
   };
 
+  const [selectedOption, setSelectedOption] = useState<'create' | 'activate' | null>(null);
+
   const handleOptionSelect = (option: 'create' | 'activate') => {
+    setSelectedOption(option);
     if (option === 'create') {
       setCurrentStep(2); // Skip to delivery method for create
     } else {
@@ -135,6 +149,7 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
 
   const resetModal = () => {
     setCurrentStep(0);
+    setSelectedOption(null);
     setDeliveryMethod(null);
     setFormData({ email: '', discordUsername: '', password: '' });
   };
@@ -153,64 +168,64 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
   const renderStepContent = () => {
     switch (currentStep) {
       case 0:
-        return (
-          <div className="space-y-6">
-            {/* Switch para alternar entre mensual/anual */}
-            <div className="flex items-center justify-center space-x-4">
+  return (
+        <div className="space-y-6">
+          {/* Switch para alternar entre mensual/anual */}
+          <div className="flex items-center justify-center space-x-4">
               <span className={`text-sm font-medium transition-colors ${!isYearly ? 'text-blue-600' : 'text-gray-500'}`}>
-                Monthly
-              </span>
-              <Switch
-                checked={isYearly}
-                onCheckedChange={setIsYearly}
-                className="data-[state=checked]:bg-blue-600"
-              />
+              Monthly
+            </span>
+            <Switch
+              checked={isYearly}
+              onCheckedChange={setIsYearly}
+              className="data-[state=checked]:bg-blue-600"
+            />
               <span className={`text-sm font-medium transition-colors ${isYearly ? 'text-blue-600' : 'text-gray-500'}`}>
-                Yearly
-              </span>
-            </div>
+              Yearly
+            </span>
+          </div>
 
             <div className="space-y-3">
-              {availablePlans.map((plan) => {
-                const currentPrice = isYearly ? plan.yearlyPrice : plan.monthlyPrice;
-                const originalPrice = isYearly ? plan.yearlyOriginalPrice : plan.monthlyOriginalPrice;
-                const period = isYearly ? "Yearly" : "Monthly";
-                
-                return (
-                  <div
-                    key={plan.id}
+            {availablePlans.map((plan) => {
+              const currentPrice = isYearly ? plan.yearlyPrice : plan.monthlyPrice;
+              const originalPrice = isYearly ? plan.yearlyOriginalPrice : plan.monthlyOriginalPrice;
+              const period = isYearly ? "Yearly" : "Monthly";
+              
+              return (
+                <div
+                  key={plan.id}
                     className={`border-2 rounded-xl p-4 cursor-pointer transition-all duration-200 ${
-                      selectedPlan === plan.id
+                    selectedPlan === plan.id
                         ? "border-blue-500 bg-blue-50 shadow-sm"
                         : "border-gray-200 hover:border-gray-300 hover:shadow-sm"
-                    }`}
-                    onClick={() => setSelectedPlan(plan.id)}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-start space-x-3">
-                        <Checkbox
-                          checked={selectedPlan === plan.id}
-                          onCheckedChange={() => setSelectedPlan(plan.id)}
-                          className="mt-1 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
-                        />
-                        <div>
-                          <h3 className="font-semibold text-lg">{plan.name}</h3>
+                  }`}
+                  onClick={() => setSelectedPlan(plan.id)}
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-start space-x-3">
+                      <Checkbox
+                        checked={selectedPlan === plan.id}
+                        onCheckedChange={() => setSelectedPlan(plan.id)}
+                        className="mt-1 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+                      />
+                      <div>
+                        <h3 className="font-semibold text-lg">{plan.name}</h3>
                           <p className="text-sm text-gray-600">
-                            {period}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold text-lg">${currentPrice}</p>
-                        <p className="text-sm text-gray-500 line-through">
-                          ${originalPrice}
+                          {period}
                         </p>
                       </div>
                     </div>
+                    <div className="text-right">
+                      <p className="font-bold text-lg">${currentPrice}</p>
+                      <p className="text-sm text-gray-500 line-through">
+                        ${originalPrice}
+                      </p>
+                    </div>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
+          </div>
           </div>
         );
 
