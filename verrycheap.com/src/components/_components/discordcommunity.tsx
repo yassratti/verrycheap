@@ -17,10 +17,10 @@ export function WobbleCardDemo() {
             popular AI platform for developers.
           </p> */}
           <div className="mt-6">
-            <Button className="bg-white text-black font-bold" asChild size="lg">
+            <Button className="bg-white cursor-pointer hover:bg-gray-100 relative z-10 text-black font-bold" asChild size="lg">
               <Link
                 prefetch={false}
-                href="https://discord.gg/your-invite"
+                href="https://discord.gg/4rsNDUhApJ"
                 target="_blank"
                 rel="noreferrer"
               >
