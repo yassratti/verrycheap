@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Checkbox } from "../ui/checkbox";
 import { Switch } from "../ui/switch";
 import { Progress } from "../ui/progress";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowLeft, Mail, MessageCircle, User, Lock, Check } from "lucide-react";
 
 interface NetflixPurchaseModalProps {
@@ -149,43 +149,12 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
   // No renderizar nada si el modal no está abierto
   if (!isOpen) return null;
 
-  const pageVariants = {
-    initial: { 
-      opacity: 0,
-      x: 50,
-      scale: 0.95
-    },
-    in: { 
-      opacity: 1,
-      x: 0,
-      scale: 1
-    },
-    out: { 
-      opacity: 0,
-      x: -50,
-      scale: 0.95
-    }
-  };
-
-  const pageTransition = {
-    type: "tween" as const,
-    ease: "easeInOut" as const,
-    duration: 0.4
-  };
 
   const renderStepContent = () => {
     switch (currentStep) {
       case 0:
         return (
-          <motion.div
-            key="plan-selection"
-            initial="initial"
-            animate="in"
-            exit="out"
-            variants={pageVariants}
-            transition={pageTransition}
-            className="space-y-6"
-          >
+          <div className="space-y-6">
             {/* Switch para alternar entre mensual/anual */}
             <div className="flex items-center justify-center space-x-4">
               <span className={`text-sm font-medium transition-colors ${!isYearly ? 'text-blue-600' : 'text-gray-500'}`}>
@@ -208,10 +177,8 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
                 const period = isYearly ? "Yearly" : "Monthly";
                 
                 return (
-                  <motion.div
+                  <div
                     key={plan.id}
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
                     className={`border-2 rounded-xl p-4 cursor-pointer transition-all duration-200 ${
                       selectedPlan === plan.id
                         ? "border-blue-500 bg-blue-50 shadow-sm"
@@ -240,33 +207,23 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
                         </p>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
-          </motion.div>
+          </div>
         );
 
       case 1:
         return (
-          <motion.div
-            key="option-selection"
-            initial="initial"
-            animate="in"
-            exit="out"
-            variants={pageVariants}
-            transition={pageTransition}
-            className="space-y-6"
-          >
+          <div className="space-y-6">
             <div className="text-center">
               <h2 className="text-xl font-semibold text-gray-900 mb-2">Choose your option</h2>
               <p className="text-sm text-gray-600">How would you like to proceed?</p>
             </div>
 
             <div className="space-y-3">
-              <motion.div
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
+              <div
                 className="border-2 rounded-xl p-6 cursor-pointer transition-all duration-200 border-gray-200 hover:border-green-300 hover:bg-green-50"
                 onClick={() => handleOptionSelect('create')}
               >
@@ -280,11 +237,9 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
                   </div>
                   <Check className="h-5 w-5 text-gray-400" />
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
+              <div
                 className="border-2 rounded-xl p-6 cursor-pointer transition-all duration-200 border-gray-200 hover:border-blue-300 hover:bg-blue-50"
                 onClick={() => handleOptionSelect('activate')}
               >
@@ -298,22 +253,14 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
                   </div>
                   <Check className="h-5 w-5 text-gray-400" />
                 </div>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         );
 
       case 2:
         return (
-          <motion.div
-            key="delivery-method"
-            initial="initial"
-            animate="in"
-            exit="out"
-            variants={pageVariants}
-            transition={pageTransition}
-            className="space-y-6"
-          >
+          <div className="space-y-6">
             <div className="text-center">
               <h2 className="text-xl font-semibold text-gray-900 mb-2">Where do you want to receive the account?</h2>
               <p className="text-sm text-gray-600">Choose your preferred delivery method</p>
@@ -321,9 +268,7 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
 
             {!deliveryMethod ? (
               <div className="space-y-3">
-                <motion.div
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
+                <div
                   className="border-2 rounded-xl p-6 cursor-pointer transition-all duration-200 border-gray-200 hover:border-blue-300 hover:bg-blue-50"
                   onClick={() => handleDeliveryMethodSelect('email')}
                 >
@@ -337,11 +282,9 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
                     </div>
                     <Check className="h-5 w-5 text-gray-400" />
                   </div>
-                </motion.div>
+                </div>
 
-                <motion.div
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
+                <div
                   className="border-2 rounded-xl p-6 cursor-pointer transition-all duration-200 border-gray-200 hover:border-purple-300 hover:bg-purple-50"
                   onClick={() => handleDeliveryMethodSelect('discord')}
                 >
@@ -355,15 +298,10 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
                     </div>
                     <Check className="h-5 w-5 text-gray-400" />
                   </div>
-                </motion.div>
+                </div>
               </div>
             ) : (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-4"
-              >
+              <div className="space-y-4">
                 <div className="flex items-center space-x-3 mb-4">
                   <Button
                     variant="ghost"
@@ -395,22 +333,14 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
                     />
                   </div>
                 </div>
-              </motion.div>
+              </div>
             )}
-          </motion.div>
+          </div>
         );
 
       case 3:
         return (
-          <motion.div
-            key="activate-account"
-            initial="initial"
-            animate="in"
-            exit="out"
-            variants={pageVariants}
-            transition={pageTransition}
-            className="space-y-6"
-          >
+          <div className="space-y-6">
             <div className="text-center">
               <h2 className="text-xl font-semibold text-gray-900 mb-2">Activate on your account</h2>
               <p className="text-sm text-gray-600">Enter your account details to activate the subscription</p>
@@ -450,7 +380,7 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
                 />
               </div>
             </div>
-          </motion.div>
+          </div>
         );
 
       default:
@@ -504,9 +434,7 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
 
         {/* Content Area */}
         <div className="min-h-[400px] relative">
-          <AnimatePresence mode="wait">
-            {renderStepContent()}
-          </AnimatePresence>
+          {renderStepContent()}
         </div>
 
         {/* Navigation */}
