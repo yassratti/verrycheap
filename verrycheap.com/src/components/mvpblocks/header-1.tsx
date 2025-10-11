@@ -206,7 +206,7 @@ export default function Header1() {
                 <div className="space-y-2 px-4 py-2">
                   <Link
                     prefetch={false}
-                    href="/signup"
+                    href="/products"
                     className="block w-full rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 py-2.5 text-center font-medium text-white transition-all duration-200 hover:shadow-lg"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >

@@ -1,6 +1,8 @@
 import { Highlighter } from "@/components/ui/highlighter";
 import { ShimmerButton } from "../ui/shimmer-button";
+import { Button } from "../ui/button";
 import Link from "next/link";
+import { Icons } from "../icons/icons";
 
 import { cn } from "@/lib/utils";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
@@ -8,15 +10,19 @@ import IntegrationsSection from "../ui/integrations-6";
 export function AnimatedShinyTextDemo() {
   return (
     <div className="z-10 flex  items-center justify-center">
-      <div
+      <button
+        onClick={() => window.open('https://discord.gg/4rsNDUhApJ', '_blank')}
         className={cn(
           "group rounded-full border border-black/5 bg-neutral-100 text-md text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800"
         )}
       >
         <AnimatedShinyText className="inline-flex items-center justify-center px-3 py-1  transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
-          <span className="sm:text-lg">🎁 The best offers now </span>
+          <span className="sm:text-lg flex items-center gap-2"> 
+            <Icons.discord className="h-4 w-4" />
+            join our discord community 
+            </span>
         </AnimatedShinyText>
-      </div>
+      </button>
     </div>
   );
 }
@@ -43,12 +49,13 @@ export default function Hero() {
                 experience
               </p>
             </div>
-            <div className="w-full flex items-center justify-center ">
+            <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/products" prefetch={false}>
-                <ShimmerButton className="rounded-lg">
+                <ShimmerButton className="rounded-lg px-6 py-3">
                   Check our prices
                 </ShimmerButton>
               </Link>
+             
             </div>
           </div>
           <IntegrationsSection />
