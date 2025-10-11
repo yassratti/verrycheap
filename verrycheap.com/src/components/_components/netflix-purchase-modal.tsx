@@ -93,7 +93,7 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
     if (!availablePlans.find(plan => plan.id === selectedPlan)) {
       setSelectedPlan(availablePlans[0]?.id || "");
     }
-  }, [isYearly, selectedPlan]);
+  }, [isYearly, selectedPlan, plans]);
 
   const handleNext = () => {
     if (currentStep < steps.length - 1) {
@@ -276,7 +276,7 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg text-gray-900">Create New Account</h3>
-                    <p className="text-sm text-gray-600">We'll create a new Netflix account with your subscription</p>
+                    <p className="text-sm text-gray-600">We&apos;ll create a new Netflix account with your subscription</p>
                   </div>
                   <Check className="h-5 w-5 text-gray-400" />
                 </div>
@@ -332,8 +332,8 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
                       <Mail className="h-6 w-6 text-blue-600" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-lg text-gray-900">Email</h3>
-                      <p className="text-sm text-gray-600">We'll send the account details to your email</p>
+                    <h3 className="font-semibold text-lg text-gray-900">Email</h3>
+                    <p className="text-sm text-gray-600">We&apos;ll send the account details to your email</p>
                     </div>
                     <Check className="h-5 w-5 text-gray-400" />
                   </div>
@@ -350,8 +350,8 @@ const NetflixPurchaseModal = ({ isOpen, onClose }: NetflixPurchaseModalProps) =>
                       <MessageCircle className="h-6 w-6 text-purple-600" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-lg text-gray-900">Discord</h3>
-                      <p className="text-sm text-gray-600">We'll send the account details via Discord</p>
+                    <h3 className="font-semibold text-lg text-gray-900">Discord</h3>
+                    <p className="text-sm text-gray-600">We&apos;ll send the account details via Discord</p>
                     </div>
                     <Check className="h-5 w-5 text-gray-400" />
                   </div>
