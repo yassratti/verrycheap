@@ -1,6 +1,4 @@
-import { Highlighter } from "@/components/ui/highlighter";
 import { ShimmerButton } from "../ui/shimmer-button";
-import { Button } from "../ui/button";
 import Link from "next/link";
 import { Icons } from "../icons/icons";
 
