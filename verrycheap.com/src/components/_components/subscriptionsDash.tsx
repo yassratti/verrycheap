@@ -1,5 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import NetflixPurchaseModal from "./netflix-purchase-modal";
 
 const platforms = [
   {
@@ -44,6 +48,7 @@ interface PlatformCardProps {
   pricePerYear: number;
   originalPrice: number;
   onOpenHowItWorks: () => void;
+  onOpenPurchaseModal?: () => void;
 }
 
 function PlatformCard({
@@ -54,6 +59,7 @@ function PlatformCard({
   pricePerYear,
   originalPrice,
   onOpenHowItWorks,
+  onOpenPurchaseModal,
 }: PlatformCardProps) {
   return (
     <div className="w-full bg-white h-auto p-3 border border-gray-200 rounded-lg shadow-xs">
@@ -79,7 +85,10 @@ function PlatformCard({
         </p>
       </div>
       <div className="flex flex-col mt-5 gap-1">
-        <Button className="text-lg p-5 bg-blue-600 hover:bg-blue-700">
+        <Button 
+          className="text-lg p-5 bg-blue-600 hover:bg-blue-700"
+          onClick={title === "Netflix Premium" ? onOpenPurchaseModal : undefined}
+        >
           Purchase
         </Button>
         <Button className="text-lg p-5" variant="outline" onClick={onOpenHowItWorks}>
@@ -95,6 +104,10 @@ interface SubscriptionsDashProps {
 }
 
 export default function SubscriptionsDash({ onOpenHowItWorks }: SubscriptionsDashProps) {
+  const [isNetflixModalOpen, setIsNetflixModalOpen] = useState(false);
+
+  const openNetflixModal = () => setIsNetflixModalOpen(true);
+  const closeNetflixModal = () => setIsNetflixModalOpen(false);
   return (
     <div className="min-h-screen pb-10 w-full relative">
       <div className="w-full mt-10 pt-10 flex flex-col items-center justify-center relative z-20">
@@ -110,11 +123,17 @@ export default function SubscriptionsDash({ onOpenHowItWorks }: SubscriptionsDas
         <div className="w-full px-5 max-w-6xl">
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {platforms.map((p) => (
-              <PlatformCard key={p.title} {...p} onOpenHowItWorks={onOpenHowItWorks} />
+              <PlatformCard 
+                key={p.title} 
+                {...p} 
+                onOpenHowItWorks={onOpenHowItWorks}
+                onOpenPurchaseModal={p.title === "Netflix Premium" ? openNetflixModal : undefined}
+              />
             ))}
           </div>
         </div>
       </div>
+      <NetflixPurchaseModal isOpen={isNetflixModalOpen} onClose={closeNetflixModal} />
     </div>
   );
 }
