@@ -16,7 +16,9 @@ export default function ProductPage() {
           {/* Top heading section styled like FAQ header */}
           <div className="text-center space-y-3 mb-8 px-5 w-full">
             <h1 className="text-blue-800 font-semibold text-base">Purchase</h1>
-            <h2 className="text-black text-2xl font-bold ">Purchase your premium plan, fast delivery</h2>
+            <h2 className="text-black text-2xl font-bold ">
+              Purchase your premium plan, fast delivery
+            </h2>
           </div>
 
           {/* Featured banner with discount badge - no background card */}
@@ -36,7 +38,13 @@ export default function ProductPage() {
             </div>
           </div>
 
-          
+          {/* Purchase button below banner */}
+          <div className="w-full px-4 flex justify-center flex-col items-center gap-3 mt-6">
+            <Button className="text-lg w-full px-8 py-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold">
+              Purchase Now
+            </Button>
+            <p className="text-gray-400 text-sm">The delivery can be by email or through <a href="https://discord.gg/4rsNDUhApJ" target="_blank" rel="noreferrer" className="text-blue-600 hover:text-blue-700">Discord</a></p>
+          </div>
         </div>
 
         <Faqs />
@@ -44,11 +52,11 @@ export default function ProductPage() {
 
         <div
           className="absolute bottom-0 left-0 w-full h-32 z-0"
-          style={{ background: "linear-gradient(to top, #ffffff, transparent)" }}
+          style={{
+            background: "linear-gradient(to top, #ffffff, transparent)",
+          }}
         />
       </div>
     </div>
   );
 }
-
-
