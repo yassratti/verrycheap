@@ -3,8 +3,6 @@ import Header from "@/components/_components/header";
 import Faqs from "@/components/_components/faq";
 import DiscordCommunity from "@/components/_components/discordcommunity";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Icons } from "@/components/icons/icons";
 
 export default function ProductPage() {
   return (
