@@ -1,5 +1,5 @@
 "use client";
-import { Gemini, Replit, GooglePaLM } from "@/components/logos";
+import { Gemini, GooglePaLM } from "@/components/logos";
 import { Icons } from "../icons/icons";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
