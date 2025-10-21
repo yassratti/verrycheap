@@ -2,6 +2,7 @@
 import { WobbleCard } from "../ui/wobble-card";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import Image from "next/image";
 import { Icons } from "../icons/icons";
 export function WobbleCardDemo() {
   return (
@@ -30,7 +31,7 @@ export function WobbleCardDemo() {
             </Button>
           </div>
         </div>
-        <img
+        <Image
           src="/discord-banner.png"
           width={500}
           height={500}

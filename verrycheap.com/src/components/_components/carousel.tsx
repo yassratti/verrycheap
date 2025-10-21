@@ -4,7 +4,9 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect } from "react";
+
 import { useRouter } from "next/navigation";
+
 
 interface CarouselCardProps {
   imageSrc: string;
