@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 const platforms = [
   {
@@ -44,6 +47,7 @@ interface PlatformCardProps {
   pricePerYear: number;
   originalPrice: number;
   onOpenHowItWorks: () => void;
+  onPurchase: (productData: any) => void;
 }
 
 function PlatformCard({
@@ -54,6 +58,7 @@ function PlatformCard({
   pricePerYear,
   originalPrice,
   onOpenHowItWorks,
+  onPurchase,
 }: PlatformCardProps) {
   return (
     <div className="w-full bg-white h-auto p-3 border border-gray-200 rounded-lg shadow-xs">
@@ -79,7 +84,21 @@ function PlatformCard({
         </p>
       </div>
       <div className="flex flex-col mt-5 gap-1">
-        <Button className="text-lg p-5 bg-blue-600 hover:bg-blue-700">
+        <Button
+          className="text-lg p-5 bg-blue-600 hover:bg-blue-700"
+          onClick={() =>
+            onPurchase({
+              title,
+              price: `$${pricePerYear}/yearly`,
+              originalPrice: `$${originalPrice}/year`,
+              discount,
+              imageSrc,
+              imageAlt,
+              pricePerYear,
+              originalPriceValue: originalPrice,
+            })
+          }
+        >
           Purchase
         </Button>
         <Button className="text-lg p-5" variant="outline" onClick={onOpenHowItWorks}>
@@ -92,9 +111,24 @@ function PlatformCard({
 
 interface SubscriptionsDashProps {
   onOpenHowItWorks: () => void;
+  onPurchase?: (productData: any) => void;
 }
 
-export default function SubscriptionsDash({ onOpenHowItWorks }: SubscriptionsDashProps) {
+export default function SubscriptionsDash({ onOpenHowItWorks, onPurchase }: SubscriptionsDashProps) {
+  const router = useRouter();
+
+  const handlePurchase = (productData: any) => {
+    // If parent provided a custom onPurchase handler, use it.
+    if (onPurchase) return onPurchase(productData);
+
+    // Default behavior: store selected product and navigate to product page
+    try {
+      localStorage.setItem("selectedProduct", JSON.stringify(productData));
+    } catch (e) {
+      // ignore localStorage errors
+    }
+    router.push("/product");
+  };
   return (
     <div className="min-h-screen pb-10 w-full relative">
       <div className="w-full mt-10 pt-10 flex flex-col items-center justify-center relative z-20">
@@ -110,7 +144,7 @@ export default function SubscriptionsDash({ onOpenHowItWorks }: SubscriptionsDas
         <div className="w-full px-5 max-w-6xl">
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {platforms.map((p) => (
-              <PlatformCard key={p.title} {...p} onOpenHowItWorks={onOpenHowItWorks} />
+              <PlatformCard key={p.title} {...p} onOpenHowItWorks={onOpenHowItWorks} onPurchase={handlePurchase} />
             ))}
           </div>
         </div>
