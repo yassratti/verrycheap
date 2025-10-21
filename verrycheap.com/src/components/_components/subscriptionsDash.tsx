@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import type { ProductData } from "@/types/product";
 
 const platforms = [
   {
@@ -47,7 +48,7 @@ interface PlatformCardProps {
   pricePerYear: number;
   originalPrice: number;
   onOpenHowItWorks: () => void;
-  onPurchase: (productData: any) => void;
+  onPurchase: (productData: ProductData) => void;
 }
 
 function PlatformCard({
@@ -115,7 +116,7 @@ function PlatformCard({
 
 interface SubscriptionsDashProps {
   onOpenHowItWorks: () => void;
-  onPurchase?: (productData: any) => void;
+  onPurchase?: (productData: ProductData) => void;
 }
 
 export default function SubscriptionsDash({
@@ -124,7 +125,7 @@ export default function SubscriptionsDash({
 }: SubscriptionsDashProps) {
   const router = useRouter();
 
-  const handlePurchase = (productData: any) => {
+  const handlePurchase = (productData: ProductData) => {
     // If parent provided a custom onPurchase handler, use it.
     if (onPurchase) return onPurchase(productData);
 

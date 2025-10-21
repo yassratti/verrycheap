@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import type { ProductData } from "@/types/product";
 import Header from "@/components/_components/header";
 import Hero from "@/components/_components/hero";
 import Whatwedo from "@/components/_components/what-we-do";
@@ -18,7 +19,7 @@ export default function Home() {
   const openHowItWorksModal = () => setIsHowItWorksModalOpen(true);
   const closeHowItWorksModal = () => setIsHowItWorksModalOpen(false);
 
-  const handlePurchase = (productData: any) => {
+  const handlePurchase = (productData: ProductData) => {
     // Guardar los datos del producto en localStorage para que la página de producto los pueda leer
     localStorage.setItem('selectedProduct', JSON.stringify(productData));
     // Navegar a la página de producto
