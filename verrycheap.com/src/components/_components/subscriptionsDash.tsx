@@ -101,7 +101,11 @@ function PlatformCard({
         >
           Purchase
         </Button>
-        <Button className="text-lg p-5" variant="outline" onClick={onOpenHowItWorks}>
+        <Button
+          className="text-lg p-5"
+          variant="outline"
+          onClick={onOpenHowItWorks}
+        >
           How it works?
         </Button>
       </div>
@@ -114,7 +118,10 @@ interface SubscriptionsDashProps {
   onPurchase?: (productData: any) => void;
 }
 
-export default function SubscriptionsDash({ onOpenHowItWorks, onPurchase }: SubscriptionsDashProps) {
+export default function SubscriptionsDash({
+  onOpenHowItWorks,
+  onPurchase,
+}: SubscriptionsDashProps) {
   const router = useRouter();
 
   const handlePurchase = (productData: any) => {
@@ -144,7 +151,12 @@ export default function SubscriptionsDash({ onOpenHowItWorks, onPurchase }: Subs
         <div className="w-full px-5 max-w-6xl">
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {platforms.map((p) => (
-              <PlatformCard key={p.title} {...p} onOpenHowItWorks={onOpenHowItWorks} onPurchase={handlePurchase} />
+              <PlatformCard
+                key={p.title}
+                {...p}
+                onOpenHowItWorks={onOpenHowItWorks}
+                onPurchase={handlePurchase}
+              />
             ))}
           </div>
         </div>
