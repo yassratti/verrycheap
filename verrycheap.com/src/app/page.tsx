@@ -51,7 +51,7 @@ export default function Home() {
         <Faqs />
         <DiscordCommunity />
         <HowItWorksCard isOpen={isHowItWorksModalOpen} onClose={closeHowItWorksModal} />
-        <p>hello</p>
+        <p>bye</p>
         {/* Gradient at bottom */}
         <div
           className="absolute bottom-0 left-0 w-full h-32 z-0"
