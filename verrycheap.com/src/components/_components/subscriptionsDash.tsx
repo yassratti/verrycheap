@@ -1,46 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import NetflixPurchaseModal from "./netflix-purchase-modal";
+import useEmblaCarousel from "embla-carousel-react";
+import { useCallback, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-const platforms = [
-  {
-    imageSrc: "/youtube-banner.png",
-    imageAlt: "YouTube Premium",
-    discount: "80% OFF",
-    title: "YouTube Premium",
-    pricePerYear: 35,
-    originalPrice: 168,
-  },
-  {
-    imageSrc: "/spotify-banner.png",
-    imageAlt: "Spotify Premium",
-    discount: "85% OFF",
-    title: "Spotify Premium",
-    pricePerYear: 30,
-    originalPrice: 168,
-  },
-  {
-    imageSrc: "/crunchyroll-banner.png",
-    imageAlt: "Crunchyroll MEGA FAN",
-    discount: "95% OFF",
-    title: "Crunchyroll MEGA FAN",
-    pricePerYear: 30,
-    originalPrice: 120,
-  },
-  {
-    imageSrc: "/netflix-banner.png",
-    imageAlt: "Netflix Premium",
-    discount: "75% OFF",
-    title: "Netflix Premium",
-    pricePerYear: 100,
-    originalPrice: 220,
-  },
-];
-
-interface PlatformCardProps {
+interface CarouselCardProps {
   imageSrc: string;
   imageAlt: string;
   discount: string;
@@ -48,10 +14,10 @@ interface PlatformCardProps {
   pricePerYear: number;
   originalPrice: number;
   onOpenHowItWorks: () => void;
-  onOpenPurchaseModal?: () => void;
+  onPurchase: (productData: any) => void;
 }
 
-function PlatformCard({
+function CarouselCard({
   imageSrc,
   imageAlt,
   discount,
@@ -59,10 +25,10 @@ function PlatformCard({
   pricePerYear,
   originalPrice,
   onOpenHowItWorks,
-  onOpenPurchaseModal,
-}: PlatformCardProps) {
+  onPurchase,
+}: CarouselCardProps) {
   return (
-    <div className="w-full bg-white h-auto p-3 border border-gray-200 rounded-lg shadow-xs">
+    <div className="flex-shrink-0 w-80 bg-white h-auto mx-4 p-3 border border-gray-200 rounded-lg shadow-lg">
       <div className="relative">
         <div className="absolute top-2 left-2 bg-white px-3 py-1 font-bold border text-black rounded-lg z-10">
           {discount}
@@ -87,53 +53,131 @@ function PlatformCard({
       <div className="flex flex-col mt-5 gap-1">
         <Button 
           className="text-lg p-5 bg-blue-600 hover:bg-blue-700"
-          onClick={title === "Netflix Premium" ? onOpenPurchaseModal : undefined}
+          onClick={() => onPurchase({
+            title,
+            price: `$${pricePerYear}/yearly`,
+            originalPrice: `$${originalPrice}/year`,
+            discount,
+            imageSrc,
+            imageAlt,
+            pricePerYear,
+            originalPriceValue: originalPrice
+          })}
         >
           Purchase
         </Button>
-        <Button className="text-lg p-5" variant="outline" onClick={onOpenHowItWorks}>
-          How it works?
-        </Button>
+        <Button className="text-lg p-5" onClick={onOpenHowItWorks}>How it works?</Button>
       </div>
     </div>
   );
 }
 
-interface SubscriptionsDashProps {
+interface CarouselProps {
   onOpenHowItWorks: () => void;
+  onPurchase: (productData: any) => void;
 }
 
-export default function SubscriptionsDash({ onOpenHowItWorks }: SubscriptionsDashProps) {
-  const [isNetflixModalOpen, setIsNetflixModalOpen] = useState(false);
+function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: true,
+    align: "center",
+    skipSnaps: false,
+    dragFree: true,
+    containScroll: "trimSnaps",
+  });
 
-  const openNetflixModal = () => setIsNetflixModalOpen(true);
-  const closeNetflixModal = () => setIsNetflixModalOpen(false);
+  // Autoplay con intervalo; no necesitamos exponer estado para el linter
+
+  const autoplay = useCallback(() => {
+    if (!emblaApi) return;
+    
+    if (emblaApi.canScrollNext()) {
+      emblaApi.scrollNext();
+    } else {
+      emblaApi.scrollTo(0);
+    }
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const interval = setInterval(autoplay, 3000);
+    // autoplay activo
+
+    return () => {
+      clearInterval(interval);
+      // limpiar autoplay
+    };
+  }, [emblaApi, autoplay]);
+
+  const carouselData = [
+    {
+      imageSrc: "/youtube-banner.png",
+      imageAlt: "YouTube Premium",
+      discount: "80% OFF",
+      title: "YouTube Premium",
+      pricePerYear: 35,
+      originalPrice: 168,
+    },
+    {
+      imageSrc: "/spotify-banner.png",
+      imageAlt: "Spotify Premium",
+      discount: "85% OFF",
+      title: "Spotify Premium",
+      pricePerYear: 30,
+      originalPrice: 168,
+    },
+    {
+      imageSrc: "/crunchyroll-banner.png",
+      imageAlt: "Crunchyroll MEGA FAN",
+      discount: "95% OFF",
+      title: "Crunchyroll MEGA FAN",
+      pricePerYear: 30,
+      originalPrice: 120,
+    },
+    {
+      imageSrc: "/netflix-banner.png",
+      imageAlt: "Netflix Premium",
+      discount: "75% OFF",
+      title: "Netflix Premium",
+      pricePerYear: 100,
+      originalPrice: 220,
+    },
+  ];
+
+  // Duplicar los datos para crear un efecto de cinta infinita más suave
+  const infiniteData = [...carouselData, ...carouselData, ...carouselData];
+
   return (
-    <div className="min-h-screen pb-10 w-full relative">
-      <div className="w-full mt-10 pt-10 flex flex-col items-center justify-center relative z-20">
-        <div className="text-center space-y-3 mb-8">
-          <h1 className="text-blue-800 font-semibold text-base">
-            Subscriptions
-          </h1>
-          <h2 className="text-black text-2xl font-bold ">
-            Same apps, smaller bill
-          </h2>
-        </div>
-
-        <div className="w-full px-5 max-w-6xl">
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {platforms.map((p) => (
-              <PlatformCard 
-                key={p.title} 
-                {...p} 
-                onOpenHowItWorks={onOpenHowItWorks}
-                onOpenPurchaseModal={p.title === "Netflix Premium" ? openNetflixModal : undefined}
-              />
-            ))}
+    <>
+      <div className="w-screen mt-10 relative z-50 px-5 flex items-center justify-center">
+        <div className="w-full max-w-6xl relative">
+          {/* Gradiente izquierdo */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          
+          {/* Gradiente derecho */}
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex">
+              {infiniteData.map((item, index) => (
+                <CarouselCard
+                  key={`${item.title}-${index}`}
+                  imageSrc={item.imageSrc}
+                  imageAlt={item.imageAlt}
+                  discount={item.discount}
+                  title={item.title}
+                  pricePerYear={item.pricePerYear}
+                  originalPrice={item.originalPrice}
+                  onOpenHowItWorks={onOpenHowItWorks}
+                  onPurchase={onPurchase}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
-      <NetflixPurchaseModal isOpen={isNetflixModalOpen} onClose={closeNetflixModal} />
-    </div>
+    </>
   );
 }
+export default Carousel;

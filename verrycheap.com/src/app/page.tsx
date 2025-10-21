@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Header from "@/components/_components/header";
 import Hero from "@/components/_components/hero";
 import Whatwedo from "@/components/_components/what-we-do";
@@ -12,9 +13,17 @@ import HowItWorksCard from "@/components/_components/how-it-works-card";
 
 export default function Home() {
   const [isHowItWorksModalOpen, setIsHowItWorksModalOpen] = useState(false);
+  const router = useRouter();
 
   const openHowItWorksModal = () => setIsHowItWorksModalOpen(true);
   const closeHowItWorksModal = () => setIsHowItWorksModalOpen(false);
+
+  const handlePurchase = (productData: any) => {
+    // Guardar los datos del producto en localStorage para que la página de producto los pueda leer
+    localStorage.setItem('selectedProduct', JSON.stringify(productData));
+    // Navegar a la página de producto
+    router.push('/product');
+  };
   return (
     <div className="w-screen h-screen">
       <div className="h-240 w-full bg-[#f9fafb] relative">
@@ -36,7 +45,7 @@ export default function Home() {
 
         <Header />
         <Hero />
-        <Carousel onOpenHowItWorks={openHowItWorksModal} />
+        <Carousel onOpenHowItWorks={openHowItWorksModal} onPurchase={handlePurchase} />
         <Whatwedo />
         <SubscriptionsDash onOpenHowItWorks={openHowItWorksModal} />
         <Faqs />

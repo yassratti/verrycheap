@@ -1,73 +1,79 @@
 "use client";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import Header from "@/components/_components/header";
 import Faqs from "@/components/_components/faq";
 import DiscordCommunity from "@/components/_components/discordcommunity";
-import { Button } from "@/components/ui/button";
+import Product from "@/components/_components/product";
 
 export default function ProductPage() {
+  const [productData, setProductData] = useState({
+    title: "YouTube Premium",
+    price: "$44.99/yearly",
+    originalPrice: "$168/year",
+    discount: "80% OFF",
+    imageSrc: "/youtube-banner.png",
+    imageAlt: "YouTube Premium banner",
+    purchaseLink: "https://buy.stripe.com/28E8wP0Ge5zP31Q7Jn3840e",
+    deliveryInfo: "The delivery can be by email or through",
+    discordLink: "https://discord.gg/4rsNDUhApJ"
+  });
+
+  useEffect(() => {
+    // Leer los datos del producto desde localStorage
+    const savedProduct = localStorage.getItem('selectedProduct');
+    if (savedProduct) {
+      try {
+        const parsedProduct = JSON.parse(savedProduct);
+        // Mapear los datos del carrusel a los datos del componente Product
+        setProductData({
+          title: parsedProduct.title,
+          price: parsedProduct.price,
+          originalPrice: parsedProduct.originalPrice,
+          discount: parsedProduct.discount,
+          imageSrc: parsedProduct.imageSrc,
+          imageAlt: parsedProduct.imageAlt,
+          purchaseLink: getPurchaseLink(parsedProduct.title), // Función para obtener el enlace correcto
+          deliveryInfo: "The delivery can be by email or through",
+          discordLink: "https://discord.gg/4rsNDUhApJ"
+        });
+      } catch (error) {
+        console.error('Error parsing product data:', error);
+      }
+    }
+  }, []);
+
+  // Función para obtener el enlace de compra correcto según el producto
+  const getPurchaseLink = (title: string) => {
+    switch (title) {
+      case "YouTube Premium":
+        return "https://buy.stripe.com/28E8wP0Ge5zP31Q7Jn3840e";
+      case "Spotify Premium":
+        return "https://buy.stripe.com/spotify-link"; // Reemplazar con el enlace real
+      case "Crunchyroll MEGA FAN":
+        return "https://buy.stripe.com/crunchyroll-link"; // Reemplazar con el enlace real
+      case "Netflix Premium":
+        return "https://buy.stripe.com/netflix-link"; // Reemplazar con el enlace real
+      default:
+        return "https://buy.stripe.com/28E8wP0Ge5zP31Q7Jn3840e";
+    }
+  };
+
   return (
     <div className="w-screen min-h-screen">
       <div className="h-auto pt-10 w-full bg-[#f9fafb] relative">
         <Header />
 
-        <div className="w-full mt-10 pt-6 flex flex-col items-center justify-center relative z-20">
-          {/* Top heading section styled like FAQ header */}
-          <div className="text-center space-y-3 mb-8 px-5 w-full">
-            <h1 className="text-blue-800 font-semibold text-base">Purchase</h1>
-            <h2 className="text-black text-2xl font-bold ">
-              Purchase your premium plan, fast delivery
-            </h2>
-          </div>
-
-          {/* Featured banner with discount badge - no background card */}
-          <div className="w-full   px-4  flex justify-center">
-            <div className="relative max-w-5xl w-full">
-              <div className="absolute top-2 left-2 bg-white px-3 py-1 font-bold border text-black rounded-lg z-10">
-                80% OFF
-              </div>
-              <Image
-                src="/youtube-banner.png"
-                alt="Featured product banner"
-                width={1200}
-                height={600}
-                className="w-full h-auto rounded-lg "
-                priority
-              />
-            </div>
-          </div>
-
-          {/* Purchase button below banner */}
-          <div className="w-full px-4 flex justify-center flex-col items-center gap-3 mt-6">
-            <div className="w-full">
-              <h2 className="text-xl font-semibold mt-2">YouTube Premium</h2>
-              <div className="flex justify-between mt-2">
-                <p className="text-xl font-medium">$44.99/yearly</p>
-                <p className="text-xl font-medium text-[#737373] line-through">
-                  $168/year
-                </p>
-              </div>
-            </div>
-
-            <Button 
-              className="text-lg w-full px-8 py-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-              onClick={() => window.open('https://buy.stripe.com/28E8wP0Ge5zP31Q7Jn3840e', '_blank')}
-            >
-              Purchase Now
-            </Button>
-            <p className="text-gray-400 text-sm">
-              The delivery can be by email or through{" "}
-              <a
-                href="https://discord.gg/4rsNDUhApJ"
-                target="_blank"
-                rel="noreferrer"
-                className="text-blue-600 hover:text-blue-700"
-              >
-                Discord
-              </a>
-            </p>
-          </div>
-        </div>
+        <Product
+          title={productData.title}
+          price={productData.price}
+          originalPrice={productData.originalPrice}
+          discount={productData.discount}
+          imageSrc={productData.imageSrc}
+          imageAlt={productData.imageAlt}
+          purchaseLink={productData.purchaseLink}
+          deliveryInfo={productData.deliveryInfo}
+          discordLink={productData.discordLink}
+        />
 
         <Faqs />
         <DiscordCommunity />
