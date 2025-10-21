@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
 import useEmblaCarousel from "embla-carousel-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 interface CarouselCardProps {
   imageSrc: string;
@@ -13,6 +14,7 @@ interface CarouselCardProps {
   pricePerYear: number;
   originalPrice: number;
   onOpenHowItWorks: () => void;
+  onPurchase: (productData: any) => void;
 }
 
 function CarouselCard({
@@ -23,6 +25,7 @@ function CarouselCard({
   pricePerYear,
   originalPrice,
   onOpenHowItWorks,
+  onPurchase,
 }: CarouselCardProps) {
   return (
     <div className="flex-shrink-0 w-80 bg-white h-auto mx-4 p-3 border border-gray-200 rounded-lg shadow-lg">
@@ -48,7 +51,19 @@ function CarouselCard({
         </p>
       </div>
       <div className="flex flex-col mt-5 gap-1">
-        <Button className="text-lg p-5  bg-blue-600 hover:bg-blue-700">
+        <Button 
+          className="text-lg p-5 bg-blue-600 hover:bg-blue-700"
+          onClick={() => onPurchase({
+            title,
+            price: `$${pricePerYear}/yearly`,
+            originalPrice: `$${originalPrice}/year`,
+            discount,
+            imageSrc,
+            imageAlt,
+            pricePerYear,
+            originalPriceValue: originalPrice
+          })}
+        >
           Purchase
         </Button>
         <Button className="text-lg p-5" onClick={onOpenHowItWorks}>How it works?</Button>
@@ -59,9 +74,10 @@ function CarouselCard({
 
 interface CarouselProps {
   onOpenHowItWorks: () => void;
+  onPurchase: (productData: any) => void;
 }
 
-function Carousel({ onOpenHowItWorks }: CarouselProps) {
+function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     loop: true,
     align: "center",
@@ -154,6 +170,7 @@ function Carousel({ onOpenHowItWorks }: CarouselProps) {
                   pricePerYear={item.pricePerYear}
                   originalPrice={item.originalPrice}
                   onOpenHowItWorks={onOpenHowItWorks}
+                  onPurchase={onPurchase}
                 />
               ))}
             </div>
