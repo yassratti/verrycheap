@@ -4,9 +4,7 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect } from "react";
-
-import { useRouter } from "next/navigation";
-
+import type { ProductData } from "@/types/product";
 
 interface CarouselCardProps {
   imageSrc: string;
@@ -16,7 +14,7 @@ interface CarouselCardProps {
   pricePerYear: number;
   originalPrice: number;
   onOpenHowItWorks: () => void;
-  onPurchase: (productData: any) => void;
+  onPurchase: (productData: ProductData) => void;
 }
 
 function CarouselCard({
@@ -76,7 +74,7 @@ function CarouselCard({
 
 interface CarouselProps {
   onOpenHowItWorks: () => void;
-  onPurchase: (productData: any) => void;
+  onPurchase: (productData: ProductData) => void;
 }
 
 function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
