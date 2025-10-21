@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Header from "@/components/_components/header";
 import Faqs from "@/components/_components/faq";
@@ -38,10 +39,33 @@ export default function ProductPage() {
 
           {/* Purchase button below banner */}
           <div className="w-full px-4 flex justify-center flex-col items-center gap-3 mt-6">
-            <Button className="text-lg w-full px-8 py-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold">
-              Purchase Now test
+            <div className="w-full">
+              <h2 className="text-xl font-semibold mt-2">YouTube Premium</h2>
+              <div className="flex justify-between mt-2">
+                <p className="text-xl font-medium">$44.99/yearly</p>
+                <p className="text-xl font-medium text-[#737373] line-through">
+                  $168/year
+                </p>
+              </div>
+            </div>
+
+            <Button 
+              className="text-lg w-full px-8 py-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+              onClick={() => window.open('https://buy.stripe.com/28E8wP0Ge5zP31Q7Jn3840e', '_blank')}
+            >
+              Purchase Now
             </Button>
-            <p className="text-gray-400 text-sm">The delivery can be by email or through <a href="https://discord.gg/4rsNDUhApJ" target="_blank" rel="noreferrer" className="text-blue-600 hover:text-blue-700">Discord</a></p>
+            <p className="text-gray-400 text-sm">
+              The delivery can be by email or through{" "}
+              <a
+                href="https://discord.gg/4rsNDUhApJ"
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-600 hover:text-blue-700"
+              >
+                Discord
+              </a>
+            </p>
           </div>
         </div>
 
