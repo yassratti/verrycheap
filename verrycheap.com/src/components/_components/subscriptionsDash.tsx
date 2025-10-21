@@ -66,7 +66,9 @@ function CarouselCard({
         >
           Purchase
         </Button>
+
         <Button className="text-lg p-5" onClick={onOpenHowItWorks}>How it works?</Button>
+
       </div>
     </div>
   );
@@ -77,6 +79,7 @@ interface CarouselProps {
   onPurchase: (productData: any) => void;
 }
 
+
 function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     loop: true,
@@ -85,6 +88,7 @@ function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
     dragFree: true,
     containScroll: "trimSnaps",
   });
+
 
   // Autoplay con intervalo; no necesitamos exponer estado para el linter
 
@@ -100,6 +104,7 @@ function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
 
   useEffect(() => {
     if (!emblaApi) return;
+
 
     const interval = setInterval(autoplay, 3000);
     // autoplay activo
@@ -174,6 +179,7 @@ function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
                 />
               ))}
             </div>
+
           </div>
         </div>
       </div>
