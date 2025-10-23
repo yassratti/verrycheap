@@ -132,7 +132,7 @@ function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
       imageAlt: "Crunchyroll MEGA FAN",
       discount: "95% OFF",
       title: "Crunchyroll MEGA FAN",
-      pricePerYear: 29.99,
+      pricePerYear: 33.99,
       originalPrice: 119.99,
     },
     {
