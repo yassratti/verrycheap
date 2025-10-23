@@ -48,11 +48,11 @@ export default function ProductPage() {
       case "YouTube Premium":
         return "https://buy.stripe.com/28E8wP0Ge5zP31Q7Jn3840e";
       case "Spotify Premium":
-        return "https://buy.stripe.com/spotify-link"; // Reemplazar con el enlace real
+        return "https://buy.stripe.com/9B6eVd4Wue6l45U0gV3840f";
       case "Crunchyroll MEGA FAN":
-        return "https://buy.stripe.com/crunchyroll-link"; // Reemplazar con el enlace real
+        return "https://buy.stripe.com/00w3cv9cKaU9fOC1kZ3840g";
       case "Netflix Premium":
-        return "https://buy.stripe.com/netflix-link"; // Reemplazar con el enlace real
+        return "https://buy.stripe.com/dRmdR91Ki8M18mae7L3840h";
       default:
         return "https://buy.stripe.com/28E8wP0Ge5zP31Q7Jn3840e";
     }
