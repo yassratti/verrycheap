@@ -21,9 +21,9 @@ export default function Home() {
 
   const handlePurchase = (productData: ProductData) => {
     // Guardar los datos del producto en localStorage para que la página de producto los pueda leer
-    localStorage.setItem('selectedProduct', JSON.stringify(productData));
+    localStorage.setItem("selectedProduct", JSON.stringify(productData));
     // Navegar a la página de producto
-    router.push('/product');
+    router.push("/product");
   };
   return (
     <div className="w-screen h-screen">
@@ -46,13 +46,19 @@ export default function Home() {
 
         <Header />
         <Hero />
-        <Carousel onOpenHowItWorks={openHowItWorksModal} onPurchase={handlePurchase} />
+        <Carousel
+          onOpenHowItWorks={openHowItWorksModal}
+          onPurchase={handlePurchase}
+        />
         <Whatwedo />
         <SubscriptionsDash onOpenHowItWorks={openHowItWorksModal} />
         <Faqs />
         <DiscordCommunity />
-        <HowItWorksCard isOpen={isHowItWorksModalOpen} onClose={closeHowItWorksModal} />
-        <p>bye</p>
+        <HowItWorksCard
+          isOpen={isHowItWorksModalOpen}
+          onClose={closeHowItWorksModal}
+        />
+
         {/* Gradient at bottom */}
         <div
           className="absolute bottom-0 left-0 w-full h-32 z-0"
