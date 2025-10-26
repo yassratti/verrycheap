@@ -45,7 +45,7 @@ const items: { id: string; title: string; content: string }[] = [
 
 export default function Faqs() {
   return (
-    <div id="faq" className="h-auto pb-10 w-full relative">
+    <div id="faq" className="h-auto  pb-10 w-full relative">
       <div className="w-full mt-10 pt-10 flex flex-col items-center justify-center relative z-20">
         <div className="text-center space-y-3 mb-8">
           <h1 className="text-blue-800 font-semibold text-base">FAQs</h1>
