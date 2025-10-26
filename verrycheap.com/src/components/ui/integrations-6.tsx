@@ -10,9 +10,9 @@ export default function IntegrationsSection() {
   const isSm = useBreakpoint();
   return (
     <section>
-      <div className=" dark:bg-background pt-5 sm:py-10 relative z-10">
+      <div className="dark:bg-background pt-5 sm:py-10 relative z-10">
         <div className="mx-auto max-w-5xl px-0">
-          <div className="mx-auto max-w-md sm:max-w-xl px-6 [mask-image:radial-gradient(ellipse_100%_100%_at_50%_0%,#000_70%,transparent_100%)]">
+          <div className="mx-auto max-w-md sm:max-w-3xl px-6 [mask-image:radial-gradient(ellipse_100%_100%_at_50%_0%,#000_70%,transparent_100%)]">
             <div className="bg-background dark:bg-muted/50 rounded-xl border px-6 pb-5 sm:pb-3  pt-3 shadow-xl">
               <Integration
                 icon={<Icons.youtube />}
@@ -33,13 +33,8 @@ export default function IntegrationsSection() {
                 <>
                   <Integration
                     icon={<Gemini />}
-                    name="Youtube Individual"
-                    description="The AI model that powers Google's search engine."
-                  />
-                  <Integration
-                    icon={<GooglePaLM />}
-                    name="Spotify Individual"
-                    description="The AI model that powers Google's search engine."
+                    name="Crunchyroll"
+                    description="Crunchyroll MEGA FAN"
                   />
                 </>
               )}
@@ -80,7 +75,12 @@ const Integration = ({
           {description}
         </p>
       </div>
-      <Button variant="outline" size="icon" aria-label="Add integration">
+      <Button
+        className="cursor-pointer"
+        variant="outline"
+        size="icon"
+        aria-label="Add integration"
+      >
         <Plus className="size-4" />
       </Button>
     </div>
