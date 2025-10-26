@@ -51,22 +51,26 @@ function CarouselCard({
         </p>
       </div>
       <div className="flex flex-col mt-5 gap-1">
-        <Button 
+        <Button
           className="text-lg p-5 bg-blue-600 hover:bg-blue-700"
-          onClick={() => onPurchase({
-            title,
-            price: `$${pricePerYear}/yearly`,
-            originalPrice: `$${originalPrice}/year`,
-            discount,
-            imageSrc,
-            imageAlt,
-            pricePerYear,
-            originalPriceValue: originalPrice
-          })}
+          onClick={() =>
+            onPurchase({
+              title,
+              price: `$${pricePerYear}/yearly`,
+              originalPrice: `$${originalPrice}/year`,
+              discount,
+              imageSrc,
+              imageAlt,
+              pricePerYear,
+              originalPriceValue: originalPrice,
+            })
+          }
         >
           Purchase
         </Button>
-        <Button className="text-lg p-5" onClick={onOpenHowItWorks}>How it works?</Button>
+        <Button className="text-lg p-5" onClick={onOpenHowItWorks}>
+          How it works?
+        </Button>
       </div>
     </div>
   );
@@ -78,7 +82,7 @@ interface CarouselProps {
 }
 
 function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+  const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: "center",
     skipSnaps: false,
@@ -90,7 +94,7 @@ function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
 
   const autoplay = useCallback(() => {
     if (!emblaApi) return;
-    
+
     if (emblaApi.canScrollNext()) {
       emblaApi.scrollNext();
     } else {
@@ -154,10 +158,10 @@ function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
         <div className="w-full max-w-6xl relative">
           {/* Gradiente izquierdo */}
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-          
+
           {/* Gradiente derecho */}
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-          
+
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex">
               {infiniteData.map((item, index) => (

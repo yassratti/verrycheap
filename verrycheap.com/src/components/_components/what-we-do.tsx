@@ -4,32 +4,34 @@ import Link from "next/link";
 
 export default function Whatwedo() {
   return (
-    <div className="h-auto pb-10 bg-[#EEF1FA] w-full relative">
+    <div className="h-auto pb-16 bg-[#EEF1FA] w-full relative">
       {/* Gradiente blanco en la parte superior */}
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white to-transparent z-10" />
 
-      <div className="w-full mt-10 pt-10 flex flex-col items-center justify-center relative z-20">
-        <div className="text-center space-y-3 mb-8">
-          <h1 className="text-blue-800 font-semibold text-base">What we do?</h1>
-          <h2 className="text-black text-2xl font-bold ">
+      <div className="container mx-auto max-w-7xl mt-10 pt-10 flex flex-col items-center justify-center relative z-20">
+        <div className="text-center space-y-4 mb-12 max-w-4xl">
+          <h1 className="text-blue-800 font-semibold text-lg md:text-xl">
+            What we do?
+          </h1>
+          <h2 className="text-black text-2xl md:text-4xl lg:text-5xl font-bold leading-tight">
             This is what we do to get the same service but 85% cheaper
           </h2>
         </div>
 
         {/* Imagen del mapa regional */}
-        <div className="w-full  px-1">
+        <div className="w-full max-w-5xl px-4 mx-auto">
           <Image
             src="/regional-map.png"
             alt="Regional pricing map"
-            width={800}
-            height={600}
-            className="w-full h-auto"
+            width={1200}
+            height={900}
+            className="w-full h-auto object-contain"
             priority
           />
         </div>
 
-        <div className="w-full max-w-4xl pt-10 px-4 text-center text-gray-400 text-lg">
-          <p>
+        <div className="w-full max-w-4xl pt-12 px-6 text-center">
+          <p className="text-gray-600 text-lg md:text-xl lg:text-2xl leading-relaxed">
             Subscription prices vary around the world. We simply connect you
             with the most affordable regions, giving you full access to premium
             services at local prices
@@ -37,9 +39,9 @@ export default function Whatwedo() {
         </div>
 
         {/* Botón Purchase */}
-        <div className="w-full max-w-4xl pt-8 px-4 flex justify-center">
+        <div className="w-full max-w-4xl pt-10 px-4 flex justify-center">
           <Link href="/products" prefetch={false}>
-            <Button className="text-lg p-5 bg-blue-600 hover:bg-blue-700">
+            <Button className="text-lg md:text-xl p-6 px-8 bg-blue-600 hover:bg-blue-700 transform hover:scale-105 transition-transform duration-200">
               Get your premium
             </Button>
           </Link>
