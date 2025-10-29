@@ -1,10 +1,10 @@
 "use client";
-import { Gemini, GooglePaLM } from "@/components/logos";
 import { Icons } from "../icons/icons";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import useBreakpoint from "@/hooks/use-breakpoint";
 import { Highlighter } from "@/components/ui/highlighter";
+import { useRouter } from "next/navigation";
 
 export default function IntegrationsSection() {
   const isSm = useBreakpoint();
@@ -16,25 +16,65 @@ export default function IntegrationsSection() {
             <div className="bg-background dark:bg-muted/50 rounded-xl border px-6 pb-5 sm:pb-3  pt-3 shadow-xl">
               <Integration
                 icon={<Icons.youtube />}
-                name="$2.91/monthly"
+                name="$3.74/monthly"
                 description="Youtube Premium"
+                productData={{
+                  title: "YouTube Premium",
+                  price: "$44.99/yearly",
+                  originalPrice: "$168/year",
+                  discount: "80% OFF",
+                  imageSrc: "/youtube-banner.png",
+                  imageAlt: "YouTube Premium",
+                  pricePerYear: 44.99,
+                  originalPriceValue: 168,
+                }}
               />
               <Integration
                 icon={<Icons.netflix />}
-                name="$7,99/monthly"
+                name="$13,33/monthly"
                 description="Netflix Premium"
+                productData={{
+                  title: "Netflix Premium",
+                  price: "$159.99/yearly",
+                  originalPrice: "$300/year",
+                  discount: "75% OFF",
+                  imageSrc: "/netflix-banner.png",
+                  imageAlt: "Netflix Premium",
+                  pricePerYear: 159.99,
+                  originalPriceValue: 300,
+                }}
               />
               <Integration
                 icon={<Icons.spotify />}
-                name="$2.49/monthly"
+                name="$3,33/monthly"
                 description="Spotify Premium"
+                productData={{
+                  title: "Spotify Premium",
+                  price: "$39.99/yearly",
+                  originalPrice: "$145/year",
+                  discount: "85% OFF",
+                  imageSrc: "/spotify-banner.png",
+                  imageAlt: "Spotify Premium",
+                  pricePerYear: 39.99,
+                  originalPriceValue: 145,
+                }}
               />
               {isSm && (
                 <>
                   <Integration
-                    icon={<Gemini />}
-                    name="Crunchyroll"
+                    icon={<Icons.crunchyroll />}
+                    name="$2,88/monthly"
                     description="Crunchyroll MEGA FAN"
+                    productData={{
+                      title: "Crunchyroll MEGA FAN",
+                      price: "$29.99/yearly",
+                      originalPrice: "$119.99/year",
+                      discount: "95% OFF",
+                      imageSrc: "/crunchyroll-banner.png",
+                      imageAlt: "Crunchyroll MEGA FAN",
+                      pricePerYear: 29.99,
+                      originalPriceValue: 119.99,
+                    }}
                   />
                 </>
               )}
@@ -59,11 +99,34 @@ const Integration = ({
   icon,
   name,
   description,
+  productData,
 }: {
   icon: React.ReactNode;
   name: string;
   description: string;
+  productData: {
+    title: string;
+    price: string;
+    originalPrice: string;
+    discount: string;
+    imageSrc: string;
+    imageAlt: string;
+    pricePerYear: number;
+    originalPriceValue: number;
+  };
 }) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    try {
+      localStorage.setItem("selectedProduct", JSON.stringify(productData));
+      router.push("/product");
+    } catch (e) {
+      // ignore localStorage errors
+      router.push("/product");
+    }
+  };
+
   return (
     <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 border-b border-dashed py-3 last:border-b-0">
       <div className="bg-muted border-foreground/5 flex size-12 items-center justify-center rounded-lg border">
@@ -80,6 +143,7 @@ const Integration = ({
         variant="outline"
         size="icon"
         aria-label="Add integration"
+        onClick={handleClick}
       >
         <Plus className="size-4" />
       </Button>

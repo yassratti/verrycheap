@@ -28,7 +28,7 @@ function CarouselCard({
   onPurchase,
 }: CarouselCardProps) {
   return (
-    <div className="flex-shrink-0 w-80 bg-white h-auto mx-4 p-3 border border-gray-200 rounded-lg shadow-lg">
+    <div className="flex-shrink-0 w-80 sm:w-90 h-auto mx-4 p-3 border border-gray-200 rounded-lg shadow-lg">
       <div className="relative">
         <div className="absolute top-2 left-2 bg-white px-3 py-1 font-bold border text-black rounded-lg z-10">
           {discount}
@@ -128,7 +128,7 @@ function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
       imageAlt: "Spotify Premium",
       discount: "85% OFF",
       title: "Spotify Premium",
-      pricePerYear: 34.99,
+      pricePerYear: 39.99,
       originalPrice: 145,
     },
     {
@@ -154,8 +154,8 @@ function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
 
   return (
     <>
-      <div className="w-screen mt-10 relative z-50 px-5 flex items-center justify-center">
-        <div className="w-full max-w-6xl relative">
+      <div className="w-screen mt-10    relative z-50  flex items-center justify-center">
+        <div className="w-full sm:w-full relative">
           {/* Gradiente izquierdo */}
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
 
