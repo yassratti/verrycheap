@@ -87,7 +87,7 @@ export default function Header1() {
               className="flex items-center justify-center space-x-2"
             >
               <Image
-                src="/verycheaplogo.png"
+                src="/verycheap.png"
                 alt="verycheap logo"
                 width={40}
                 height={40}
