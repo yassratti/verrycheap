@@ -54,7 +54,7 @@ export default function Faqs() {
           </h2>
         </div>
 
-        <div className="w-full max-w-3xl px-4">
+        <div className="w-full sm:max-w-4xl max-w-3xl px-4">
           <Accordion type="single" collapsible className="w-full space-y-2">
             {items.map((item) => (
               <AccordionItem
