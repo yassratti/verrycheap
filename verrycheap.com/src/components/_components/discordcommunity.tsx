@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Icons } from "../icons/icons";
 export function WobbleCardDemo() {
   return (
-    <div className="grid grid-cols-1  lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full">
+    <div className="grid grid-cols-1  lg:grid-cols-3 gap-4 max-w-6xl mx-auto w-full">
       <WobbleCard containerClassName="col-span-1 lg:col-span-3 bg-blue-900 min-h-[450px] lg:min-h-[600px] xl:min-h-[300px]">
         <div className="max-w-sm">
           <h2 className="max-w-sm md:max-w-lg  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
@@ -17,7 +17,11 @@ export function WobbleCardDemo() {
             popular AI platform for developers.
           </p> */}
           <div className="mt-6">
-            <Button className="bg-white cursor-pointer hover:bg-gray-100 relative z-10 text-black font-bold" asChild size="lg">
+            <Button
+              className="bg-white cursor-pointer hover:bg-gray-100 relative z-10 text-black font-bold"
+              asChild
+              size="lg"
+            >
               <Link
                 prefetch={false}
                 href="https://discord.gg/4rsNDUhApJ"
