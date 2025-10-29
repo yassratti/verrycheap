@@ -1,5 +1,4 @@
 "use client";
-import { Gemini, Replit, GooglePaLM } from "@/components/logos";
 import { Icons } from "../icons/icons";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
@@ -16,24 +15,24 @@ export default function IntegrationsSection() {
             <div className="bg-background dark:bg-muted/50 rounded-xl border px-6 pb-5 sm:pb-3  pt-3 shadow-xl">
               <Integration
                 icon={<Icons.youtube />}
-                name="$2.91/monthly"
+                name="$3.74/monthly"
                 description="Youtube Premium"
               />
               <Integration
                 icon={<Icons.netflix />}
-                name="$7,99/monthly"
+                name="$13,33/monthly"
                 description="Netflix Premium"
               />
               <Integration
                 icon={<Icons.spotify />}
-                name="$2.49/monthly"
+                name="$3,33/monthly"
                 description="Spotify Premium"
               />
               {isSm && (
                 <>
                   <Integration
-                    icon={<Gemini />}
-                    name="Crunchyroll"
+                    icon={<Icons.crunchyroll />}
+                    name="$2,88/monthly"
                     description="Crunchyroll MEGA FAN"
                   />
                 </>

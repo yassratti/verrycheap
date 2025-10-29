@@ -19,7 +19,7 @@ const platforms = [
     imageAlt: "Spotify Premium",
     discount: "85% OFF",
     title: "Spotify Premium",
-    pricePerYear: 34.99,
+    pricePerYear: 39.99,
     originalPrice: 145,
   },
   {

@@ -38,7 +38,7 @@ export default function Product({
 
       {/* Featured banner with discount badge - no background card */}
       <div className="w-full px-4 flex justify-center">
-        <div className="relative max-w-5xl w-full">
+        <div className="relative max-w-5xl sm:max-w-2xl w-full">
           <div className="absolute top-2 left-2 bg-white px-3 py-1 font-bold border text-black rounded-lg z-10">
             {discount}
           </div>
@@ -54,7 +54,7 @@ export default function Product({
       </div>
 
       {/* Purchase button below banner */}
-      <div className="w-full px-4 flex justify-center flex-col items-center gap-3 mt-6">
+      <div className="w-full px-4 sm:px-0 sm:max-w-2xl flex justify-center flex-col items-center gap-3 mt-6">
         <div className="w-full">
           <h2 className="text-xl font-semibold mt-2">{title}</h2>
           <div className="flex justify-between mt-2">
@@ -66,7 +66,7 @@ export default function Product({
         </div>
 
         <Button
-          className="text-lg w-full px-8 py-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+          className="text-lg w-full  px-8 py-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
           onClick={() => window.open(purchaseLink, "_blank")}
         >
           Purchase Now
