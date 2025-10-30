@@ -64,9 +64,9 @@ function PlatformCard({
   return (
     <div className="w-full bg-white h-auto  p-3 border border-gray-200 rounded-lg shadow-xs">
       <div className="relative">
-        <div className="absolute top-2 left-2 bg-white px-3 py-1 font-bold border text-black rounded-lg z-10">
+        {/* <div className="absolute top-2 left-2 bg-white px-3 py-1 font-bold border text-black rounded-lg z-10">
           {discount}
-        </div>
+        </div> */}
         <Image
           src={imageSrc}
           alt={imageAlt}

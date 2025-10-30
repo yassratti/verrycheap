@@ -30,9 +30,9 @@ function CarouselCard({
   return (
     <div className="flex-shrink-0 w-80 sm:w-90 h-auto mx-4 p-3 border border-gray-200 rounded-lg shadow-lg">
       <div className="relative">
-        <div className="absolute top-2 left-2 bg-white px-3 py-1 font-bold border text-black rounded-lg z-10">
+        {/* <div className="absolute top-2 left-2 bg-white px-3 py-1 font-bold border text-black rounded-lg z-10">
           {discount}
-        </div>
+        </div> */}
         <Image
           src={imageSrc}
           alt={imageAlt}
@@ -118,7 +118,7 @@ function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
     {
       imageSrc: "/youtube-banner.png",
       imageAlt: "YouTube Premium",
-      discount: "80% OFF",
+      discount: "75% OFF",
       title: "YouTube Premium",
       pricePerYear: 44.99,
       originalPrice: 168,
@@ -126,7 +126,7 @@ function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
     {
       imageSrc: "/spotify-banner.png",
       imageAlt: "Spotify Premium",
-      discount: "85% OFF",
+      discount: "75% OFF",
       title: "Spotify Premium",
       pricePerYear: 39.99,
       originalPrice: 145,
@@ -134,7 +134,7 @@ function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
     {
       imageSrc: "/crunchyroll-banner.png",
       imageAlt: "Crunchyroll MEGA FAN",
-      discount: "95% OFF",
+      discount: "90% OFF",
       title: "Crunchyroll MEGA FAN",
       pricePerYear: 33.99,
       originalPrice: 119.99,
@@ -142,7 +142,7 @@ function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
     {
       imageSrc: "/netflix-banner.png",
       imageAlt: "Netflix Premium",
-      discount: "75% OFF",
+      discount: "47% OFF",
       title: "Netflix Premium",
       pricePerYear: 159.99,
       originalPrice: 300,
