@@ -138,8 +138,8 @@ export default function SubscriptionsDash({
     router.push("/product");
   };
   return (
-    <div className="h-auto pb-10 w-full relative">
-      <div className="w-full mt-10 pt-10 flex flex-col items-center justify-center relative z-20">
+    <div className="h-auto pb-10   relative">
+      <div className="w-full mt-10 pt-10 flex flex-col  items-center justify-center relative z-20">
         <div className="text-center space-y-3 mb-8">
           <h1 className="text-blue-800 font-semibold text-base">
             Subscriptions
@@ -149,8 +149,8 @@ export default function SubscriptionsDash({
           </h2>
         </div>
 
-        <div className="w-full px-5 sm:px-16  ">
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="w-full  px-5 sm:px-16  sm:max-w-7xl lg:w-full">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-3 ">
             {platforms.map((p) => (
               <PlatformCard
                 key={p.title}

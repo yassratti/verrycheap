@@ -19,7 +19,7 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Vercheap - Get Premium Subscriptions at Unbeatable Prices",
+  title: "Verycheap - Get Premium Subscriptions at Unbeatable Prices",
   description:
     "Get NETFLIX, SPOTIFY, YOUTUBE, CRUNCHYROLL and more at unbeatable prices. Enjoy premium subscriptions without breaking the bank. Sign up now!",
 };
