@@ -244,8 +244,14 @@ export default function Missing({
                       setShowForm(false);
                       setSuccessMsg(null);
                     }, 800);
-                  } catch (e: any) {
-                    setErrorMsg(e?.message || "Failed to submit. Please try again.");
+                  } catch (e: unknown) {
+                    let message = "Failed to submit. Please try again.";
+                    if (e instanceof Error) {
+                      message = e.message;
+                    } else if (typeof e === "string") {
+                      message = e;
+                    }
+                    setErrorMsg(message);
                   } finally {
                     setIsSubmitting(false);
                   }
