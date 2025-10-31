@@ -52,7 +52,7 @@ export default function Home() {
         />
         <Whatwedo />
         <SubscriptionsDash onOpenHowItWorks={openHowItWorksModal} />
-        <Missing />
+        <Missing onOpenHowItWorks={openHowItWorksModal} />
         <Faqs />
         <DiscordCommunity />
         <HowItWorksCard
