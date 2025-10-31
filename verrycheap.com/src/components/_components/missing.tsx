@@ -1,5 +1,7 @@
 import Image from "next/image";
+import { useState } from "react";
 import { Button } from "../ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import type { ProductData } from "@/types/product";
 import { useRouter } from "next/navigation";
 const platforms = [
@@ -37,6 +39,7 @@ interface PlatformCardProps {
   originalPrice: number;
   onOpenHowItWorks: () => void;
   onPurchase: (productData: ProductData) => void;
+  onAdd: () => void;
 }
 function PlatformCard({
   imageSrc,
@@ -47,11 +50,18 @@ function PlatformCard({
   originalPrice,
   onOpenHowItWorks,
   onPurchase,
+  onAdd,
 }: PlatformCardProps) {
   return (
     <div className="w-full bg-white h-auto  p-3   rounded-lg shadow-xs relative">
-      <div className="absolute inset-0 z-10 backdrop-blur-md bg-white/20 flex items-center justify-center rounded-lg">
-        <Button variant="outline" className="bg-white  text-black cursor-pointer">Add</Button>
+      <div className={`absolute inset-0 z-10 flex items-center justify-center rounded-lg p-4 backdrop-blur-md bg-white/20`}>
+        <Button
+          variant="outline"
+          className="bg-white  text-black cursor-pointer"
+          onClick={onAdd}
+        >
+          Add
+        </Button>
       </div>
       <div className="relative">
         {/* <div className="absolute top-2 left-2 bg-white px-3 py-1 font-bold border text-black rounded-lg z-10">
@@ -114,6 +124,12 @@ export default function Missing({
   onPurchase,
 }: SubscriptionsDashProps) {
   const router = useRouter();
+  const [showForm, setShowForm] = useState(false);
+  const [email, setEmail] = useState("");
+  const [subscriptionsText, setSubscriptionsText] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
   const handlePurchase = (productData: ProductData) => {
     // If parent provided a custom onPurchase handler, use it.
@@ -147,11 +163,100 @@ export default function Missing({
                 {...p}
                 onOpenHowItWorks={onOpenHowItWorks}
                 onPurchase={handlePurchase}
+                onAdd={() => setShowForm(true)}
               />
             ))}
           </div>
         </div>
       </div>
+      {showForm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/50 p-4">
+          <Card className="w-full max-w-md bg-white">
+            <CardHeader>
+              <CardTitle>Add subscriptions</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {errorMsg && (
+                <div className="text-sm text-red-600">{errorMsg}</div>
+              )}
+              {successMsg && (
+                <div className="text-sm text-green-600">{successMsg}</div>
+              )}
+              <div className="space-y-1">
+                <label className="text-sm font-medium">Email {"(optional)"}</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="to let you know once it’s available"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-medium">Desired subscriptions</label>
+                <textarea
+                  value={subscriptionsText}
+                  onChange={(e) => setSubscriptionsText(e.target.value)}
+                  rows={4}
+                  className="w-full resize-none rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="e.g., YouTube Premium, Spotify Premium, Netflix Premium"
+                />
+              </div>
+            </CardContent>
+            <CardFooter className="gap-2 justify-end">
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  setShowForm(false);
+                  setIsSubmitting(false);
+                  setErrorMsg(null);
+                  setSuccessMsg(null);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                className="bg-blue-600 hover:bg-blue-700"
+                disabled={isSubmitting}
+                onClick={async () => {
+                  setErrorMsg(null);
+                  setSuccessMsg(null);
+                  if (!subscriptionsText.trim()) {
+                    setErrorMsg("Please enter desired subscriptions.");
+                    return;
+                  }
+                  try {
+                    setIsSubmitting(true);
+                    const resp = await fetch("/api/submit-subscriptions", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ email, subscriptions: subscriptionsText }),
+                    });
+                    const data = await resp.json().catch(() => ({}));
+                    if (!resp.ok) {
+                      throw new Error(data?.error || "Unexpected error");
+                    }
+                    setSuccessMsg("Submitted successfully!");
+                    setEmail("");
+                    setSubscriptionsText("");
+                    // Close after a brief delay
+                    setTimeout(() => {
+                      setShowForm(false);
+                      setSuccessMsg(null);
+                    }, 800);
+                  } catch (e: any) {
+                    setErrorMsg(e?.message || "Failed to submit. Please try again.");
+                  } finally {
+                    setIsSubmitting(false);
+                  }
+                }}
+              >
+                {isSubmitting ? "Saving..." : "Save"}
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }
