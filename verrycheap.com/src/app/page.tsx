@@ -12,6 +12,7 @@ import DiscordCommunity from "@/components/_components/discordcommunity";
 import SubscriptionsDash from "@/components/_components/subscriptionsDash";
 import HowItWorksCard from "@/components/_components/how-it-works-card";
 import Missing from "@/components/_components/missing";
+import Testimonials from "@/components/_components/testimonials";
 export default function Home() {
   const [isHowItWorksModalOpen, setIsHowItWorksModalOpen] = useState(false);
   const router = useRouter();
@@ -51,6 +52,7 @@ export default function Home() {
           onPurchase={handlePurchase}
         />
         <Whatwedo />
+        <Testimonials />
         <SubscriptionsDash onOpenHowItWorks={openHowItWorksModal} />
         <Missing onOpenHowItWorks={openHowItWorksModal} />
         <Faqs />

@@ -153,3 +153,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Masonry layout para testimonios tipo Pinterest */
+.testimonials-masonry {
+  column-count: 1;
+  column-gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .testimonials-masonry {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .testimonials-masonry {
+    column-count: 3;
+  }
+}
