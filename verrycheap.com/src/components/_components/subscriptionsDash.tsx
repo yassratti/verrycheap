@@ -150,7 +150,7 @@ export default function SubscriptionsDash({
         </div>
 
         <div className="w-full  px-5 sm:px-16  sm:max-w-7xl lg:w-full">
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-3 ">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ">
             {platforms.map((p) => (
               <PlatformCard
                 key={p.title}
@@ -161,6 +161,16 @@ export default function SubscriptionsDash({
             ))}
           </div>
         </div>
+
+        <div className="pt-20">
+            <Button
+              variant={"outline"}
+              className="cursor-pointer border-2 py-5 px-5"
+              onClick={() => router.push("/products")}
+            >
+              Browse more
+            </Button>
+          </div>
       </div>
     </div>
   );

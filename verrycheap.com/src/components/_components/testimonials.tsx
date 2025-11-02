@@ -245,6 +245,7 @@ export default function Testimonials() {
             <Button
               variant={"outline"}
               className="cursor-pointer border-2 py-5 px-5"
+              onClick={() => window.open("https://www.trustpilot.com/review/verycheap.app", "_blank")}
             >
               Check in Trustpilot
             </Button>
