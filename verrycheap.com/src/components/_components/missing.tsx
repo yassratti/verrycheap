@@ -1,7 +1,13 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "../ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 import type { ProductData } from "@/types/product";
 import { useRouter } from "next/navigation";
 const platforms = [
@@ -54,10 +60,12 @@ function PlatformCard({
 }: PlatformCardProps) {
   return (
     <div className="w-full bg-white h-auto  p-3   rounded-lg shadow-xs relative">
-      <div className={`absolute inset-0 z-10 flex items-center justify-center rounded-lg p-4 backdrop-blur-md bg-white/20`}>
+      <div
+        className={`absolute inset-0 z-10 flex items-center justify-center rounded-lg p-4 backdrop-blur-md bg-white/20`}
+      >
         <Button
           variant="outline"
-          className="bg-white  text-black cursor-pointer"
+          className="bg-white  sm:text-xl sm:px-8 sm:py-4 text-black cursor-pointer"
           onClick={onAdd}
         >
           Add
@@ -147,24 +155,26 @@ export default function Missing({
     <div className="h-auto pb-10   relative">
       <div className="w-full mt-10 pt-10 flex flex-col  items-center justify-center relative z-20">
         <div className="text-center space-y-3 mb-8">
-          <h1 className="text-blue-800 font-semibold text-base">
-            Subscriptions
-          </h1>
+          <h1 className="text-blue-800 font-semibold text-base">suggest</h1>
           <h2 className="text-black text-2xl font-bold ">
-            Same apps, smaller bill
+            Are your favorite subscription missing?
           </h2>
         </div>
 
         <div className="w-full  px-5 sm:px-16  sm:max-w-7xl lg:w-full">
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-3 ">
-            {platforms.map((p) => (
-              <PlatformCard
+            {platforms.map((p, index) => (
+              <div
                 key={p.title}
-                {...p}
-                onOpenHowItWorks={onOpenHowItWorks}
-                onPurchase={handlePurchase}
-                onAdd={() => setShowForm(true)}
-              />
+                className={index >= 1 ? "hidden sm:block" : ""}
+              >
+                <PlatformCard
+                  {...p}
+                  onOpenHowItWorks={onOpenHowItWorks}
+                  onPurchase={handlePurchase}
+                  onAdd={() => setShowForm(true)}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -183,7 +193,9 @@ export default function Missing({
                 <div className="text-sm text-green-600">{successMsg}</div>
               )}
               <div className="space-y-1">
-                <label className="text-sm font-medium">Email {"(optional)"}</label>
+                <label className="text-sm font-medium">
+                  Email {"(optional)"}
+                </label>
                 <input
                   type="email"
                   value={email}
@@ -193,7 +205,9 @@ export default function Missing({
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-sm font-medium">Desired subscriptions</label>
+                <label className="text-sm font-medium">
+                  Desired subscriptions
+                </label>
                 <textarea
                   value={subscriptionsText}
                   onChange={(e) => setSubscriptionsText(e.target.value)}
@@ -230,7 +244,10 @@ export default function Missing({
                     const resp = await fetch("/api/submit-subscriptions", {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({ email, subscriptions: subscriptionsText }),
+                      body: JSON.stringify({
+                        email,
+                        subscriptions: subscriptionsText,
+                      }),
                     });
                     const data = await resp.json().catch(() => ({}));
                     if (!resp.ok) {
