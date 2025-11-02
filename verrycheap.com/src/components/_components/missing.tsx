@@ -163,14 +163,18 @@ export default function Missing({
 
         <div className="w-full  px-5 sm:px-16  sm:max-w-7xl lg:w-full">
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-3 ">
-            {platforms.map((p) => (
-              <PlatformCard
+            {platforms.map((p, index) => (
+              <div
                 key={p.title}
-                {...p}
-                onOpenHowItWorks={onOpenHowItWorks}
-                onPurchase={handlePurchase}
-                onAdd={() => setShowForm(true)}
-              />
+                className={index >= 1 ? "hidden sm:block" : ""}
+              >
+                <PlatformCard
+                  {...p}
+                  onOpenHowItWorks={onOpenHowItWorks}
+                  onPurchase={handlePurchase}
+                  onAdd={() => setShowForm(true)}
+                />
+              </div>
             ))}
           </div>
         </div>
