@@ -225,7 +225,7 @@ export default function Testimonials() {
               alt="trustpilot logo"
               className="sm:w-30 w-30"
             ></Image>
-            <h2 className="text-black text-2xl font-bold">
+            <h2 className="text-black text-2xl text-center font-bold">
               They&apos;ve already tried it, and here&apos;s what they think
             </h2>
           </div>
@@ -245,7 +245,12 @@ export default function Testimonials() {
             <Button
               variant={"outline"}
               className="cursor-pointer border-2 py-5 px-5"
-              onClick={() => window.open("https://www.trustpilot.com/review/verycheap.app", "_blank")}
+              onClick={() =>
+                window.open(
+                  "https://www.trustpilot.com/review/verycheap.app",
+                  "_blank"
+                )
+              }
             >
               Check in Trustpilot
             </Button>
