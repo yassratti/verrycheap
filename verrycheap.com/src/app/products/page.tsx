@@ -19,7 +19,7 @@ export default function Products() {
        
 
         <Header />
-        <SubscriptionsDash onOpenHowItWorks={openHowItWorksModal} />
+        <SubscriptionsDash showBrowseMore={false} onOpenHowItWorks={openHowItWorksModal} />
         <Faqs />
         <DiscordCommunity />
         <HowItWorksCard isOpen={isHowItWorksModalOpen} onClose={closeHowItWorksModal} />

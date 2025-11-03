@@ -53,7 +53,7 @@ export default function Home() {
         />
         <Whatwedo />
         <Testimonials />
-        <SubscriptionsDash onOpenHowItWorks={openHowItWorksModal} />
+        <SubscriptionsDash onOpenHowItWorks={openHowItWorksModal} showBrowseMore={true} />
         <Missing onOpenHowItWorks={openHowItWorksModal} />
         <Faqs />
         <DiscordCommunity />
