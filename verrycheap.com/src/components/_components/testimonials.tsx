@@ -200,7 +200,7 @@ export default function Testimonials() {
       link: "https://www.trustpilot.com/reviews/69050d4eaacd7dd59ff9275d",
     },
     {
-      name: "Bossadi Zenith",
+      name: "Alex Liberal",
       date: "Oct 29, 2025",
       rating: 5,
       headline: "Trato rapido,",
