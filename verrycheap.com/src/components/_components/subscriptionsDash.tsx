@@ -117,11 +117,13 @@ function PlatformCard({
 interface SubscriptionsDashProps {
   onOpenHowItWorks: () => void;
   onPurchase?: (productData: ProductData) => void;
+  showBrowseMore?: boolean;
 }
 
 export default function SubscriptionsDash({
   onOpenHowItWorks,
   onPurchase,
+  showBrowseMore = false,
 }: SubscriptionsDashProps) {
   const router = useRouter();
 
@@ -162,7 +164,8 @@ export default function SubscriptionsDash({
           </div>
         </div>
 
-        <div className="pt-20">
+        {showBrowseMore && (
+          <div className="pt-20">
             <Button
               variant={"outline"}
               className="cursor-pointer border-2 py-5 px-5"
@@ -171,6 +174,7 @@ export default function SubscriptionsDash({
               Browse more
             </Button>
           </div>
+        )}
       </div>
     </div>
   );
