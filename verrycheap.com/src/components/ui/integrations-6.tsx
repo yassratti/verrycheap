@@ -84,7 +84,7 @@ export default function IntegrationsSection() {
             <h2 className="text-balance text-2xl font-semibold md:text-4xl lg:text-5xl">
               Save up to{" "}
               <Highlighter action="box" color="#818cf8">
-                85%
+                75%
               </Highlighter>{" "}
               in the same services you love
             </h2>

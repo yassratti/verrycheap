@@ -14,7 +14,7 @@ export default function Whatwedo() {
             What we do?
           </h1>
           <h2 className="text-black text-2xl md:text-4xl lg:text-5xl font-bold leading-tight">
-            This is what we do to get the same service but 85% cheaper
+            This is what we do to get the same service but 75% cheaper
           </h2>
         </div>
 

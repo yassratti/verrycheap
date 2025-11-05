@@ -15,12 +15,12 @@ export default function ProductPage() {
     imageAlt: "YouTube Premium banner",
     purchaseLink: "https://buy.stripe.com/28E8wP0Ge5zP31Q7Jn3840e",
     deliveryInfo: "The delivery can be by email or through",
-    discordLink: "https://discord.gg/4rsNDUhApJ"
+    discordLink: "https://discord.gg/4rsNDUhApJ",
   });
 
   useEffect(() => {
     // Leer los datos del producto desde localStorage
-    const savedProduct = localStorage.getItem('selectedProduct');
+    const savedProduct = localStorage.getItem("selectedProduct");
     if (savedProduct) {
       try {
         const parsedProduct = JSON.parse(savedProduct);
@@ -34,10 +34,10 @@ export default function ProductPage() {
           imageAlt: parsedProduct.imageAlt,
           purchaseLink: getPurchaseLink(parsedProduct.title), // Función para obtener el enlace correcto
           deliveryInfo: "The delivery can be by email or through",
-          discordLink: "https://discord.gg/4rsNDUhApJ"
+          discordLink: "https://discord.gg/4rsNDUhApJ",
         });
       } catch (error) {
-        console.error('Error parsing product data:', error);
+        console.error("Error parsing product data:", error);
       }
     }
   }, []);
@@ -53,6 +53,8 @@ export default function ProductPage() {
         return "https://buy.stripe.com/00w3cv9cKaU9fOC1kZ3840g";
       case "Netflix Premium":
         return "https://buy.stripe.com/dRmdR91Ki8M18mae7L3840h";
+      case "Creative Cloud Pro":
+        return "https://buy.stripe.com/cNicN50Ge2nDfOC5Bf3840m";
       default:
         return "https://buy.stripe.com/28E8wP0Ge5zP31Q7Jn3840e";
     }
