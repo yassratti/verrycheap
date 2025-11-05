@@ -147,6 +147,14 @@ function Carousel({ onOpenHowItWorks, onPurchase }: CarouselProps) {
       pricePerYear: 159.99,
       originalPrice: 300,
     },
+    {
+      imageSrc: "/creativecloudlogo3.png",
+      imageAlt: "Creative Cloud Pro",
+      discount: "47% OFF",
+      title: "Creative Cloud Pro",
+      pricePerYear: 269.99,
+      originalPrice: 599.88,
+    },
   ];
 
   // Duplicar los datos para crear un efecto de cinta infinita más suave
