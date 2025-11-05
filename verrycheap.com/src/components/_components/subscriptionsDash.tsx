@@ -39,7 +39,7 @@ const platforms = [
     originalPrice: 300,
   },
   {
-    imageSrc: "/creativecloudlogo.png",
+    imageSrc: "/creativecloudlogo3.png",
     imageAlt: "Creative Cloud Pro",
     discount: "55% OFF",
     title: "Creative Cloud Pro",
