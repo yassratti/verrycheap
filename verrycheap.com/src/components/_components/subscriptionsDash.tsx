@@ -9,7 +9,7 @@ const platforms = [
   {
     imageSrc: "/youtube-banner.png",
     imageAlt: "YouTube Premium",
-    discount: "80% OFF",
+    discount: "75% OFF",
     title: "YouTube Premium",
     pricePerYear: 44.99,
     originalPrice: 168,
@@ -17,7 +17,7 @@ const platforms = [
   {
     imageSrc: "/spotify-banner.png",
     imageAlt: "Spotify Premium",
-    discount: "85% OFF",
+    discount: "75% OFF",
     title: "Spotify Premium",
     pricePerYear: 39.99,
     originalPrice: 145,
@@ -25,7 +25,7 @@ const platforms = [
   {
     imageSrc: "/crunchyroll-banner.png",
     imageAlt: "Crunchyroll MEGA FAN",
-    discount: "95% OFF",
+    discount: "75% OFF",
     title: "Crunchyroll MEGA FAN",
     pricePerYear: 29.99,
     originalPrice: 119.99,
@@ -33,10 +33,18 @@ const platforms = [
   {
     imageSrc: "/netflix-banner.png",
     imageAlt: "Netflix Premium",
-    discount: "75% OFF",
+    discount: "46% OFF",
     title: "Netflix Premium",
     pricePerYear: 159.99,
     originalPrice: 300,
+  },
+  {
+    imageSrc: "/creativecloudlogo.png",
+    imageAlt: "Creative Cloud Pro",
+    discount: "55% OFF",
+    title: "Creative Cloud Pro",
+    pricePerYear: 269.99,
+    originalPrice: 599.88,
   },
 ];
 
