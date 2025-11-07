@@ -37,6 +37,7 @@ export default function RootLayout({
         style={{ fontFamily: "var(--font-bricolage), sans-serif" }}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
