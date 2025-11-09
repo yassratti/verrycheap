@@ -3,6 +3,14 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
+export interface ProductVariant {
+  title: string;
+  price: string;
+  originalPrice: string;
+  discount: string;
+  purchaseLink: string;
+}
+
 interface ProductProps {
   title: string;
   price: string;
@@ -13,6 +21,7 @@ interface ProductProps {
   purchaseLink: string;
   deliveryInfo: string;
   discordLink: string;
+  variants?: ProductVariant[];
 }
 
 export default function Product({
@@ -25,6 +34,7 @@ export default function Product({
   purchaseLink,
   deliveryInfo,
   discordLink,
+  variants,
 }: ProductProps) {
   return (
     <div className="w-full mt-10 pt-6 flex flex-col items-center justify-center relative z-20">
@@ -55,6 +65,7 @@ export default function Product({
 
       {/* Purchase button below banner */}
       <div className="w-full px-4 sm:px-0 sm:max-w-2xl flex justify-center flex-col items-center gap-3 mt-6">
+        {/* Main product */}
         <div className="w-full">
           <h2 className="text-xl font-semibold mt-2">{title}</h2>
           <div className="flex justify-between mt-2">
@@ -71,6 +82,32 @@ export default function Product({
         >
           Purchase Now
         </Button>
+
+        {/* Variants */}
+        {variants && variants.length > 0 && (
+          <div className="w-full mt-6 space-y-4">
+            {variants.map((variant, index) => (
+              <div key={index} className="w-full border-t pt-4">
+                <div className="w-full">
+                  <h2 className="text-xl font-semibold mt-2">{variant.title}</h2>
+                  <div className="flex justify-between mt-2">
+                    <p className="text-xl font-medium">{variant.price}</p>
+                    <p className="text-xl font-medium text-[#737373] line-through">
+                      {variant.originalPrice}
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  className="text-lg w-full mt-3 px-8 py-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+                  onClick={() => window.open(variant.purchaseLink, "_blank")}
+                >
+                  Purchase Now
+                </Button>
+              </div>
+            ))}
+          </div>
+        )}
+
         <p className="text-gray-400 text-sm">
           {deliveryInfo}{" "}
           <a
