@@ -13,6 +13,8 @@ import SubscriptionsDash from "@/components/_components/subscriptionsDash";
 import HowItWorksCard from "@/components/_components/how-it-works-card";
 import Missing from "@/components/_components/missing";
 import Testimonials from "@/components/_components/testimonials";
+import { getProductUrl } from "@/lib/products";
+
 export default function Home() {
   const [isHowItWorksModalOpen, setIsHowItWorksModalOpen] = useState(false);
   const router = useRouter();
@@ -21,10 +23,9 @@ export default function Home() {
   const closeHowItWorksModal = () => setIsHowItWorksModalOpen(false);
 
   const handlePurchase = (productData: ProductData) => {
-    // Guardar los datos del producto en localStorage para que la página de producto los pueda leer
-    localStorage.setItem("selectedProduct", JSON.stringify(productData));
-    // Navegar a la página de producto
-    router.push("/product");
+    // Navigate to product-specific URL
+    const productUrl = getProductUrl(productData.title);
+    router.push(productUrl);
   };
   return (
     <div className="w-screen h-screen">

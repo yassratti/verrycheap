@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import type { ProductData } from "@/types/product";
+import { getProductUrl } from "@/lib/products";
 
 const platforms = [
   {
@@ -139,13 +140,9 @@ export default function SubscriptionsDash({
     // If parent provided a custom onPurchase handler, use it.
     if (onPurchase) return onPurchase(productData);
 
-    // Default behavior: store selected product and navigate to product page
-    try {
-      localStorage.setItem("selectedProduct", JSON.stringify(productData));
-    } catch (e) {
-      // ignore localStorage errors
-    }
-    router.push("/product");
+    // Default behavior: navigate to product-specific URL
+    const productUrl = getProductUrl(productData.title);
+    router.push(productUrl);
   };
   return (
     <div className="h-auto pb-10   relative">

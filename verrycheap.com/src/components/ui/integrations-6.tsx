@@ -5,6 +5,7 @@ import { Plus } from "lucide-react";
 import useBreakpoint from "@/hooks/use-breakpoint";
 import { Highlighter } from "@/components/ui/highlighter";
 import { useRouter } from "next/navigation";
+import { getProductUrl } from "@/lib/products";
 
 export default function IntegrationsSection() {
   const isSm = useBreakpoint();
@@ -118,13 +119,8 @@ const Integration = ({
   const router = useRouter();
 
   const handleClick = () => {
-    try {
-      localStorage.setItem("selectedProduct", JSON.stringify(productData));
-      router.push("/product");
-    } catch (e) {
-      // ignore localStorage errors
-      router.push("/product");
-    }
+    const productUrl = getProductUrl(productData.title);
+    router.push(productUrl);
   };
 
   return (
