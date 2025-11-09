@@ -60,9 +60,24 @@ export const products: ProductConfig[] = [
     purchaseLink: "https://buy.stripe.com/dRmdR91Ki8M18mae7L3840h",
     variants: [
       {
+        title: "Netflix Premium / Monthly",
+        pricePerYear: 14.99,
+        originalPrice: 25,
+        discount: "46% OFF",
+        purchaseLink: "https://buy.stripe.com/dRmdR91Ki8M18mae7L3840h", // You'll need to update this with the actual link
+      },
+      {
         title: "Netflix Standard",
         pricePerYear: 119.99,
         originalPrice: 216,
+        discount: "44% OFF",
+        purchaseLink: "https://buy.stripe.com/dRmdR91Ki8M18mae7L3840h", // You'll need to update this with the actual link
+      },
+   
+      {
+        title: "Netflix Standard / Monthly",
+        pricePerYear: 10.99,
+        originalPrice: 18,
         discount: "44% OFF",
         purchaseLink: "https://buy.stripe.com/dRmdR91Ki8M18mae7L3840h", // You'll need to update this with the actual link
       },

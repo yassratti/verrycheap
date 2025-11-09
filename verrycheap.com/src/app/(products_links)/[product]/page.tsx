@@ -31,13 +31,17 @@ export default function ProductPage() {
       const product = getProductBySlug(productSlug);
       if (product) {
         // Convert variants to ProductVariant format if they exist
-        const variants: ProductVariant[] | undefined = product.variants?.map((variant) => ({
-          title: variant.title,
-          price: `$${variant.pricePerYear}/yearly`,
-          originalPrice: `$${variant.originalPrice}/year`,
-          discount: variant.discount,
-          purchaseLink: variant.purchaseLink,
-        }));
+        const variants: ProductVariant[] | undefined = product.variants?.map((variant) => {
+          const titleLower = variant.title.toLowerCase();
+          const isMonthly = titleLower.includes("mensual") || titleLower.includes("monthly");
+          return {
+            title: variant.title,
+            price: isMonthly ? `$${variant.pricePerYear}/month` : `$${variant.pricePerYear}/yearly`,
+            originalPrice: isMonthly ? `$${variant.originalPrice}/month` : `$${variant.originalPrice}/year`,
+            discount: variant.discount,
+            purchaseLink: variant.purchaseLink,
+          };
+        });
 
         setProductData({
           title: product.title,
@@ -74,6 +78,7 @@ export default function ProductPage() {
             purchaseLink: product.purchaseLink,
             deliveryInfo: "The delivery can be by email or through",
             discordLink: "https://discord.gg/4rsNDUhApJ",
+            variants: undefined,
           });
         } else {
           // Fallback to parsed data if product not found in config
@@ -87,6 +92,7 @@ export default function ProductPage() {
             purchaseLink: getPurchaseLink(parsedProduct.title),
             deliveryInfo: "The delivery can be by email or through",
             discordLink: "https://discord.gg/4rsNDUhApJ",
+            variants: undefined,
           });
         }
       } catch (error) {
