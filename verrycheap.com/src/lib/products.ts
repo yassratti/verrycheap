@@ -45,8 +45,8 @@ export const products: ProductConfig[] = [
     imageSrc: "/crunchyroll-banner.png",
     imageAlt: "Crunchyroll MEGA FAN",
     discount: "75% OFF",
-    pricePerYear: 29.99,
-    originalPrice: 119.99,
+    pricePerYear: 33.99,
+    originalPrice: 124.99,
     purchaseLink: "https://buy.stripe.com/00w3cv9cKaU9fOC1kZ3840g",
   },
   {
