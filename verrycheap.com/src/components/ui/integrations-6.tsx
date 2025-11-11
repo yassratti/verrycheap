@@ -68,13 +68,13 @@ export default function IntegrationsSection() {
                     description="Crunchyroll MEGA FAN"
                     productData={{
                       title: "Crunchyroll MEGA FAN",
-                      price: "$29.99/yearly",
+                      price: "$33.99/yearly",
                       originalPrice: "$119.99/year",
                       discount: "95% OFF",
                       imageSrc: "/crunchyroll-banner.png",
                       imageAlt: "Crunchyroll MEGA FAN",
-                      pricePerYear: 29.99,
-                      originalPriceValue: 119.99,
+                      pricePerYear: 33.99,
+                      originalPriceValue: 124.99,
                     }}
                   />
                 </>
