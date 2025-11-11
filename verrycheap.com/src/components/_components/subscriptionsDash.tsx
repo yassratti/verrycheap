@@ -28,7 +28,7 @@ const platforms = [
     imageAlt: "Crunchyroll MEGA FAN",
     discount: "75% OFF",
     title: "Crunchyroll MEGA FAN",
-    pricePerYear: 29.99,
+    pricePerYear: 33.99,
     originalPrice: 119.99,
   },
   {
