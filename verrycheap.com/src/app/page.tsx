@@ -29,7 +29,7 @@ export default function Home() {
   };
   return (
     <div className="w-screen h-screen">
-      {/* <div className="h-240 w-full bg-[#f9fafb] relative">
+      <div className="h-240 w-full bg-[#f9fafb] relative">
  
         <div
           className="absolute inset-0 z-0"
@@ -70,7 +70,7 @@ export default function Home() {
             background: "linear-gradient(to top, #ffffff, transparent)",
           }}
         />
-      </div> */}
+      </div>
     </div>
 
   );
