@@ -3,7 +3,16 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { ProductData } from "@/types/product";
-
+import Header from "@/components/_components/header";
+import Hero from "@/components/_components/hero";
+import Whatwedo from "@/components/_components/what-we-do";
+import Carousel from "@/components/_components/carousel";
+import Faqs from "@/components/_components/faq";
+import DiscordCommunity from "@/components/_components/discordcommunity";
+import SubscriptionsDash from "@/components/_components/subscriptionsDash";
+import HowItWorksCard from "@/components/_components/how-it-works-card";
+import Missing from "@/components/_components/missing";
+import Testimonials from "@/components/_components/testimonials";
 import { getProductUrl } from "@/lib/products";
 
 export default function Home() {
@@ -36,7 +45,25 @@ export default function Home() {
               "radial-gradient(ellipse 80% 80% at 0% 0%, #000 50%, transparent 90%)",
           }}
         />
-      
+        <Header />
+        <Hero />
+        <Carousel
+          onOpenHowItWorks={openHowItWorksModal}
+          onPurchase={handlePurchase}
+        />
+        <Whatwedo />
+        <Testimonials />
+        <SubscriptionsDash
+          onOpenHowItWorks={openHowItWorksModal}
+          showBrowseMore={true}
+        />
+        <Missing onOpenHowItWorks={openHowItWorksModal} />
+        <Faqs />
+        <DiscordCommunity />
+        <HowItWorksCard
+          isOpen={isHowItWorksModalOpen}
+          onClose={closeHowItWorksModal}
+        />
         {/* Gradient at bottom */}
         <div
           className="absolute bottom-0 left-0 w-full h-32 z-0"
