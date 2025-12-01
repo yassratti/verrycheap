@@ -1,8 +1,11 @@
 import { Button } from "../ui/button";
+import GoogleLoginButton from "./google-login-button";
+
 function Header() {
   return (
-    <div>
-      <Button>hello world</Button>
+    <div className="p-4 flex justify-between items-center border-b">
+      <h1 className="text-xl font-bold">VerryCheap</h1>
+      <GoogleLoginButton />
     </div>
   );
 }
