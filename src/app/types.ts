@@ -3,3 +3,4 @@ export type UserData = {
   avatar_url: string | undefined;
   full_name: string | undefined;
 };
+
