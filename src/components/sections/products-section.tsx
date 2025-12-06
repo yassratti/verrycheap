@@ -3,7 +3,6 @@
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import { Icons } from "../_components/icons";
 /**
  * Products section component with its own header and content

@@ -20,13 +20,15 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
 
+import type { IconProps } from "@/components/_components/icons"
+
 export function NavMain({
   items,
 }: {
   items: {
     title: string
     section: 'products' | 'settings' | 'support' | 'feedback'
-    icon: LucideIcon | React.ComponentType<any>
+    icon: LucideIcon | React.ComponentType<IconProps>
     isActive?: boolean
     items?: {
       title: string
@@ -76,7 +78,7 @@ export function NavMain({
                       {item.items?.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild>
-                            <button onClick={() => handleNavigate(subItem.section as any)}>
+                            <button onClick={() => handleNavigate(subItem.section as 'products' | 'settings' | 'support' | 'feedback')}>
                               <span>{subItem.title}</span>
                             </button>
                           </SidebarMenuSubButton>
