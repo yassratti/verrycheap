@@ -1,22 +1,15 @@
-"use client"
+"use client";
 
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
-import { SidebarTrigger } from "@/components/ui/sidebar"
-import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
-
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import { Icons } from "../_components/icons";
 /**
  * Products section component with its own header and content
  * You can customize the header with action buttons specific to products
  */
+
 export function ProductsSection() {
   return (
     <>
@@ -28,20 +21,17 @@ export function ProductsSection() {
             orientation="vertical"
             className="mr-2 data-[orientation=vertical]:h-4"
           />
-          <p>Products</p>
-          
+          <p className="text-sm">Products</p>
+
           {/* Botones de acción específicos para Products */}
           <div className="ml-auto flex items-center gap-2">
-         
-            <Button size="sm">
-              <Plus className="h-4 w-4 mr-1" />
+            <Button size="sm" className="cursor-pointer">
+              <Icons.plus className="h-4 w-4 mr-1" />
               Add Product
             </Button>
           </div>
         </div>
       </header>
-
-    
     </>
-  )
+  );
 }

@@ -3,14 +3,17 @@
 import * as React from "react"
 import {
   Command,
-
   LifeBuoy,
-
   Send,
   Settings2,
   SquareTerminal,
+  Plus,
+  Bell,
 } from "lucide-react"
 
+
+
+import { Icons } from "@/components/_components/icons"
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
@@ -22,7 +25,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarGroup,
 } from "@/components/ui/sidebar"
+import { Button } from "@/components/ui/button"
 
 const data = {
   user: {
@@ -34,7 +39,7 @@ const data = {
     {
       title: "Products",
       section: "products" as const,
-      icon: SquareTerminal,
+      icon: Icons.store,
       isActive: true,
     },
     
@@ -81,6 +86,29 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
+        {/* Quick Create and Notifications buttons */}
+        <SidebarGroup>
+          <SidebarMenu>
+            <SidebarMenuItem className="flex items-center gap-2">
+              <SidebarMenuButton
+                tooltip="Quick Create"
+                className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground duration-200 ease-linear cursor-pointer"
+              >
+                <Icons.plus />
+                <span>Quick Create</span>
+              </SidebarMenuButton>
+              <Button
+                size="icon"
+                className="size-8 shrink-0 group-data-[collapsible=icon]:opacity-0 cursor-pointer"
+                variant="outline"
+              >
+                <Icons.bell />
+                <span className="sr-only">Notifications</span>
+              </Button>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+        
         <NavMain items={data.navMain} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
