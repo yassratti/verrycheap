@@ -26,7 +26,7 @@ export function NavMain({
   items: {
     title: string
     section: 'products' | 'settings' | 'support' | 'feedback'
-    icon: LucideIcon
+    icon: LucideIcon | React.ComponentType<any>
     isActive?: boolean
     items?: {
       title: string

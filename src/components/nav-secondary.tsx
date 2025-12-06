@@ -19,7 +19,7 @@ export function NavSecondary({
   items: {
     title: string
     section: 'products' | 'settings' | 'support' | 'feedback'
-    icon: LucideIcon
+    icon: LucideIcon | React.ComponentType<any>
   }[]
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
   // Get the active section and setter from context
