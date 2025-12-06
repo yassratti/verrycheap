@@ -6,9 +6,7 @@ import {
   LifeBuoy,
   Send,
   Settings2,
-  SquareTerminal,
-  Plus,
-  Bell,
+
 } from "lucide-react"
 
 
@@ -65,7 +63,20 @@ const data = {
 
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+// Define the user type for the sidebar
+type SidebarUser = {
+  name: string
+  email: string
+  avatar: string
+}
+
+type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
+  user?: SidebarUser
+}
+
+export function AppSidebar({ user, ...props }: AppSidebarProps) {
+  // Use provided user or fallback to default data
+  const userData = user || data.user;
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -113,7 +124,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={userData} />
       </SidebarFooter>
     </Sidebar>
   )
