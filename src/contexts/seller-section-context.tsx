@@ -44,7 +44,14 @@ export function SellerSectionProvider({ children }: SellerSectionProviderProps) 
 
   // Sync state with URL on mount and when pathname changes
   useEffect(() => {
-    const currentSection = getCurrentSectionFromUrl()
+    const parts = pathname.split('/')
+    const section = parts[parts.length - 1]
+    
+    // Validate if the section is valid, otherwise default to 'products'
+    const currentSection = (['products', 'settings', 'support', 'feedback'].includes(section)
+      ? section
+      : 'products') as SellerSection
+    
     setActiveSectionState(currentSection)
   }, [pathname])
 
