@@ -1,4 +1,3 @@
-import { Button } from "../ui/button";
 import GoogleLoginButton from "./google-login-button";
 
 function Header() {

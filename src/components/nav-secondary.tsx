@@ -3,6 +3,7 @@
 import * as React from "react"
 import { type LucideIcon } from "lucide-react"
 import { useSellerSection } from "@/contexts/seller-section-context"
+import type { IconProps } from "@/components/_components/icons"
 
 import {
   SidebarGroup,
@@ -19,7 +20,7 @@ export function NavSecondary({
   items: {
     title: string
     section: 'products' | 'settings' | 'support' | 'feedback'
-    icon: LucideIcon | React.ComponentType<any>
+    icon: LucideIcon | React.ComponentType<IconProps>
   }[]
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
   // Get the active section and setter from context
