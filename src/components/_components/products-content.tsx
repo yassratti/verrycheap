@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { Icons } from "./icons";
 import { ImageUpload } from "./image-upload";
@@ -35,22 +37,138 @@ export const AddProduct = ({
   trigger,
 }: AddProductProps) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [serviceName, setServiceName] = useState("");
+  const [salePrice, setSalePrice] = useState("");
+  const [originalPrice, setOriginalPrice] = useState("");
+  const [badgeInput, setBadgeInput] = useState("");
+  const [badges, setBadges] = useState<string[]>([]);
+
+  const handleAddBadge = () => {
+    if (badgeInput.trim() && !badges.includes(badgeInput.trim())) {
+      setBadges([...badges, badgeInput.trim()]);
+      setBadgeInput("");
+    }
+  };
+
+  const handleRemoveBadge = (badgeToRemove: string) => {
+    setBadges(badges.filter((badge) => badge !== badgeToRemove));
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleAddBadge();
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent
+        className="max-h-[90vh] overflow-y-auto sm:max-w-[500px]"
+        showCloseButton={false}
+      >
         <DialogHeader>
           <DialogTitle className="text-lg">Add Product</DialogTitle>
         </DialogHeader>
+        <Separator />
 
         <div className="space-y-4">
+          {/* Image Upload */}
           <div>
             <label className="mb-2 block text-sm font-medium">
               Product Image
             </label>
             <ImageUpload onChange={(file) => setImageFile(file)} />
           </div>
+
+          {/* Service Name */}
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Service Name
+            </label>
+            <Input
+              placeholder="e.g., Spotify Premium"
+              value={serviceName}
+              onChange={(e) => setServiceName(e.target.value)}
+            />
+          </div>
+
+          {/* Sale Price */}
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Sale Price in USD
+            </label>
+            <Input
+              type="number"
+              placeholder="0.00"
+              value={salePrice}
+              onChange={(e) => setSalePrice(e.target.value)}
+            />
+          </div>
+
+          {/* Original USA Price */}
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Original USA Price
+            </label>
+            <Input
+              type="number"
+              placeholder="0.00"
+              value={originalPrice}
+              onChange={(e) => setOriginalPrice(e.target.value)}
+            />
+          </div>
+
+          {/* Plans/Badges */}
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Available Plans
+            </label>
+            <div className="flex gap-2">
+              <Input
+                placeholder="e.g., Individual, Family"
+                value={badgeInput}
+                onChange={(e) => setBadgeInput(e.target.value)}
+                onKeyPress={handleKeyPress}
+              />
+              <Button
+                type="button"
+                onClick={handleAddBadge}
+                size="sm"
+                className="shrink-0"
+              >
+                Add
+              </Button>
+            </div>
+
+            {/* Display Badges */}
+            {badges.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {badges.map((badge) => (
+                  <Badge
+                    key={badge}
+                    variant="outline"
+                    className="flex items-center gap-1"
+                  >
+                    {badge}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveBadge(badge)}
+                      className="hover:text-destructive ml-1"
+                    >
+                      <Icons.trash className="h-3 w-3" />
+                    </button>
+                  </Badge>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Submit Button */}
+          <Button className="w-full" size="lg">
+            Add Product
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
