@@ -155,7 +155,7 @@ export const AddProduct = ({
                     <button
                       type="button"
                       onClick={() => handleRemoveBadge(badge)}
-                      className="hover:text-destructive ml-1"
+                      className="hover:text-destructive ml-1 cursor-pointer"
                     >
                       <Icons.trash className="h-3 w-3" />
                     </button>
