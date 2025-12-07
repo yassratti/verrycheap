@@ -5,6 +5,8 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Icons } from "../_components/icons";
 import ProductsContent from "../_components/products-content";
+import { AddProduct } from "../_components/products-content";
+
 /**
  * Products section component with its own header and content
  * You can customize the header with action buttons specific to products
@@ -26,10 +28,14 @@ export function ProductsSection() {
 
             {/* Botones de acción específicos para Products */}
             <div className="ml-auto flex items-center gap-2">
-              <Button size="sm" className="cursor-pointer">
-                <Icons.plus className="mr-1 h-4 w-4" />
-                Add Product
-              </Button>
+              <AddProduct
+                trigger={
+                  <Button size="sm" className="cursor-pointer">
+                    <Icons.plus className="mr-1 h-4 w-4" />
+                    Add Product
+                  </Button>
+                }
+              />
             </div>
           </div>
         </header>

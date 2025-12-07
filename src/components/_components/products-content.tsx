@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -6,13 +9,52 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Icons } from "./icons";
+import { ImageUpload } from "./image-upload";
 
-const AddProduct = () => {
-  return <></>;
+interface AddProductProps {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  trigger?: React.ReactNode;
+}
+
+export const AddProduct = ({
+  open,
+  onOpenChange,
+  trigger,
+}: AddProductProps) => {
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
+      <DialogContent className="sm:max-w-[500px]">
+        <DialogHeader>
+          <DialogTitle className="text-lg">Add Product</DialogTitle>
+        </DialogHeader>
+
+        <div className="space-y-4">
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Product Image
+            </label>
+            <ImageUpload onChange={(file) => setImageFile(file)} />
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
 };
 
 const ProductCard = () => {
@@ -57,9 +99,11 @@ const ProductCard = () => {
 
 const ProductsContent = () => {
   return (
-    <div className="flex flex-wrap gap-3 p-4">
-      <ProductCard />
-    </div>
+    <>
+      <div className="flex flex-wrap gap-3 p-4">
+        <ProductCard />
+      </div>
+    </>
   );
 };
 

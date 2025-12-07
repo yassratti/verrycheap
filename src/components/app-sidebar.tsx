@@ -4,6 +4,7 @@ import * as React from "react";
 import { Command, LifeBuoy, Send, Settings2 } from "lucide-react";
 
 import { Icons } from "@/components/_components/icons";
+import { AddProduct } from "@/components/_components/products-content";
 import { NavMain } from "@/components/nav-main";
 import { NavSecondary } from "@/components/nav-secondary";
 import { NavUser } from "@/components/nav-user";
@@ -91,13 +92,17 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
         <SidebarGroup>
           <SidebarMenu>
             <SidebarMenuItem className="flex items-center gap-2">
-              <SidebarMenuButton
-                tooltip="Quick Create"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground flex-1 cursor-pointer duration-200 ease-linear"
-              >
-                <Icons.plus />
-                <span>Quick Create</span>
-              </SidebarMenuButton>
+              <AddProduct
+                trigger={
+                  <SidebarMenuButton
+                    tooltip="Quick Create"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground flex-1 cursor-pointer duration-200 ease-linear"
+                  >
+                    <Icons.plus />
+                    <span>Quick Create</span>
+                  </SidebarMenuButton>
+                }
+              />
               <Button
                 size="icon"
                 className="size-8 shrink-0 cursor-pointer group-data-[collapsible=icon]:opacity-0"
