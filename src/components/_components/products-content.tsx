@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -12,7 +12,6 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -20,15 +19,14 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import { Icons } from "./icons";
 import { ImageUpload } from "./image-upload";
 import { useUser } from "@/lib/hooks/useUser";
-import { createProduct, getProducts } from "@/lib/db/products";
-import { uploadProductImage } from "@/lib/db/storage";
 import { toast } from "sonner";
 import type { Product } from "@/lib/supabase/types";
+import { useProducts, useCreateProduct } from "@/lib/hooks/useProducts";
 
 interface AddProductProps {
   open?: boolean;
@@ -42,6 +40,7 @@ export const AddProduct = ({
   trigger,
 }: AddProductProps) => {
   const { user, loading: userLoading } = useUser();
+  const createProductMutation = useCreateProduct();
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [serviceName, setServiceName] = useState("");
@@ -49,7 +48,6 @@ export const AddProduct = ({
   const [originalPrice, setOriginalPrice] = useState("");
   const [badgeInput, setBadgeInput] = useState("");
   const [badges, setBadges] = useState<string[]>([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleAddBadge = () => {
     if (badgeInput.trim() && !badges.includes(badgeInput.trim())) {
@@ -69,8 +67,7 @@ export const AddProduct = ({
     }
   };
 
-  const handleSubmit = async () => {
-    // Validation
+  const handleSubmit = () => {
     if (!user) {
       toast.error("You must be logged in to add a product");
       return;
@@ -91,46 +88,28 @@ export const AddProduct = ({
       return;
     }
 
-    setIsSubmitting(true);
-
-    try {
-      let imageUrl: string | null = null;
-
-      // Upload image if provided
-      if (imageFile) {
-        imageUrl = await uploadProductImage(imageFile, user.id);
-      }
-
-      // Create product
-      await createProduct(user.id, {
-        service_name: serviceName,
-        sale_price: parseFloat(salePrice),
-        original_price: parseFloat(originalPrice),
-        image_url: imageUrl,
-        plans: badges,
-      });
-
-      // Success!
-      toast.success("Product added successfully!");
-
-      // Reset form
-      setImageFile(null);
-      setServiceName("");
-      setSalePrice("");
-      setOriginalPrice("");
-      setBadges([]);
-      setBadgeInput("");
-
-      // Close dialog
-      onOpenChange?.(false);
-    } catch (error) {
-      console.error("Error creating product:", error);
-      toast.error(
-        error instanceof Error ? error.message : "Failed to add product",
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
+    createProductMutation.mutate(
+      {
+        input: {
+          service_name: serviceName,
+          sale_price: parseFloat(salePrice),
+          original_price: parseFloat(originalPrice),
+          plans: badges,
+        },
+        imageFile,
+      },
+      {
+        onSuccess: () => {
+          setImageFile(null);
+          setServiceName("");
+          setSalePrice("");
+          setOriginalPrice("");
+          setBadges([]);
+          setBadgeInput("");
+          onOpenChange?.(false);
+        },
+      },
+    );
   };
 
   return (
@@ -140,10 +119,9 @@ export const AddProduct = ({
         className="max-h-[90vh] overflow-y-auto sm:max-w-[500px]"
         showCloseButton={false}
       >
-        <DialogHeader>
+        <DialogHeader className="hidden">
           <DialogTitle className="text-lg">Add Product</DialogTitle>
         </DialogHeader>
-        <Separator />
 
         <div className="space-y-4">
           {/* Image Upload */}
@@ -246,9 +224,9 @@ export const AddProduct = ({
             className="w-full cursor-pointer rounded-sm"
             size="lg"
             onClick={handleSubmit}
-            disabled={isSubmitting || userLoading}
+            disabled={createProductMutation.isPending || userLoading}
           >
-            {isSubmitting ? (
+            {createProductMutation.isPending ? (
               <>Loading...</>
             ) : (
               <>
@@ -304,7 +282,7 @@ const ProductCard = ({ product }: { product: Product }) => {
               </div>
             )}
           </CardDescription>
-          <CardFooter className="p-0">
+          <CardFooter className="flex flex-col gap-2 p-0">
             <Button className="w-full cursor-pointer text-sm font-normal text-white">
               <Icons.edit />
               Edit product
@@ -316,38 +294,47 @@ const ProductCard = ({ product }: { product: Product }) => {
   );
 };
 
+const ProductCardSkeleton = () => {
+  return (
+    <Card className="flex h-80 w-70 flex-col gap-0 border-none pt-0 shadow-none">
+      <CardHeader className="h-auto p-0">
+        <Skeleton className="h-40 w-full rounded-t-lg" />
+      </CardHeader>
+      <CardContent className="flex flex-col gap-3 p-2">
+        <Skeleton className="h-6 w-3/4" />
+        <div className="flex w-full justify-between">
+          <Skeleton className="h-6 w-16" />
+          <Skeleton className="h-6 w-16" />
+        </div>
+        <div className="flex gap-1">
+          <Skeleton className="h-6 w-20" />
+          <Skeleton className="h-6 w-20" />
+        </div>
+      </CardContent>
+      <CardFooter className="flex flex-col gap-2 px-2">
+        <Skeleton className="h-8 w-full" />
+      </CardFooter>
+    </Card>
+  );
+};
+
 const ProductsContent = () => {
   const { user, loading: userLoading } = useUser();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data: products = [], isLoading, isFetching, isError } = useProducts();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      if (!user) {
-        setLoading(false);
-        return;
-      }
+  console.log("📊 ProductsContent render");
+  console.log("  - Has data:", products.length > 0);
+  console.log("  - isLoading:", isLoading);
+  console.log("  - isFetching:", isFetching);
+  console.log("  - Using cache:", !isFetching && products.length > 0);
 
-      try {
-        const fetchedProducts = await getProducts(user.id);
-        setProducts(fetchedProducts);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        toast.error("Failed to load products");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (!userLoading) {
-      fetchProducts();
-    }
-  }, [user, userLoading]);
-
-  if (loading || userLoading) {
+  // Only show skeleton if we have NO data yet (first load)
+  if ((isLoading || userLoading) && products.length === 0) {
     return (
-      <div className="flex items-center justify-center p-8">
-        <p className="text-muted-foreground">Loading products...</p>
+      <div className="flex flex-wrap gap-3 p-4">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <ProductCardSkeleton key={i} />
+        ))}
       </div>
     );
   }
@@ -356,6 +343,14 @@ const ProductsContent = () => {
     return (
       <div className="flex items-center justify-center p-8">
         <p className="text-muted-foreground">Please log in to view products</p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <p className="text-muted-foreground">Failed to load products</p>
       </div>
     );
   }
@@ -373,7 +368,7 @@ const ProductsContent = () => {
   return (
     <>
       <div className="flex flex-wrap gap-3 p-4">
-        {products.map((product) => (
+        {products.map((product: Product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 import { Toaster } from "@/components/ui/sonner";
+import { QueryProvider } from "@/lib/providers/query-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -52,9 +53,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} bg-background text-foreground`}
         style={{ fontFamily: "var(--font-bricolage), sans-serif" }}
       >
-        {children}
-        <Toaster />
-        <Analytics />
+        <QueryProvider>
+          {children}
+          <Toaster />
+          <Analytics />
+        </QueryProvider>
       </body>
     </html>
   );
