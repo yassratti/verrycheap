@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "user-images.trustpilot.com",
       },
+      {
+        protocol: "https",
+        hostname: "zdrwtzgueprucndkatlm.supabase.co",
+      },
     ],
   },
 };
