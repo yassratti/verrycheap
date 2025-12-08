@@ -4,6 +4,7 @@ import {
   getProducts,
   createProduct as createProductDb,
   updateProduct as updateProductDb,
+  deleteProduct as deleteProductDb,
 } from "@/lib/db/products";
 import { uploadProductImage } from "@/lib/db/storage";
 import type { CreateProductInput, Product } from "@/lib/supabase/types";
@@ -170,6 +171,55 @@ export function useUpdateProduct() {
     onSuccess: () => {
       console.log("✅ Product updated successfully");
       toast.success("Product updated successfully!");
+    },
+    onSettled: () => {
+      console.log("🔄 Refetching to confirm...");
+      queryClient.invalidateQueries({ queryKey: ["products", user?.id] });
+    },
+  });
+}
+
+export function useDeleteProduct() {
+  const { user } = useUser();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: string) => {
+      if (!user) throw new Error("User not authenticated");
+      return deleteProductDb(id);
+    },
+    onMutate: async (id) => {
+      console.log("⚡ OPTIMISTIC UPDATE - removing product");
+      
+      await queryClient.cancelQueries({ queryKey: ["products", user?.id] });
+
+      const previousProducts = queryClient.getQueryData<Product[]>([
+        "products",
+        user?.id,
+      ]);
+
+      queryClient.setQueryData<Product[]>(
+        ["products", user?.id],
+        (old = []) => old.filter((p) => p.id !== id)
+      );
+
+      return { previousProducts };
+    },
+    onError: (error, _variables, context) => {
+      console.log("❌ ERROR - reverting delete");
+      if (context?.previousProducts) {
+        queryClient.setQueryData(
+          ["products", user?.id],
+          context.previousProducts
+        );
+      }
+      toast.error(
+        error instanceof Error ? error.message : "Failed to delete product"
+      );
+    },
+    onSuccess: () => {
+      console.log("✅ Product deleted successfully");
+      toast.success("Product deleted successfully!");
     },
     onSettled: () => {
       console.log("🔄 Refetching to confirm...");

@@ -11,7 +11,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { ImageUpload } from "@/components/_components/image-upload";
-import { useUpdateProduct } from "@/lib/hooks/useProducts";
+import { useUpdateProduct, useDeleteProduct } from "@/lib/hooks/useProducts";
 import { toast } from "sonner";
 import type { Product } from "@/lib/supabase/types";
 import { Separator } from "@radix-ui/react-dropdown-menu";
@@ -26,6 +26,7 @@ const EditProductSheet = ({
   onOpenChange: (open: boolean) => void;
 }) => {
   const updateProductMutation = useUpdateProduct();
+  const deleteProductMutation = useDeleteProduct();
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [serviceName, setServiceName] = useState(product.service_name);
   const [salePrice, setSalePrice] = useState(product.sale_price.toString());
@@ -86,6 +87,20 @@ const EditProductSheet = ({
         },
       },
     );
+  };
+
+  const handleDelete = () => {
+    if (
+      confirm(
+        "Are you sure you want to delete this product? This action cannot be undone.",
+      )
+    ) {
+      deleteProductMutation.mutate(product.id, {
+        onSuccess: () => {
+          onOpenChange(false);
+        },
+      });
+    }
   };
 
   return (
@@ -189,20 +204,37 @@ const EditProductSheet = ({
           </div>
         </div>
 
-        {/* Fixed button at bottom */}
+        {/* Fixed buttons at bottom */}
         <div className="border-t p-4">
-          <Button
-            className="w-full cursor-pointer rounded-sm"
-            size="lg"
-            onClick={handleSubmit}
-            disabled={updateProductMutation.isPending}
-          >
-            {updateProductMutation.isPending ? (
-              <>Updating...</>
-            ) : (
-              <>Update Product</>
-            )}
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              className="flex-1 cursor-pointer rounded-sm"
+              size="lg"
+              onClick={handleSubmit}
+              disabled={
+                updateProductMutation.isPending ||
+                deleteProductMutation.isPending
+              }
+            >
+              {updateProductMutation.isPending ? (
+                <>Updating...</>
+              ) : (
+                <>Update Product</>
+              )}
+            </Button>
+            <Button
+              variant="destructive"
+              className="cursor-pointer rounded-sm"
+              size="lg"
+              onClick={handleDelete}
+              disabled={
+                deleteProductMutation.isPending ||
+                updateProductMutation.isPending
+              }
+            >
+              {deleteProductMutation.isPending ? <>Deleting...</> : <>Delete</>}
+            </Button>
+          </div>
         </div>
       </SheetContent>
     </Sheet>
