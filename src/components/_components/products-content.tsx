@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -24,6 +24,11 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { Icons } from "./icons";
 import { ImageUpload } from "./image-upload";
+import { useUser } from "@/lib/hooks/useUser";
+import { createProduct, getProducts } from "@/lib/db/products";
+import { uploadProductImage } from "@/lib/db/storage";
+import { toast } from "sonner";
+import type { Product } from "@/lib/supabase/types";
 
 interface AddProductProps {
   open?: boolean;
@@ -36,12 +41,15 @@ export const AddProduct = ({
   onOpenChange,
   trigger,
 }: AddProductProps) => {
+  const { user, loading: userLoading } = useUser();
+
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [serviceName, setServiceName] = useState("");
   const [salePrice, setSalePrice] = useState("");
   const [originalPrice, setOriginalPrice] = useState("");
   const [badgeInput, setBadgeInput] = useState("");
   const [badges, setBadges] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleAddBadge = () => {
     if (badgeInput.trim() && !badges.includes(badgeInput.trim())) {
@@ -58,6 +66,70 @@ export const AddProduct = ({
     if (e.key === "Enter") {
       e.preventDefault();
       handleAddBadge();
+    }
+  };
+
+  const handleSubmit = async () => {
+    // Validation
+    if (!user) {
+      toast.error("You must be logged in to add a product");
+      return;
+    }
+
+    if (!serviceName.trim()) {
+      toast.error("Service name is required");
+      return;
+    }
+
+    if (!salePrice || parseFloat(salePrice) <= 0) {
+      toast.error("Valid sale price is required");
+      return;
+    }
+
+    if (!originalPrice || parseFloat(originalPrice) <= 0) {
+      toast.error("Valid original price is required");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      let imageUrl: string | null = null;
+
+      // Upload image if provided
+      if (imageFile) {
+        imageUrl = await uploadProductImage(imageFile, user.id);
+      }
+
+      // Create product
+      await createProduct(user.id, {
+        service_name: serviceName,
+        sale_price: parseFloat(salePrice),
+        original_price: parseFloat(originalPrice),
+        image_url: imageUrl,
+        plans: badges,
+      });
+
+      // Success!
+      toast.success("Product added successfully!");
+
+      // Reset form
+      setImageFile(null);
+      setServiceName("");
+      setSalePrice("");
+      setOriginalPrice("");
+      setBadges([]);
+      setBadgeInput("");
+
+      // Close dialog
+      onOpenChange?.(false);
+    } catch (error) {
+      console.error("Error creating product:", error);
+      toast.error(
+        error instanceof Error ? error.message : "Failed to add product",
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -91,6 +163,7 @@ export const AddProduct = ({
               placeholder="e.g., Spotify Premium"
               value={serviceName}
               onChange={(e) => setServiceName(e.target.value)}
+              className="rounded-sm"
             />
           </div>
 
@@ -104,6 +177,7 @@ export const AddProduct = ({
               placeholder="0.00"
               value={salePrice}
               onChange={(e) => setSalePrice(e.target.value)}
+              className="rounded-sm"
             />
           </div>
 
@@ -117,6 +191,7 @@ export const AddProduct = ({
               placeholder="0.00"
               value={originalPrice}
               onChange={(e) => setOriginalPrice(e.target.value)}
+              className="rounded-sm"
             />
           </div>
 
@@ -131,12 +206,13 @@ export const AddProduct = ({
                 value={badgeInput}
                 onChange={(e) => setBadgeInput(e.target.value)}
                 onKeyPress={handleKeyPress}
+                className="rounded-sm"
               />
               <Button
                 type="button"
                 onClick={handleAddBadge}
                 size="sm"
-                className="shrink-0"
+                className="shrink-0 cursor-pointer rounded-sm"
               >
                 Add
               </Button>
@@ -166,8 +242,20 @@ export const AddProduct = ({
           </div>
 
           {/* Submit Button */}
-          <Button className="w-full" size="lg">
-            Add Product
+          <Button
+            className="w-full cursor-pointer rounded-sm"
+            size="lg"
+            onClick={handleSubmit}
+            disabled={isSubmitting || userLoading}
+          >
+            {isSubmitting ? (
+              <>Loading...</>
+            ) : (
+              <>
+                <Icons.plus className="h-4 w-4" />
+                Add Product
+              </>
+            )}
           </Button>
         </div>
       </DialogContent>
@@ -175,33 +263,46 @@ export const AddProduct = ({
   );
 };
 
-const ProductCard = () => {
+const ProductCard = ({ product }: { product: Product }) => {
   return (
     <>
       <Card className="flex h-80 w-70 flex-col gap-0 pt-0 shadow-xs">
         <CardHeader className="h-auto p-0">
-          <Image
-            src="/spotify-banner.png"
-            alt="Spotify Banner"
-            width={400}
-            height={200}
-            className="h-auto w-full rounded-t-lg object-cover"
-          />
+          {product.image_url ? (
+            <Image
+              src={product.image_url}
+              alt={product.service_name}
+              width={400}
+              height={200}
+              className="h-auto w-full rounded-t-lg object-cover"
+            />
+          ) : (
+            <div className="bg-muted flex h-48 w-full items-center justify-center rounded-t-lg">
+              <p className="text-muted-foreground text-sm">No image</p>
+            </div>
+          )}
         </CardHeader>
         <CardContent className="flex flex-col gap-3 p-2">
           <CardTitle className="text-lg font-semibold">
-            Spotify Premium
+            {product.service_name}
           </CardTitle>
           <CardDescription className="flex flex-col justify-between gap-2 text-lg font-semibold text-black">
             <div className="flex w-full justify-between">
-              <p>$0,00</p>
-              <p className="text-muted-foreground line-through">$0,00</p>
+              <p>${product.sale_price.toFixed(2)}</p>
+              <p className="text-muted-foreground line-through">
+                ${product.original_price.toFixed(2)}
+              </p>
             </div>
 
-            <div className="flex gap-1">
-              <Badge variant="outline">individual</Badge>
-              <Badge variant="outline">Family</Badge>
-            </div>
+            {product.plans.length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {product.plans.map((plan: string) => (
+                  <Badge key={plan} variant="outline">
+                    {plan}
+                  </Badge>
+                ))}
+              </div>
+            )}
           </CardDescription>
           <CardFooter className="p-0">
             <Button className="w-full cursor-pointer text-sm font-normal text-white">
@@ -216,10 +317,65 @@ const ProductCard = () => {
 };
 
 const ProductsContent = () => {
+  const { user, loading: userLoading } = useUser();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const fetchedProducts = await getProducts(user.id);
+        setProducts(fetchedProducts);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        toast.error("Failed to load products");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (!userLoading) {
+      fetchProducts();
+    }
+  }, [user, userLoading]);
+
+  if (loading || userLoading) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <p className="text-muted-foreground">Loading products...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <p className="text-muted-foreground">Please log in to view products</p>
+      </div>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <p className="text-muted-foreground">
+          No products yet. Add your first product!
+        </p>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="flex flex-wrap gap-3 p-4">
-        <ProductCard />
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
       </div>
     </>
   );

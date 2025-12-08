@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <head>
+      <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XLGSFW80ZK"
           strategy="afterInteractive"
@@ -52,6 +53,7 @@ export default function RootLayout({
         style={{ fontFamily: "var(--font-bricolage), sans-serif" }}
       >
         {children}
+        <Toaster />
         <Analytics />
       </body>
     </html>
