@@ -16,14 +16,18 @@ interface ImageUploadProps {
   value?: string;
   onChange?: (file: File | null) => void;
   className?: string;
+  defaultPreview?: string;
 }
 
 export const ImageUpload = ({
   value,
   onChange,
   className,
+  defaultPreview,
 }: ImageUploadProps) => {
-  const [preview, setPreview] = useState<string | null>(value || null);
+  const [preview, setPreview] = useState<string | null>(
+    defaultPreview || value || null,
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

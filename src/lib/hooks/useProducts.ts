@@ -3,6 +3,7 @@ import { useUser } from "@/lib/hooks/useUser";
 import {
   getProducts,
   createProduct as createProductDb,
+  updateProduct as updateProductDb,
 } from "@/lib/db/products";
 import { uploadProductImage } from "@/lib/db/storage";
 import type { CreateProductInput, Product } from "@/lib/supabase/types";
@@ -92,6 +93,83 @@ export function useCreateProduct() {
     onSuccess: () => {
       console.log("✅ Product created successfully");
       toast.success("Product added successfully!");
+    },
+    onSettled: () => {
+      console.log("🔄 Refetching to confirm...");
+      queryClient.invalidateQueries({ queryKey: ["products", user?.id] });
+    },
+  });
+}
+
+export function useUpdateProduct() {
+  const { user } = useUser();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      id,
+      input,
+      imageFile,
+    }: {
+      id: string;
+      input: Partial<CreateProductInput>;
+      imageFile?: File | null;
+    }) => {
+      if (!user) throw new Error("User not authenticated");
+
+      let imageUrl: string | undefined = input.image_url || undefined;
+      
+      if (imageFile) {
+        imageUrl = await uploadProductImage(imageFile, user.id);
+      }
+
+      return updateProductDb(id, {
+        ...input,
+        ...(imageUrl !== undefined && { image_url: imageUrl }),
+      });
+    },
+    onMutate: async ({ id, input, imageFile }) => {
+      console.log("⚡ OPTIMISTIC UPDATE - updating product");
+      
+      await queryClient.cancelQueries({ queryKey: ["products", user?.id] });
+
+      const previousProducts = queryClient.getQueryData<Product[]>([
+        "products",
+        user?.id,
+      ]);
+
+      queryClient.setQueryData<Product[]>(
+        ["products", user?.id],
+        (old = []) =>
+          old.map((p) =>
+            p.id === id
+              ? {
+                  ...p,
+                  ...input,
+                  ...(imageFile && { image_url: URL.createObjectURL(imageFile) }),
+                  updated_at: new Date().toISOString(),
+                }
+              : p
+          )
+      );
+
+      return { previousProducts };
+    },
+    onError: (error, _variables, context) => {
+      console.log("❌ ERROR - reverting update");
+      if (context?.previousProducts) {
+        queryClient.setQueryData(
+          ["products", user?.id],
+          context.previousProducts
+        );
+      }
+      toast.error(
+        error instanceof Error ? error.message : "Failed to update product"
+      );
+    },
+    onSuccess: () => {
+      console.log("✅ Product updated successfully");
+      toast.success("Product updated successfully!");
     },
     onSettled: () => {
       console.log("🔄 Refetching to confirm...");
