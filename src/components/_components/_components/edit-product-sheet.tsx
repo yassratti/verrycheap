@@ -70,6 +70,11 @@ const EditProductSheet = ({
       return;
     }
 
+    if (badges.length === 0) {
+      toast.error("At least one plan is required");
+      return;
+    }
+
     updateProductMutation.mutate(
       {
         id: product.id,

@@ -90,6 +90,11 @@ export const AddProduct = ({
       return;
     }
 
+    if (badges.length === 0) {
+      toast.error("At least one plan is required");
+      return;
+    }
+
     createProductMutation.mutate(
       {
         input: {
