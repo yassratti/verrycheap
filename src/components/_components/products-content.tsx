@@ -21,6 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import Image from "next/image";
 import { Icons } from "./icons";
 import { ImageUpload } from "./image-upload";
@@ -50,6 +51,10 @@ export const AddProduct = ({
   const [originalPrice, setOriginalPrice] = useState("");
   const [badgeInput, setBadgeInput] = useState("");
   const [badges, setBadges] = useState<string[]>([]);
+  const [paymentMethod, setPaymentMethod] = useState<"monthly" | "one-time">(
+    "monthly",
+  );
+  const [months, setMonths] = useState("");
 
   const handleAddBadge = () => {
     if (badgeInput.trim() && !badges.includes(badgeInput.trim())) {
@@ -150,6 +155,49 @@ export const AddProduct = ({
               onChange={(e) => setServiceName(e.target.value)}
               className="rounded-sm"
             />
+          </div>
+
+          {/* Payment Method */}
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Payment Method
+            </label>
+            <Tabs
+              value={paymentMethod}
+              onValueChange={(value) =>
+                setPaymentMethod(value as "monthly" | "one-time")
+              }
+            >
+              <TabsList className="grid w-full grid-cols-2 rounded-sm">
+                <TabsTrigger
+                  value="monthly"
+                  className="cursor-pointer rounded-sm"
+                >
+                  Monthly
+                </TabsTrigger>
+                <TabsTrigger
+                  value="one-time"
+                  className="cursor-pointer rounded-sm"
+                >
+                  One-time
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="one-time" className="mt-4">
+                <div>
+                  <label className="mb-2 block text-sm font-medium">
+                    Number of Months
+                  </label>
+                  <Input
+                    type="number"
+                    placeholder="e.g., 12"
+                    value={months}
+                    onChange={(e) => setMonths(e.target.value)}
+                    className="rounded-sm"
+                    min="1"
+                  />
+                </div>
+              </TabsContent>
+            </Tabs>
           </div>
 
           {/* Sale Price */}

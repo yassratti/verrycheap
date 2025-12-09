@@ -10,6 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { ImageUpload } from "@/components/_components/image-upload";
 import { useUpdateProduct, useDeleteProduct } from "@/lib/hooks/useProducts";
 import { toast } from "sonner";
@@ -35,6 +36,10 @@ const EditProductSheet = ({
   );
   const [badgeInput, setBadgeInput] = useState("");
   const [badges, setBadges] = useState<string[]>(product.plans);
+  const [paymentMethod, setPaymentMethod] = useState<"monthly" | "one-time">(
+    "monthly",
+  );
+  const [months, setMonths] = useState("");
 
   const handleAddBadge = () => {
     if (badgeInput.trim() && !badges.includes(badgeInput.trim())) {
@@ -137,6 +142,39 @@ const EditProductSheet = ({
                 onChange={(e) => setServiceName(e.target.value)}
                 className="rounded-sm"
               />
+            </div>
+
+            {/* Payment Method */}
+            <div>
+              <label className="mb-2 block text-sm font-medium">
+                Payment Method
+              </label>
+              <Tabs
+                value={paymentMethod}
+                onValueChange={(value) =>
+                  setPaymentMethod(value as "monthly" | "one-time")
+                }
+              >
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="monthly">Monthly</TabsTrigger>
+                  <TabsTrigger value="one-time">One-time</TabsTrigger>
+                </TabsList>
+                <TabsContent value="one-time" className="mt-4">
+                  <div>
+                    <label className="mb-2 block text-sm font-medium">
+                      Number of Months
+                    </label>
+                    <Input
+                      type="number"
+                      placeholder="e.g., 12"
+                      value={months}
+                      onChange={(e) => setMonths(e.target.value)}
+                      className="rounded-sm"
+                      min="1"
+                    />
+                  </div>
+                </TabsContent>
+              </Tabs>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
