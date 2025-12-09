@@ -50,43 +50,8 @@ export function useCreateProduct() {
         image_url: imageUrl,
       });
     },
-    onMutate: async ({ input, imageFile }) => {
-      console.log("⚡ OPTIMISTIC UPDATE - showing product immediately");
-      
-      await queryClient.cancelQueries({ queryKey: ["products", user?.id] });
-
-      const previousProducts = queryClient.getQueryData<Product[]>([
-        "products",
-        user?.id,
-      ]);
-
-      const optimisticProduct: Product = {
-        id: `temp-${Date.now()}`,
-        user_id: user!.id,
-        service_name: input.service_name,
-        sale_price: input.sale_price,
-        original_price: input.original_price,
-        image_url: imageFile ? URL.createObjectURL(imageFile) : null,
-        plans: input.plans,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-
-      queryClient.setQueryData<Product[]>(
-        ["products", user?.id],
-        (old = []) => [optimisticProduct, ...old]
-      );
-
-      return { previousProducts };
-    },
-    onError: (error, _variables, context) => {
-      console.log("❌ ERROR - reverting optimistic update");
-      if (context?.previousProducts) {
-        queryClient.setQueryData(
-          ["products", user?.id],
-          context.previousProducts
-        );
-      }
+    onError: (error) => {
+      console.log("❌ ERROR - failed to create product");
       toast.error(
         error instanceof Error ? error.message : "Failed to add product"
       );
