@@ -333,7 +333,15 @@ const ProductCard = ({ product }: { product: Product }) => {
           </CardTitle>
           <CardDescription className="flex flex-col justify-between gap-2 text-lg font-semibold text-black">
             <div className="flex w-full justify-between">
-              <p>${product.sale_price.toFixed(2)}</p>
+              <p>
+                ${product.sale_price.toFixed(2)}
+                <span className="text-muted-foreground text-sm font-normal">
+                  /
+                  {product.payment_method === "monthly"
+                    ? "monthly"
+                    : `${product.months} months`}
+                </span>
+              </p>
               <p className="text-muted-foreground line-through">
                 ${product.original_price.toFixed(2)}
               </p>
