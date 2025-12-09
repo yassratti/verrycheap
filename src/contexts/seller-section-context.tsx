@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 // Define the available sections for the seller dashboard
-type SellerSection = "products" | "settings" | "support" | "feedback";
+type SellerSection = "products" | "management" | "support" | "feedback";
 
 // Context interface
 interface SellerSectionContextType {
@@ -38,14 +38,14 @@ export function SellerSectionProvider({
     const section = parts[parts.length - 1];
 
     // Validate if the section is valid, otherwise default to 'products'
-    if (["products", "settings", "support", "feedback"].includes(section)) {
+    if (["products", "management", "support", "feedback"].includes(section)) {
       return section as SellerSection;
     }
     return "products";
   };
 
   const [activeSection, setActiveSectionState] = useState<SellerSection>(
-    getCurrentSectionFromUrl()
+    getCurrentSectionFromUrl(),
   );
 
   // Sync state with URL on mount and when pathname changes
@@ -55,7 +55,7 @@ export function SellerSectionProvider({
 
     // Validate if the section is valid, otherwise default to 'products'
     const currentSection = (
-      ["products", "settings", "support", "feedback"].includes(section)
+      ["products", "management", "support", "feedback"].includes(section)
         ? section
         : "products"
     ) as SellerSection;
@@ -88,7 +88,7 @@ export function useSellerSection() {
   const context = useContext(SellerSectionContext);
   if (context === undefined) {
     throw new Error(
-      "useSellerSection must be used within a SellerSectionProvider"
+      "useSellerSection must be used within a SellerSectionProvider",
     );
   }
   return context;
