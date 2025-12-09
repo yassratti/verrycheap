@@ -8,6 +8,8 @@ export interface Product {
   original_price: number;
   image_url: string | null;
   plans: string[];
+  payment_method: "monthly" | "one-time";
+  months: number | null;
   created_at: string;
   updated_at: string;
 }
@@ -18,6 +20,8 @@ export interface CreateProductInput {
   original_price: number;
   image_url?: string | null;
   plans: string[];
+  payment_method: "monthly" | "one-time";
+  months?: number | null;
 }
 
 export interface UpdateProductInput {
@@ -26,4 +30,6 @@ export interface UpdateProductInput {
   original_price?: number;
   image_url?: string | null;
   plans?: string[];
+  payment_method?: "monthly" | "one-time";
+  months?: number | null;
 }

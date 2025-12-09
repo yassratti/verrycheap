@@ -37,9 +37,11 @@ const EditProductSheet = ({
   const [badgeInput, setBadgeInput] = useState("");
   const [badges, setBadges] = useState<string[]>(product.plans);
   const [paymentMethod, setPaymentMethod] = useState<"monthly" | "one-time">(
-    "monthly",
+    product.payment_method || "monthly",
   );
-  const [months, setMonths] = useState("");
+  const [months, setMonths] = useState(
+    product.months ? product.months.toString() : "",
+  );
 
   const handleAddBadge = () => {
     if (badgeInput.trim() && !badges.includes(badgeInput.trim())) {
@@ -80,6 +82,11 @@ const EditProductSheet = ({
       return;
     }
 
+    if (paymentMethod === "one-time" && (!months || parseInt(months) <= 0)) {
+      toast.error("Number of months is required for one-time payment");
+      return;
+    }
+
     updateProductMutation.mutate(
       {
         id: product.id,
@@ -88,6 +95,8 @@ const EditProductSheet = ({
           sale_price: parseFloat(salePrice),
           original_price: parseFloat(originalPrice),
           plans: badges,
+          payment_method: paymentMethod,
+          months: paymentMethod === "one-time" ? parseInt(months) : null,
         },
         imageFile,
       },

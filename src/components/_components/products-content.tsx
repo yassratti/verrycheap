@@ -100,6 +100,11 @@ export const AddProduct = ({
       return;
     }
 
+    if (paymentMethod === "one-time" && (!months || parseInt(months) <= 0)) {
+      toast.error("Number of months is required for one-time payment");
+      return;
+    }
+
     createProductMutation.mutate(
       {
         input: {
@@ -107,6 +112,8 @@ export const AddProduct = ({
           sale_price: parseFloat(salePrice),
           original_price: parseFloat(originalPrice),
           plans: badges,
+          payment_method: paymentMethod,
+          months: paymentMethod === "one-time" ? parseInt(months) : null,
         },
         imageFile,
       },
@@ -118,6 +125,8 @@ export const AddProduct = ({
           setOriginalPrice("");
           setBadges([]);
           setBadgeInput("");
+          setPaymentMethod("monthly");
+          setMonths("");
           onOpenChange?.(false);
         },
       },
