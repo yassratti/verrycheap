@@ -35,9 +35,9 @@ const data = {
     },
 
     {
-      title: "Settings",
-      section: "settings" as const,
-      icon: Settings2,
+      title: "Management",
+      section: "management" as const,
+      icon: Icons.chart,
     },
   ],
   navSecondary: [
