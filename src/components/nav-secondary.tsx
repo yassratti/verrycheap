@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { type LucideIcon } from "lucide-react"
-import { useSellerSection } from "@/contexts/seller-section-context"
-import type { IconProps } from "@/components/_components/icons"
+import * as React from "react";
+import { type LucideIcon } from "lucide-react";
+import { useSellerSection } from "@/contexts/seller-section-context";
+import type { IconProps } from "@/components/_components/icons";
 
 import {
   SidebarGroup,
@@ -11,28 +11,30 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 export function NavSecondary({
   items,
   ...props
 }: {
   items: {
-    title: string
-    section: 'products' | 'settings' | 'support' | 'feedback'
-    icon: LucideIcon | React.ComponentType<IconProps>
-  }[]
+    title: string;
+    section: "products" | "management" | "support" | "feedback";
+    icon: LucideIcon | React.ComponentType<IconProps>;
+  }[];
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
   // Get the active section and setter from context
-  const { activeSection, setActiveSection } = useSellerSection()
+  const { activeSection, setActiveSection } = useSellerSection();
 
   /**
    * Handle navigation to a new section
    * Updates the URL without reloading the page
    */
-  const handleNavigate = (section: 'products' | 'settings' | 'support' | 'feedback') => {
-    setActiveSection(section)
-  }
+  const handleNavigate = (
+    section: "products" | "management" | "support" | "feedback",
+  ) => {
+    setActiveSection(section);
+  };
 
   return (
     <SidebarGroup {...props}>
@@ -40,8 +42,8 @@ export function NavSecondary({
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton 
-                asChild 
+              <SidebarMenuButton
+                asChild
                 size="sm"
                 // Highlight the active section
                 isActive={activeSection === item.section}
@@ -56,5 +58,5 @@ export function NavSecondary({
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
-  )
+  );
 }
