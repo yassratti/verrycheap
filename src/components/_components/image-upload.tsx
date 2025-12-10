@@ -12,12 +12,7 @@ import {
 import { Icons } from "./icons";
 import { cn } from "@/lib/utils";
 
-interface ImageUploadProps {
-  value?: string;
-  onChange?: (file: File | null) => void;
-  className?: string;
-  defaultPreview?: string;
-}
+import { ImageUploadProps } from "@/app/types";
 
 export const ImageUpload = ({
   value,

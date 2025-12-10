@@ -31,12 +31,7 @@ import type { Product } from "@/lib/supabase/types";
 import { useProducts, useCreateProduct } from "@/lib/hooks/useProducts";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
-interface AddProductProps {
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  trigger?: React.ReactNode;
-}
-
+import { AddProductProps } from "@/app/types";
 export const AddProduct = ({
   open,
   onOpenChange,
