@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Command, LifeBuoy, Send, Settings2 } from "lucide-react";
+import { Command, LifeBuoy, Send } from "lucide-react";
 
 import { Icons } from "@/components/_components/icons";
 import { AddProduct } from "@/components/_components/products-content";
@@ -31,13 +31,13 @@ const data = {
       title: "Products",
       section: "products" as const,
       icon: Icons.store,
-      isActive: true,
     },
 
     {
-      title: "Settings",
-      section: "settings" as const,
-      icon: Settings2,
+      title: "Management",
+      section: "management" as const,
+      icon: Icons.chart,
+      isActive: true,
     },
   ],
   navSecondary: [

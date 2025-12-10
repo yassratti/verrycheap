@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
-import { useSellerSection } from "@/contexts/seller-section-context"
+import { ChevronRight, type LucideIcon } from "lucide-react";
+import { useSellerSection } from "@/contexts/seller-section-context";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -18,34 +18,36 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
-import type { IconProps } from "@/components/_components/icons"
+import type { IconProps } from "@/components/_components/icons";
 
 export function NavMain({
   items,
 }: {
   items: {
-    title: string
-    section: 'products' | 'settings' | 'support' | 'feedback'
-    icon: LucideIcon | React.ComponentType<IconProps>
-    isActive?: boolean
+    title: string;
+    section: "products" | "management" | "support" | "feedback";
+    icon: LucideIcon | React.ComponentType<IconProps>;
+    isActive?: boolean;
     items?: {
-      title: string
-      section: string
-    }[]
-  }[]
+      title: string;
+      section: "products" | "management" | "support" | "feedback";
+    }[];
+  }[];
 }) {
   // Get the active section and setter from context
-  const { activeSection, setActiveSection } = useSellerSection()
+  const { activeSection, setActiveSection } = useSellerSection();
 
   /**
    * Handle navigation to a new section
    * Updates the URL without reloading the page
    */
-  const handleNavigate = (section: 'products' | 'settings' | 'support' | 'feedback') => {
-    setActiveSection(section)
-  }
+  const handleNavigate = (
+    section: "products" | "management" | "support" | "feedback",
+  ) => {
+    setActiveSection(section);
+  };
 
   return (
     <SidebarGroup>
@@ -54,8 +56,8 @@ export function NavMain({
         {items.map((item) => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
             <SidebarMenuItem>
-              <SidebarMenuButton 
-                asChild 
+              <SidebarMenuButton
+                asChild
                 tooltip={item.title}
                 // Highlight the active section
                 isActive={activeSection === item.section}
@@ -78,7 +80,17 @@ export function NavMain({
                       {item.items?.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild>
-                            <button onClick={() => handleNavigate(subItem.section as 'products' | 'settings' | 'support' | 'feedback')}>
+                            <button
+                              onClick={() =>
+                                handleNavigate(
+                                  subItem.section as
+                                    | "products"
+                                    | "management"
+                                    | "support"
+                                    | "feedback",
+                                )
+                              }
+                            >
                               <span>{subItem.title}</span>
                             </button>
                           </SidebarMenuSubButton>
@@ -93,5 +105,5 @@ export function NavMain({
         ))}
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }

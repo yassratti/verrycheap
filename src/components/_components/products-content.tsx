@@ -21,6 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import Image from "next/image";
 import { Icons } from "./icons";
 import { ImageUpload } from "./image-upload";
@@ -50,6 +51,10 @@ export const AddProduct = ({
   const [originalPrice, setOriginalPrice] = useState("");
   const [badgeInput, setBadgeInput] = useState("");
   const [badges, setBadges] = useState<string[]>([]);
+  const [paymentMethod, setPaymentMethod] = useState<"monthly" | "one-time">(
+    "monthly",
+  );
+  const [months, setMonths] = useState("");
 
   const handleAddBadge = () => {
     if (badgeInput.trim() && !badges.includes(badgeInput.trim())) {
@@ -90,6 +95,16 @@ export const AddProduct = ({
       return;
     }
 
+    if (badges.length === 0) {
+      toast.error("At least one plan is required");
+      return;
+    }
+
+    if (paymentMethod === "one-time" && (!months || parseInt(months) <= 0)) {
+      toast.error("Number of months is required for one-time payment");
+      return;
+    }
+
     createProductMutation.mutate(
       {
         input: {
@@ -97,6 +112,8 @@ export const AddProduct = ({
           sale_price: parseFloat(salePrice),
           original_price: parseFloat(originalPrice),
           plans: badges,
+          payment_method: paymentMethod,
+          months: paymentMethod === "one-time" ? parseInt(months) : null,
         },
         imageFile,
       },
@@ -108,6 +125,8 @@ export const AddProduct = ({
           setOriginalPrice("");
           setBadges([]);
           setBadgeInput("");
+          setPaymentMethod("monthly");
+          setMonths("");
           onOpenChange?.(false);
         },
       },
@@ -145,6 +164,49 @@ export const AddProduct = ({
               onChange={(e) => setServiceName(e.target.value)}
               className="rounded-sm"
             />
+          </div>
+
+          {/* Payment Method */}
+          <div>
+            <label className="mb-2 block text-sm font-medium">
+              Payment Method
+            </label>
+            <Tabs
+              value={paymentMethod}
+              onValueChange={(value) =>
+                setPaymentMethod(value as "monthly" | "one-time")
+              }
+            >
+              <TabsList className="grid w-full grid-cols-2 rounded-sm">
+                <TabsTrigger
+                  value="monthly"
+                  className="cursor-pointer rounded-sm"
+                >
+                  Monthly
+                </TabsTrigger>
+                <TabsTrigger
+                  value="one-time"
+                  className="cursor-pointer rounded-sm"
+                >
+                  One-time
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="one-time" className="mt-4">
+                <div>
+                  <label className="mb-2 block text-sm font-medium">
+                    Number of Months
+                  </label>
+                  <Input
+                    type="number"
+                    placeholder="e.g., 12"
+                    value={months}
+                    onChange={(e) => setMonths(e.target.value)}
+                    className="rounded-sm"
+                    min="1"
+                  />
+                </div>
+              </TabsContent>
+            </Tabs>
           </div>
 
           {/* Sale Price */}
@@ -271,7 +333,15 @@ const ProductCard = ({ product }: { product: Product }) => {
           </CardTitle>
           <CardDescription className="flex flex-col justify-between gap-2 text-lg font-semibold text-black">
             <div className="flex w-full justify-between">
-              <p>${product.sale_price.toFixed(2)}</p>
+              <p>
+                ${product.sale_price.toFixed(2)}
+                <span className="text-muted-foreground text-sm font-normal">
+                  /
+                  {product.payment_method === "monthly"
+                    ? "monthly"
+                    : `${product.months} months`}
+                </span>
+              </p>
               <p className="text-muted-foreground line-through">
                 ${product.original_price.toFixed(2)}
               </p>
