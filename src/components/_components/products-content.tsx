@@ -31,12 +31,7 @@ import type { Product } from "@/lib/supabase/types";
 import { useProducts, useCreateProduct } from "@/lib/hooks/useProducts";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
-interface AddProductProps {
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  trigger?: React.ReactNode;
-}
-
+import { AddProductProps } from "@/app/types";
 export const AddProduct = ({
   open,
   onOpenChange,
@@ -404,13 +399,7 @@ const ProductCardSkeleton = () => {
 
 const ProductsContent = () => {
   const { user, loading: userLoading } = useUser();
-  const { data: products = [], isLoading, isFetching, isError } = useProducts();
-
-  console.log("📊 ProductsContent render");
-  console.log("  - Has data:", products.length > 0);
-  console.log("  - isLoading:", isLoading);
-  console.log("  - isFetching:", isFetching);
-  console.log("  - Using cache:", !isFetching && products.length > 0);
+  const { data: products = [], isLoading, isError } = useProducts();
 
   // Only show skeleton if we have NO data yet (first load)
   if ((isLoading || userLoading) && products.length === 0) {
