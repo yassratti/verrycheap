@@ -7,16 +7,12 @@ import { Icons } from "../_components/icons";
 import ProductsContent from "../_components/products-content";
 import { AddProduct } from "../_components/products-content";
 
-/**
- * Products section component with its own header and content
- * You can customize the header with action buttons specific to products
- */
+
 
 export function ProductsSection() {
   return (
     <>
       <div>
-        {/* Header específico para la sección de Products */}
         <header className="flex h-12 shrink-0 items-center gap-2 border-b">
           <div className="flex w-full items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
@@ -26,7 +22,6 @@ export function ProductsSection() {
             />
             <p className="text-sm">Products</p>
 
-            {/* Botones de acción específicos para Products */}
             <div className="ml-auto flex items-center gap-2">
               <AddProduct
                 trigger={
