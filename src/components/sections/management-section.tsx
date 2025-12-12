@@ -13,7 +13,7 @@ import data from "../_components/_components/data.json";
 export function ManagementSection() {
   return (
     <>
-      {/* Header específico para la sección de management */}
+   
       <header className="flex h-12 shrink-0 items-center gap-2 border-b">
         <div className="flex w-full items-center gap-2 px-4">
           <SidebarTrigger className="-ml-1" />
@@ -23,7 +23,7 @@ export function ManagementSection() {
           />
           <p className="text-sm">Management</p>
 
-          {/* Botones de acción específicos para management */}
+
           <div className="ml-auto flex items-center gap-2">
             <Button size="sm" variant="outline">
               Reset
@@ -36,7 +36,7 @@ export function ManagementSection() {
         </div>
       </header>
 
-      {/* Contenido de la sección management */}
+
       <div className="flex flex-1 flex-col">
         <div className="@container/main flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
