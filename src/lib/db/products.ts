@@ -110,6 +110,25 @@ export async function updateProduct(
 }
 
 /**
+ * Get all products from all sellers (public)
+ * @returns Array of all products
+ */
+export async function getAllProducts(): Promise<Product[]> {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from(TABLE_NAME)
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    throw new Error(`Failed to fetch all products: ${error.message}`);
+  }
+
+  return (data as Product[]) || [];
+}
+
+/**
  * Delete a product
  * @param id - The product ID
  */

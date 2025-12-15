@@ -21,7 +21,7 @@ import { UserData } from "@/app/types";
 
 import LogoutButton from "./logout-button";
 
-export default function ProfilePicture() {
+export default function ProfileUser() {
   const router = useRouter();
 
   const [userData, setUserData] = useState<UserData>({
@@ -81,20 +81,20 @@ export default function ProfilePicture() {
   };
 
   if (isLoading) {
-    return <div className="w-10 h-10 rounded-full bg-gray-200 animate-pulse" />;
+    return <div className="h-10 w-10 animate-pulse rounded-full bg-gray-200" />;
   }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-2 outline-none cursor-pointer hover:opacity-80 transition-opacity">
-          <Avatar className="w-10 h-10">
+        <button className="flex cursor-pointer items-center gap-2 transition-opacity outline-none hover:opacity-80">
+          <Avatar className="h-8 w-8">
             <AvatarImage
               src={userData.avatar_url}
               alt={userData.full_name || userData.email || "User"}
             />
 
-            <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold text-sm">
+            <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-sm font-semibold text-white">
               {getInitials()}
             </AvatarFallback>
           </Avatar>
@@ -104,16 +104,16 @@ export default function ProfilePicture() {
       <DropdownMenuContent
         className="border-1 border-gray-200"
         sideOffset={5}
-        align="start"
+        align="end"
       >
-        <div className="px-3 py-2  mb-2">
+        <div className="mb-2 px-3 py-2">
           {userData.full_name && (
             <p className="text-sm font-semibold text-gray-900">
               {userData.full_name}
             </p>
           )}
           {userData.email && (
-            <p className="text-xs text-gray-500 truncate">{userData.email}</p>
+            <p className="truncate text-xs text-gray-500">{userData.email}</p>
           )}
         </div>
 
@@ -123,14 +123,14 @@ export default function ProfilePicture() {
           className="cursor-pointer"
           onSelect={handleGoToSeller}
         >
-          <Store className="w-4 h-4 mr-2" />
+          <Store className="mr-2 h-4 w-4" />
           <span>Seller</span>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 
         <DropdownMenuItem className="cursor-pointer" variant="destructive">
-          <LogOut className="w-4 h-4 mr-2" />
+          <LogOut className="mr-2 h-4 w-4" />
           <LogoutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>

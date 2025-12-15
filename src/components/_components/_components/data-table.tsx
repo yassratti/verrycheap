@@ -164,22 +164,45 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "header",
-    header: "Header",
-    cell: ({ row }) => {
-      return <TableCellViewer item={row.original} />;
-    },
+    accessorKey: "orderId",
+    header: "Order ID",
+    cell: ({ row }) => <div className="font-medium">#{row.original.id}</div>,
     enableHiding: false,
   },
   {
-    accessorKey: "type",
-    header: "Section Type",
+    accessorKey: "buyerEmail",
+    header: "Buyer Email",
+    cell: () => <div className="font-medium">john.doe@example.com</div>,
+  },
+  {
+    accessorKey: "buyerName",
+    header: "Buyer Name",
+    cell: () => <div className="">John Doe</div>,
+  },
+  {
+    accessorKey: "activationEmail",
+    header: "Activation Email",
+    cell: () => <div className="text-sm">user@outlook.com</div>,
+  },
+  {
+    accessorKey: "activationPassword",
+    header: "Activation Password",
+    cell: () => <div className="font-mono text-sm">test</div>,
+  },
+  {
+    accessorKey: "billingType",
+    header: "Billing Type",
     cell: ({ row }) => (
-      <div className="w-32">
-        <Badge variant="outline" className="text-muted-foreground px-1.5">
-          {row.original.type}
-        </Badge>
-      </div>
+      <Badge variant="outline" className="text-muted-foreground px-1.5">
+        {row.original.id % 2 === 0 ? "Monthly" : "One-time"}
+      </Badge>
+    ),
+  },
+  {
+    accessorKey: "amountPaid",
+    header: "Amount Paid",
+    cell: ({ row }) => (
+      <div className="font-medium">${(row.original.id * 5.99).toFixed(2)}</div>
     ),
   },
   {
@@ -192,96 +215,45 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
         ) : (
           <IconLoader />
         )}
-        {row.original.status}
+        {row.original.status === "Done" ? "Active" : "Pending"}
       </Badge>
     ),
   },
   {
-    accessorKey: "target",
-    header: () => <div className="w-full text-right">Target</div>,
+    accessorKey: "purchaseDate",
+    header: "Purchase Date",
+    cell: () => <div className="text-sm">Dec 10, 2024</div>,
+  },
+  {
+    accessorKey: "timeLeft",
+    header: "Time Left",
     cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          });
-        }}
-      >
-        <Label htmlFor={`${row.original.id}-target`} className="sr-only">
-          Target
-        </Label>
-        <Input
-          className="hover:bg-input/30 focus-visible:bg-background dark:hover:bg-input/30 dark:focus-visible:bg-input/30 h-8 w-16 border-transparent bg-transparent text-right shadow-none focus-visible:border dark:bg-transparent"
-          defaultValue={row.original.target}
-          id={`${row.original.id}-target`}
-        />
-      </form>
+      <div className="text-sm font-medium">{22 + (row.original.id % 8)}h</div>
     ),
   },
   {
-    accessorKey: "limit",
-    header: () => <div className="w-full text-right">Limit</div>,
+    accessorKey: "renewalDate",
+    header: "Renewal Date",
+    cell: () => <div className="text-sm">Jan 10, 2025</div>,
+  },
+  {
+    accessorKey: "originalPrice",
+    header: "Original Price",
     cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          });
-        }}
-      >
-        <Label htmlFor={`${row.original.id}-limit`} className="sr-only">
-          Limit
-        </Label>
-        <Input
-          className="hover:bg-input/30 focus-visible:bg-background dark:hover:bg-input/30 dark:focus-visible:bg-input/30 h-8 w-16 border-transparent bg-transparent text-right shadow-none focus-visible:border dark:bg-transparent"
-          defaultValue={row.original.limit}
-          id={`${row.original.id}-limit`}
-        />
-      </form>
+      <Input
+        className="h-8 w-20 text-sm"
+        defaultValue={`$${(row.original.id * 12.99).toFixed(2)}`}
+      />
     ),
   },
   {
-    accessorKey: "reviewer",
-    header: "Reviewer",
-    cell: ({ row }) => {
-      const isAssigned = row.original.reviewer !== "Assign reviewer";
-
-      if (isAssigned) {
-        return row.original.reviewer;
-      }
-
-      return (
-        <>
-          <Label htmlFor={`${row.original.id}-reviewer`} className="sr-only">
-            Reviewer
-          </Label>
-          <Select>
-            <SelectTrigger
-              className="w-38 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate"
-              size="sm"
-              id={`${row.original.id}-reviewer`}
-            >
-              <SelectValue placeholder="Assign reviewer" />
-            </SelectTrigger>
-            <SelectContent align="end">
-              <SelectItem value="Eddie Lake">Eddie Lake</SelectItem>
-              <SelectItem value="Jamik Tashpulatov">
-                Jamik Tashpulatov
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </>
-      );
-    },
+    accessorKey: "product",
+    header: "Product",
+    cell: () => <div className="text-sm">Netflix</div>,
   },
   {
     id: "actions",
+    header: "Actions",
     cell: () => (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -402,45 +374,17 @@ export function DataTable({
       className="w-full flex-col justify-start gap-6"
     >
       <div className="flex items-center justify-between px-4 lg:px-6">
-        <Label htmlFor="view-selector" className="sr-only">
-          View
-        </Label>
-        <Select defaultValue="outline">
-          <SelectTrigger
-            className="flex w-fit @4xl/main:hidden"
-            size="sm"
-            id="view-selector"
-          >
-            <SelectValue placeholder="Select a view" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="outline">Outline</SelectItem>
-            <SelectItem value="past-performance">Past Performance</SelectItem>
-            <SelectItem value="key-personnel">Key Personnel</SelectItem>
-            <SelectItem value="focus-documents">Focus Documents</SelectItem>
-          </SelectContent>
-        </Select>
-        <TabsList className="**:data-[slot=badge]:bg-muted-foreground/30 hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 @4xl/main:flex">
-          <TabsTrigger value="outline">Outline</TabsTrigger>
-          <TabsTrigger value="past-performance">
-            Past Performance <Badge variant="secondary">3</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="key-personnel">
-            Key Personnel <Badge variant="secondary">2</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="focus-documents">Focus Documents</TabsTrigger>
-        </TabsList>
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
+              <Button className="cursor-pointer" variant="outline" size="sm">
                 <IconLayoutColumns />
                 <span className="hidden lg:inline">Customize Columns</span>
                 <span className="lg:hidden">Columns</span>
                 <IconChevronDown />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuContent align="end" className="¡ w-56">
               {table
                 .getAllColumns()
                 .filter(
@@ -464,10 +408,6 @@ export function DataTable({
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button variant="outline" size="sm">
-            <IconPlus />
-            <span className="hidden lg:inline">Add Section</span>
-          </Button>
         </div>
       </div>
       <TabsContent

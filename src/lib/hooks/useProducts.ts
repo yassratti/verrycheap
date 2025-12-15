@@ -45,6 +45,40 @@ export function useProducts() {
   return { data: products, isLoading, isError };
 }
 
+/**
+ * Hook to get all products from all sellers (public)
+ */
+export function useAllProducts() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+
+  const fetchAllProducts = async () => {
+    setIsLoading(true);
+    setIsError(false);
+    try {
+      const { getAllProducts } = await import("@/lib/db/products");
+      const data = await getAllProducts();
+      setProducts(data);
+    } catch (err) {
+      console.error("Failed to fetch all products", err);
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllProducts();
+    
+    const handleUpdate = () => fetchAllProducts();
+    window.addEventListener(PRODUCTS_UPDATED, handleUpdate);
+    return () => window.removeEventListener(PRODUCTS_UPDATED, handleUpdate);
+  }, []);
+
+  return { data: products, isLoading, isError };
+}
+
 export function useCreateProduct() {
   const { user } = useUser();
   const [isPending, setIsPending] = useState(false);

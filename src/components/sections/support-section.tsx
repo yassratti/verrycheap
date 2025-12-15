@@ -13,14 +13,11 @@ import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
 import { MessageCircle } from "lucide-react"
 
-/**
- * Support section component with its own header and content
- * You can customize the header with action buttons specific to support
- */
+
 export function SupportSection() {
   return (
     <>
-      {/* Header específico para la sección de Support */}
+      
       <header className="flex h-16 shrink-0 items-center gap-2 border-b">
         <div className="flex items-center gap-2 px-4 w-full">
           <SidebarTrigger className="-ml-1" />
@@ -42,7 +39,6 @@ export function SupportSection() {
             </BreadcrumbList>
           </Breadcrumb>
           
-          {/* Botones de acción específicos para Support */}
           <div className="ml-auto flex items-center gap-2">
             <Button size="sm">
               <MessageCircle className="h-4 w-4 mr-1" />
@@ -52,7 +48,7 @@ export function SupportSection() {
         </div>
       </header>
 
-      {/* Contenido de la sección Support */}
+      
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min flex items-center justify-center">
           <p className="text-muted-foreground text-lg">Support Section - Get help and assistance</p>
