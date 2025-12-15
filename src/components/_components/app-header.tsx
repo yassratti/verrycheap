@@ -1,6 +1,7 @@
 import { Icons } from "@/components/_components/icons";
 import ProfileUser from "@/components/_components/pfp";
 import { Button } from "@/components/ui/button";
+import { IconBell } from "@tabler/icons-react";
 import {
   InputGroup,
   InputGroupAddon,
@@ -38,14 +39,9 @@ export default function AppHeader() {
           variant="ghost"
           size="icon"
           aria-label="Ver notificaciones"
-          className="relative"
+          className="relative cursor-pointer"
         >
           <Icons.bell className="size-5" aria-hidden="true" />
-        </Button>
-
-        {/* Add Product Icon Button */}
-        <Button variant="ghost" size="icon" aria-label="Añadir producto">
-          <Icons.plus className="size-5" aria-hidden="true" />
         </Button>
 
         {/* Primary Action Button */}
@@ -54,7 +50,7 @@ export default function AppHeader() {
           size="sm"
           className="hidden cursor-pointer md:flex"
         >
-          Mi Tienda
+          My orders
         </Button>
 
         {/* User Profile Component */}
