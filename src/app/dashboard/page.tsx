@@ -2,6 +2,7 @@ import ProfileUser from "@/components/_components/pfp";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import AppHeader from "@/components/_components/app-header";
+import AppProducts from "@/components/_components/app-products";
 
 export default async function Dashboard() {
   const supabase = await createClient();
@@ -17,6 +18,9 @@ export default async function Dashboard() {
   return (
     <div className="px-0 md:px-8 lg:px-42 xl:px-52">
       <AppHeader />
+      <div className="">
+        <AppProducts />
+      </div>
     </div>
   );
 }

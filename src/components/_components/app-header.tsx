@@ -10,7 +10,7 @@ import {
 
 export default function AppHeader() {
   return (
-    <header className="bg-background flex h-16 items-center gap-3 px-4 md:h-20 md:gap-4 md:px-6">
+    <header className="bg-background flex h-16 items-center gap-3 border-b px-4 md:h-20 md:gap-4 md:px-6">
       {/* Logo Section - Left aligned */}
       <nav className="flex items-center" aria-label="Main navigation">
         <a
@@ -18,7 +18,9 @@ export default function AppHeader() {
           className="flex items-center gap-2 font-semibold transition-opacity hover:opacity-80"
           aria-label="Go to dashboard"
         >
-          <span className="hidden text-lg font-bold md:inline-block">Logo</span>
+          <span className="hidden text-lg font-bold md:inline-block">
+            Verycheap
+          </span>
         </a>
       </nav>
 
